@@ -10,7 +10,9 @@
     "next": "Dalej",
     "submit": "Wyślij",
     "login": "Zaloguj",
-    "logout": "Wyloguj"
+    "logout": "Wyloguj",
+    "retry": "Ponów próbę",
+    "reset": "Resetuj"
   },
   "messages": {
     "loading": "Ładowanie...",
@@ -43,5 +45,14 @@
     "roles": "Role",
     "permissions": "Uprawnienia",
     "signin": "Logowanie"
+  },
+  "data" : {
+    "perPage": "{{count}} na stronę",
+    "total": "Razem: {{count}}",
+    "noRecords": "Brak rekordów do wyświetlenia"
+  },
+  "views": {
+    "table": "Tabela",
+    "grid": "Siatka"
   }
 }

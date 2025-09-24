@@ -6,6 +6,7 @@ import MainLayout from "@/shared/ui/layout/MainLayout";
 import LoginLayout from "@/shared/ui/layout/LoginLayout";
 
 const AuthModule = lazy(() => import("@/features/auth"));
+const CompanyModule = lazy(() => import("@/features/company"));
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <div>Strona główna - dostęp tylko dla zalogowanych</div>,
+      },
+      {
+        path: "companies",
+        element: <CompanyModule />,
       },
       {
         path: "*",

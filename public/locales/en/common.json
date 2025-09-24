@@ -10,7 +10,9 @@
     "next": "Next",
     "submit": "Submit",
     "login": "Login",
-    "logout": "Log out"
+    "logout": "Log out",
+    "retry": "Retry",
+    "reset": "Reset"
   },
   "messages": {
     "loading": "Loading...",
@@ -44,5 +46,14 @@
     "roles": "Roles",
     "permissions": "Permissions",
     "signin": "Sign in"
+  },
+  "data" : {
+    "perPage": "{{count}} per page",
+    "total": "Total: {{count}}",
+    "noRecords": "No records to display"
+  },
+  "views": {
+    "table": "Table",
+    "grid": "Grid"
   }
 }

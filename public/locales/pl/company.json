@@ -1,0 +1,18 @@
+{
+    "fullName": "Nazwa firmy",
+    "shortName": "Nazwa skrócona",
+    "nip": "NIP",
+    "postalCode": "Kod pocztowy",
+    "street": "Ulica",
+    "houseNumber": "Numer domu",
+    "apartmentNumber": "Numer mieszkania",
+    "phoneNumber": "Numer telefonu",
+    "email": "Email",
+    "wwwSite": "Strona WWW",
+    "comments": "Uwagi",
+    "userId": "ID użytkownika",
+    "acquiredId": "ID pozyskania",
+    "districtId": "ID dzielnicy",
+    "countryId": "ID kraju",
+    "statusId": "ID statusu"
+}

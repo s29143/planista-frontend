@@ -1,0 +1,18 @@
+{
+    "shortName": "Short name",
+    "fullName": "Full name",
+    "nip": "NIP",
+    "postalCode": "Postal code",
+    "street": "Street",
+    "houseNumber": "House number",
+    "apartmentNumber": "Apartment number",
+    "phoneNumber": "Phone number",
+    "email": "Email",
+    "wwwSite": "Website",
+    "comments": "Comments",
+    "userId": "User",
+    "acquiredId": "Acquired",
+    "districtId": "District",
+    "countryId": "Country",
+    "statusId": "Status"
+}
