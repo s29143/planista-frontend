@@ -12,7 +12,8 @@
     "login": "Login",
     "logout": "Log out",
     "retry": "Retry",
-    "reset": "Reset"
+    "reset": "Reset",
+    "select": "Select..."
   },
   "messages": {
     "loading": "Loading...",

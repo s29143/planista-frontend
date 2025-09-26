@@ -1,10 +1,11 @@
-import { Routes, Route } from "react-router-dom";
-import CompanyPage from "./ui/CompanyPage";
+import { lazy } from "react";
 
-export default function CompanyModule() {
-  return (
-    <Routes>
-      <Route index element={<CompanyPage />} />
-    </Routes>
-  );
-}
+const CompanyListPage = lazy(() => import("./ui/CompanyListPage"));
+const CompanyCreatePage = lazy(() => import("./ui/CompanyCreatePage"));
+// const CompanyDetailsPage = lazy(() => import("./ui/CompanyDetailsPage"));
+
+export const companyRoutes = [
+  { index: true, element: <CompanyListPage /> },
+  { path: "create", element: <CompanyCreatePage /> },
+  // { path: ":id", element: <CompanyDetailsPage /> },
+];

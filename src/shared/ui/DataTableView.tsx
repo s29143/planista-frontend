@@ -1,5 +1,6 @@
 import { Button, Table } from "@mantine/core";
 import { ArrowDown, ArrowUp, ArrowUpDown } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 export type SortDir = "asc" | "desc";
 
@@ -48,6 +49,8 @@ export function DataTableView<TRow>({
   sort: SortState<TRow>;
   setSort: (by: keyof TRow) => void;
 }) {
+  const navigate = useNavigate();
+
   const Th = ({
     col,
     label,
@@ -118,7 +121,12 @@ export function DataTableView<TRow>({
       </Table.Thead>
       <Table.Tbody>
         {rows.map((r) => (
-          <Table.Tr key={String((r as Row).id)}>
+          <Table.Tr
+            key={String((r as Row).id)}
+            onClick={() => {
+              navigate(String((r as Row).id));
+            }}
+          >
             {columns.map((c) => (
               <Table.Td key={String(c.key)}>
                 {c.cell ? c.cell(r) : (r as any)[c.key] ?? "—"}

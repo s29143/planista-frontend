@@ -2,22 +2,21 @@ import type { Company, Filters, SortDir } from "../model/store";
 import { http } from "@/shared/api/http";
 
 export type CompaniesQuery = {
-page: number;
-pageSize: number;
-sortBy?: keyof Company | null;
-sortDir?: SortDir;
-filters: Filters;
+  page: number;
+  pageSize: number;
+  sortBy?: keyof Company | null;
+  sortDir?: SortDir;
+  filters: Filters;
 };
 
 
 export type CompaniesResponse = {
-content: Company[];
-total: number;
+  content: Company[];
+  total: number;
 };
 
 
 export async function fetchCompanies(q: CompaniesQuery, signal?: AbortSignal) {
-// Mapowanie filtrów na query params
 const params: Record<string, any> = {
   page: q.page,
   pageSize: q.pageSize,
@@ -40,5 +39,5 @@ if (created && (created[0] || created[1])) {
 
 
 const res = await http.get<CompaniesResponse>("/companies", { params, signal });
-return res.data;
+  return res.data;
 }

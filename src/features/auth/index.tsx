@@ -1,10 +1,5 @@
-import { Routes, Route } from "react-router-dom";
-import LoginPage from "./ui/LoginPage";
+import { lazy } from "react";
 
-export default function AuthModule() {
-  return (
-    <Routes>
-      <Route index element={<LoginPage />} />
-    </Routes>
-  );
-}
+const LoginPage = lazy(() => import("./ui/LoginPage"));
+
+export const authRoutes = [{ index: true, element: <LoginPage /> }];

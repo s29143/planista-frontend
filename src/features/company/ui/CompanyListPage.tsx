@@ -127,7 +127,7 @@ async function fetchCompanies(
   return res.data;
 }
 
-export default function CompanyPage() {
+export default function CompanyListPage() {
   const { t } = useTranslation("company");
   const companyColumns: ColumnDef<Company>[] = [
     { key: "fullName", header: t("fullName") },

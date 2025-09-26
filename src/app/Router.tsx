@@ -1,12 +1,11 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { lazy, Suspense } from "react";
+import { Suspense } from "react";
 import { Center, Loader } from "@mantine/core";
 import { ProtectedRoute } from "@/features/auth/ProtectedRoute";
 import MainLayout from "@/shared/ui/layout/MainLayout";
 import LoginLayout from "@/shared/ui/layout/LoginLayout";
-
-const AuthModule = lazy(() => import("@/features/auth"));
-const CompanyModule = lazy(() => import("@/features/company"));
+import { authRoutes } from "@/features/auth";
+import { companyRoutes } from "@/features/company";
 
 const router = createBrowserRouter([
   {
@@ -31,7 +30,7 @@ const router = createBrowserRouter([
       },
       {
         path: "companies",
-        element: <CompanyModule />,
+        children: companyRoutes,
       },
       {
         path: "*",
@@ -52,12 +51,7 @@ const router = createBrowserRouter([
         <LoginLayout />
       </Suspense>
     ),
-    children: [
-      {
-        index: true,
-        element: <AuthModule />,
-      },
-    ],
+    children: authRoutes,
   },
   {
     path: "*",
