@@ -14,7 +14,6 @@ http.interceptors.request.use((config) => {
   return config;
 });
 
-// prosta kolejka, by uniknąć równoległych refreshy
 let isRefreshing = false;
 let refreshWaiters: Array<(t: string | null) => void> = [];
 
@@ -39,14 +38,12 @@ http.interceptors.response.use(
     const original = error.config;
     if (status === 401 && !original?._retry) {
       if (isRefreshing) {
-        // poczekaj na trwający refresh
         const token = await new Promise<string | null>((res) => refreshWaiters.push(res));
         if (token) {
           original.headers.Authorization = `Bearer ${token}`;
           original._retry = true;
           return http(original);
         }
-        // brak tokena po refreshu
         useAuthStore.getState().clearSession();
         throw error;
       }
@@ -59,7 +56,7 @@ http.interceptors.response.use(
 
       if (token) {
         useAuthStore.getState().setSession(
-          useAuthStore.getState().user, // user może być dociągnięty przez /me
+          useAuthStore.getState().user,
           token
         );
         original.headers.Authorization = `Bearer ${token}`;

@@ -1,6 +1,6 @@
 import { http } from "./http";
 
-export type RawDictItem = { id: number; name: string };
+export type RawDictItem = { id: string; name: string };
 export type Option = { value: string; label: string };
 
 export async function fetchOptions(

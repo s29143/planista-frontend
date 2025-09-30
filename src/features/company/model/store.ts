@@ -3,13 +3,14 @@ import { create } from "zustand";
 
 export type Company = {
 id: string;
-name: string;
-taxId?: string;
-city?: string;
-industry?: string;
-status?: "active" | "inactive" | "prospect";
-employeesCount?: number;
+fullName: string;
+shortName: string;
+nip?: string;
+district?: { id: string; name: string };
+industry?: { id: string; name: string };
+status: { id: string; name: string };
 createdAt?: string;
+updatedAt?: string;
 };
 
 
