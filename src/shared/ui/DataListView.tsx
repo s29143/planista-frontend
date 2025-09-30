@@ -27,6 +27,7 @@ import { useDebouncedValue } from "@mantine/hooks";
 import { useTranslation } from "react-i18next";
 import axios from "axios";
 import { Grid3x3, RefreshCw, TableIcon } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export type DataListViewProps<TFilters extends Record<string, any>, TRow> = {
   filtersConfig: FilterField<Extract<keyof TFilters, string>>[];
@@ -175,31 +176,43 @@ export function DataListView<TFilters extends Record<string, any>, TRow>({
 
       <Paper p="md" withBorder radius="lg">
         <Group justify="space-between" align="center">
-          <SegmentedControl
-            value={view}
-            onChange={(v) => store.setView(v as any)}
-            data={[
-              {
-                value: "table",
-                label: (
-                  <Group gap={6}>
-                    <TableIcon size={16} />
-                    <Text>{t("views.table")}</Text>
-                  </Group>
-                ),
-              },
-              {
-                value: "grid",
-                label: (
-                  <Group gap={6}>
-                    <Grid3x3 size={16} />
-                    <Text>{t("views.grid")}</Text>
-                  </Group>
-                ),
-              },
-            ]}
-          />
-
+          <Group gap="sm" align="center">
+            <SegmentedControl
+              value={view}
+              onChange={(v) => store.setView(v as any)}
+              data={[
+                {
+                  value: "table",
+                  label: (
+                    <Group gap={6}>
+                      <TableIcon size={16} />
+                      <Text>{t("views.table")}</Text>
+                    </Group>
+                  ),
+                },
+                {
+                  value: "grid",
+                  label: (
+                    <Group gap={6}>
+                      <Grid3x3 size={16} />
+                      <Text>{t("views.grid")}</Text>
+                    </Group>
+                  ),
+                },
+              ]}
+            />
+            <Link to="create" style={{ textDecoration: "none" }}>
+              <Button
+                variant="filled"
+                color="blue"
+                leftSection={
+                  <span style={{ fontWeight: "bold", fontSize: 18 }}>+</span>
+                }
+              >
+                {t("actions.add", "Add")}
+              </Button>
+            </Link>
+          </Group>
           <Group gap="sm">
             <Select
               value={String(query.size)}
