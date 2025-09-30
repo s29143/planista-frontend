@@ -13,7 +13,9 @@
     "logout": "Log out",
     "retry": "Retry",
     "reset": "Reset",
-    "select": "Select..."
+    "select": "Select...",
+    "backToList": "Back to list",
+    "add": "Add"
   },
   "messages": {
     "loading": "Loading...",
@@ -21,14 +23,32 @@
     "notFound": "Not found",
     "success": "Operation completed successfully",
     "unauthorized": "Unauthorized",
-    "noData": "Brak danych do wyświetlenia"
-
+    "noData": "Brak danych do wyświetlenia",
+    "saved": "Saved"
+  },
+  "errors": {
+    "network": "Network error. Please check your connection.",
+    "server": "Server error. Please try again later.",
+    "validation": "Validation error. Please check the entered data.",
+    "notFound": "The requested resource was not found.",
+    "unauthorized": "You do not have permission to perform this action.",
+    "forbidden": "Access forbidden.",
+    "timeout": "Request timed out. Please try again.",
+    "unknown": "An unknown error occurred. Please try again.",
+    "save": "Saving error. Please try again."
   },
   "validation": {
     "required": "{{field}} is required",
     "invalidEmail": "Invalid email address",
     "minLength": "{{field}} is too short",
-    "maxLength": "{{field}} is too long"
+    "maxLength": "{{field}} is too long",
+    "pattern": "{{field}} has an invalid format",
+    "mismatch": "{{field1}} and {{field2}} do not match",
+    "invalidUrl": "Invalid URL",
+    "invalidPhone": "Invalid phone number",
+    "invalidNumber": "{{field}} must be a number",
+    "min": "{{field}} must have at least {{min}} characters",
+    "max": "{{field}} must have at most {{max}} characters"
   },
   "layout": {
     "home": "Home",

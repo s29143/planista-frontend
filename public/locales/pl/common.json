@@ -13,7 +13,9 @@
     "logout": "Wyloguj",
     "retry": "Ponów próbę",
     "reset": "Resetuj",
-    "select": "Wybierz..."
+    "select": "Wybierz...",
+    "backToList" : "Wróć do listy",
+    "add": "Dodaj"
   },
   "messages": {
     "loading": "Ładowanie...",
@@ -21,13 +23,32 @@
     "notFound": "Nie znaleziono",
     "success": "Operacja zakończona pomyślnie",
     "unauthorized": "Brak uprawnień",
-    "noData": "Brak danych do wyświetlenia"
+    "noData": "Brak danych do wyświetlenia",
+    "saved": "Zapisano"
+  },
+  "errors": {
+    "network": "Błąd sieci. Sprawdź swoje połączenie.",
+    "server": "Błąd serwera. Spróbuj ponownie później.",
+    "validation": "Błąd walidacji. Sprawdź wprowadzone dane.",
+    "notFound": "Żądany zasób nie został znaleziony.",
+    "unauthorized": "Nie masz uprawnień do wykonania tej akcji.",
+    "forbidden": "Dostęp zabroniony.",
+    "timeout": "Przekroczono czas oczekiwania. Spróbuj ponownie.",
+    "unknown": "Wystąpił nieznany błąd. Spróbuj ponownie.",
+    "save": "Błąd podczas zapisywania. Spróbuj ponownie."
   },
   "validation": {
     "required": "{{field}} jest wymagane",
     "invalidEmail": "Nieprawidłowy adres e-mail",
     "minLength": "{{field}} jest za krótkie",
-    "maxLength": "{{field}} jest za długie"
+    "maxLength": "{{field}} jest za długie",
+    "pattern": "{{field}} ma nieprawidłowy format",
+    "mismatch": "{{field1}} i {{field2}} nie pasują do siebie",
+    "invalidUrl": "Nieprawidłowy adres URL",
+    "invalidPhone": "Nieprawidłowy numer telefonu",
+    "invalidNumber": "{{field}} musi być liczbą",
+    "min": "{{field}} musi mieć minimum {{min}} znaków",
+    "max": "{{field}} musi mieć maksymalnie {{max}} znaków"
   },
   "layout": {
     "home": "Strona główna",

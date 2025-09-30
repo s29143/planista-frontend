@@ -11,8 +11,9 @@
     "wwwSite": "Website",
     "comments": "Comments",
     "userId": "User",
-    "acquiredId": "Acquired",
-    "districtId": "District",
-    "countryId": "Country",
-    "statusId": "Status"
+    "user": "User",
+    "acquired": "Acquired from",
+    "district": "District",
+    "country": "Country",
+    "status": "Status"
 }

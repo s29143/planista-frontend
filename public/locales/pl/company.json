@@ -10,9 +10,9 @@
     "email": "Email",
     "wwwSite": "Strona WWW",
     "comments": "Uwagi",
-    "userId": "ID użytkownika",
-    "acquiredId": "ID pozyskania",
-    "districtId": "ID dzielnicy",
-    "countryId": "ID kraju",
-    "statusId": "ID statusu"
+    "user": "Opiekun",
+    "acquired": "Źródło pozyskania",
+    "district": "Województwo",
+    "country": "Kraj",
+    "status": "Status"
 }
