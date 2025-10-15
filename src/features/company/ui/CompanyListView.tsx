@@ -1,4 +1,3 @@
-import { useTranslation } from "react-i18next";
 import CompanyCard from "./CompanyCard";
 import { DataListView } from "@/shared/ui/DataListView";
 import type {
@@ -8,21 +7,9 @@ import type {
 } from "@/shared/ui/DataTableView";
 import type { FilterField } from "@/shared/ui/FilterBar";
 import { http } from "@/shared/api/http";
-import { Badge } from "@mantine/core";
 import z from "zod";
+import type { Company } from "../model/store";
 
-export type Company = {
-  id: string;
-  name: string;
-  taxId?: string;
-  city?: string;
-  industry?: string;
-  status?: "active" | "inactive" | "prospect";
-  employeesCount?: number;
-  createdAt?: string; // ISO
-};
-
-// 5.2 Schemat filtrów (Zod)
 const companyFiltersSchema = z.object({
   q: z.string().trim().optional().default(""),
   city: z.string().optional(),
@@ -37,7 +24,6 @@ const companyFiltersSchema = z.object({
 });
 export type CompanyFilters = z.infer<typeof companyFiltersSchema>;
 
-// 5.3 Konfiguracja pól filterbara
 const companyFilterFields: FilterField<keyof CompanyFilters & string>[] = [
   {
     type: "text",
@@ -89,7 +75,6 @@ const companyFilterFields: FilterField<keyof CompanyFilters & string>[] = [
   },
 ];
 
-// 5.4 Fetcher (axios)
 async function fetchCompanies(
   q: QueryState<CompanyFilters, Company>,
   signal?: AbortSignal
@@ -129,37 +114,9 @@ async function fetchCompanies(
   return res.data;
 }
 
-// 5.5 Definicje kolumn tabeli
 const companyColumns: ColumnDef<Company>[] = [
-  { key: "name", header: "Nazwa", sortable: true },
-  { key: "taxId", header: "NIP" },
-  { key: "city", header: "Miasto" },
-  { key: "industry", header: "Branża" },
-  { key: "employeesCount", header: "Pracownicy" },
-  {
-    key: "status",
-    header: "Status",
-    cell: (c) =>
-      c.status ? (
-        <Badge
-          color={
-            c.status === "active"
-              ? "green"
-              : c.status === "prospect"
-              ? "yellow"
-              : "gray"
-          }
-        >
-          {c.status === "active"
-            ? "Aktywna"
-            : c.status === "prospect"
-            ? "Prospekt"
-            : "Nieaktywna"}
-        </Badge>
-      ) : (
-        "—"
-      ),
-  },
+  { key: "shortName", header: "Nazwa", sortable: true },
+  { key: "nip", header: "NIP" },
   {
     key: "createdAt",
     header: "Utworzono",

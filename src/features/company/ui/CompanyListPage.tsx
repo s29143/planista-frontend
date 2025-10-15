@@ -7,26 +7,13 @@ import type {
 } from "@/shared/ui/DataTableView";
 import type { FilterField } from "@/shared/ui/FilterBar";
 import { http } from "@/shared/api/http";
-import { Badge } from "@mantine/core";
 import z from "zod";
 import { useTranslation } from "react-i18next";
-
-export type Company = {
-  id: string;
-  name: string;
-  fullName: string;
-  shortName: string;
-  taxId?: string;
-  city?: string;
-  industry?: string;
-  status?: "active" | "inactive" | "prospect";
-  employeesCount?: number;
-  createdAt?: string;
-};
+import type { Company } from "../model/store";
 
 const companyFiltersSchema = z.object({
   q: z.string().trim().optional().default(""),
-  city: z.string().optional(),
+  district: z.string().optional(),
   industry: z.string().optional(),
   status: z.enum(["active", "inactive", "prospect"]).optional(),
   employeesMin: z.number().int().nonnegative().optional(),
@@ -47,7 +34,7 @@ const companyFilterFields: FilterField<keyof CompanyFilters & string>[] = [
   },
   {
     type: "select",
-    name: "city",
+    name: "district",
     label: "Miasto",
     data: ["Warszawa", "Kraków", "Gdańsk", "Wrocław"].map((c) => ({
       value: c,
@@ -102,7 +89,7 @@ async function fetchCompanies(
   }
   const {
     q: search,
-    city,
+    district,
     industry,
     status,
     employeesMin,
@@ -110,7 +97,7 @@ async function fetchCompanies(
     created,
   } = q.filters;
   if (search) params.q = search;
-  if (city) params.city = city;
+  if (district) params.district = district;
   if (industry) params.industry = industry;
   if (status) params.status = status;
   if (employeesMin != null) params.employeesMin = employeesMin;
@@ -131,34 +118,13 @@ export default function CompanyListPage() {
   const { t } = useTranslation("company");
   const companyColumns: ColumnDef<Company>[] = [
     { key: "fullName", header: t("fullName") },
-    { key: "taxId", header: t("nip") },
-    { key: "city", header: t("district") },
-    { key: "industry", header: "Branża" },
-    { key: "employeesCount", header: "Pracownicy" },
+    { key: "nip", header: t("nip") },
     {
-      key: "status",
-      header: "Status",
-      cell: (c) =>
-        c.status ? (
-          <Badge
-            color={
-              c.status === "active"
-                ? "green"
-                : c.status === "prospect"
-                ? "yellow"
-                : "gray"
-            }
-          >
-            {c.status === "active"
-              ? "Aktywna"
-              : c.status === "prospect"
-              ? "Prospekt"
-              : "Nieaktywna"}
-          </Badge>
-        ) : (
-          "—"
-        ),
+      key: "district",
+      header: t("district"),
+      cell: (c) => c.district?.name || "—",
     },
+    { key: "industry", header: "Branża" },
     {
       key: "createdAt",
       header: t("createdAt"),

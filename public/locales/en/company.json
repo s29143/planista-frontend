@@ -15,5 +15,9 @@
     "acquired": "Acquired from",
     "district": "District",
     "country": "Country",
-    "status": "Status"
+    "status": "Status",
+    "title": {
+        "create": "Create Company",
+        "update": "Update Company"
+    }
 }

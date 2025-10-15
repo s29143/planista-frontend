@@ -1,0 +1,257 @@
+import {
+  TextInput,
+  Textarea,
+  Button,
+  Group,
+  Stack,
+  Title,
+  Paper,
+  Grid,
+  LoadingOverlay,
+  Divider,
+  Anchor,
+  Container,
+} from "@mantine/core";
+import { useForm, type DefaultValues, type Resolver } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Link } from "react-router-dom";
+import { AsyncSelectRHF } from "@/shared/ui/AsyncHFSelect";
+import { useEffect, useMemo } from "react";
+import { useTranslation } from "react-i18next";
+import { createCompanySchema, type FormValues } from "../model/companySchema";
+
+const API = {
+  acquisitions: "/company-acquires",
+  districts: "/districts",
+  countries: "/countries",
+  statuses: "/company-statuses",
+  users: "/users",
+};
+
+export default function CompanyForm({
+  onSubmit,
+  initialValues,
+  loading = false,
+  title,
+}: {
+  onSubmit: (data: FormValues) => Promise<void>;
+  initialValues?: Partial<FormValues>;
+  loading?: boolean;
+  title?: React.ReactNode;
+}) {
+  const { t } = useTranslation();
+  const { t: tCompany } = useTranslation("company");
+
+  const schema = useMemo(() => createCompanySchema(t, tCompany), [t, tCompany]);
+
+  const defaults: DefaultValues<FormValues> = {
+    shortName: "",
+    fullName: "",
+  };
+  const {
+    register,
+    control,
+    handleSubmit,
+    reset,
+    formState: { errors, isSubmitting, isValid },
+  } = useForm<FormValues, any, FormValues>({
+    resolver: zodResolver(schema) as Resolver<FormValues, any, FormValues>,
+    mode: "onChange",
+    defaultValues: defaults,
+  });
+
+  useEffect(() => {
+    if (initialValues) {
+      reset({ ...defaults, ...initialValues });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [initialValues]);
+
+  const canSubmit = useMemo(
+    () => isValid && !isSubmitting,
+    [isValid, isSubmitting]
+  );
+
+  return (
+    <Container size="lg">
+      <Paper withBorder radius="lg" p="xl" mt="md" pos="relative">
+        <LoadingOverlay visible={loading || isSubmitting} zIndex={1000} />
+        <Stack gap="md">
+          <Group justify="space-between" align="center">
+            <Title order={2}>{title}</Title>
+            <Anchor component={Link} to="/companies" size="sm">
+              ← {t("actions.backToList")}
+            </Anchor>
+          </Group>
+
+          <form onSubmit={handleSubmit(onSubmit)} noValidate>
+            <Stack gap="lg">
+              <Grid gutter="md">
+                <Grid.Col span={{ base: 12, md: 6 }}>
+                  <TextInput
+                    label={tCompany("shortName")}
+                    placeholder="np. ACME"
+                    withAsterisk
+                    {...register("shortName")}
+                    error={errors.shortName?.message}
+                  />
+                </Grid.Col>
+                <Grid.Col span={{ base: 12, md: 6 }}>
+                  <TextInput
+                    label={tCompany("fullName")}
+                    placeholder="np. ACME Sp. z o.o."
+                    withAsterisk
+                    {...register("fullName")}
+                    error={errors.fullName?.message}
+                  />
+                </Grid.Col>
+
+                <Grid.Col span={{ base: 12, md: 4 }}>
+                  <TextInput
+                    label={tCompany("nip")}
+                    placeholder="1234567890"
+                    {...register("nip")}
+                    error={errors.nip?.message}
+                  />
+                </Grid.Col>
+                <Grid.Col span={{ base: 12, md: 4 }}>
+                  <TextInput
+                    label={tCompany("postalCode")}
+                    placeholder="00-000"
+                    {...register("postalCode")}
+                    error={errors.postalCode?.message}
+                  />
+                </Grid.Col>
+
+                <Grid.Col span={{ base: 12, md: 6 }}>
+                  <TextInput
+                    label={tCompany("street")}
+                    placeholder="ul. Przykładowa"
+                    {...register("street")}
+                    error={errors.street?.message}
+                  />
+                </Grid.Col>
+                <Grid.Col span={{ base: 12, md: 3 }}>
+                  <TextInput
+                    label={tCompany("houseNumber")}
+                    placeholder="12A"
+                    {...register("houseNumber")}
+                    error={errors.houseNumber?.message}
+                  />
+                </Grid.Col>
+                <Grid.Col span={{ base: 12, md: 3 }}>
+                  <TextInput
+                    label={tCompany("apartmentNumber")}
+                    placeholder="5"
+                    {...register("apartmentNumber")}
+                    error={errors.apartmentNumber?.message}
+                  />
+                </Grid.Col>
+
+                <Grid.Col span={{ base: 12, md: 4 }}>
+                  <TextInput
+                    label={tCompany("phoneNumber")}
+                    placeholder="+48 123 456 789"
+                    {...register("phoneNumber")}
+                    error={errors.phoneNumber?.message}
+                  />
+                </Grid.Col>
+                <Grid.Col span={{ base: 12, md: 4 }}>
+                  <TextInput
+                    label={tCompany("email")}
+                    placeholder="firma@example.com"
+                    {...register("email")}
+                    error={errors.email?.message}
+                  />
+                </Grid.Col>
+                <Grid.Col span={{ base: 12, md: 4 }}>
+                  <TextInput
+                    label={tCompany("wwwSite")}
+                    placeholder="https://example.com"
+                    {...register("wwwSite")}
+                    error={errors.wwwSite?.message}
+                  />
+                </Grid.Col>
+
+                <Grid.Col span={12}>
+                  <Textarea
+                    label={tCompany("comments")}
+                    minRows={3}
+                    autosize
+                    {...register("comments")}
+                    error={errors.comments?.message}
+                  />
+                </Grid.Col>
+                <Grid.Col span={{ base: 12, md: 3 }}>
+                  <AsyncSelectRHF<FormValues>
+                    control={control}
+                    name="userId"
+                    label={tCompany("user")}
+                    withAsterisk
+                    mapItem={(i) => {
+                      return {
+                        value: String(i.id),
+                        label: `${i.firstname} ${i.lastname} (${i.username})`,
+                      };
+                    }}
+                    endpoint={API.users}
+                  />
+                </Grid.Col>
+                <Grid.Col span={{ base: 12, md: 3 }}>
+                  <AsyncSelectRHF<FormValues>
+                    control={control}
+                    name="acquiredId"
+                    label={tCompany("acquired")}
+                    endpoint={API.acquisitions}
+                  />
+                </Grid.Col>
+
+                <Grid.Col span={{ base: 12, md: 3 }}>
+                  <AsyncSelectRHF<FormValues>
+                    control={control}
+                    name="districtId"
+                    label={tCompany("district")}
+                    endpoint={API.districts}
+                  />
+                </Grid.Col>
+
+                <Grid.Col span={{ base: 12, md: 3 }}>
+                  <AsyncSelectRHF<FormValues>
+                    control={control}
+                    name="countryId"
+                    label={tCompany("country")}
+                    endpoint={API.countries}
+                  />
+                </Grid.Col>
+
+                <Grid.Col span={{ base: 12, md: 3 }}>
+                  <AsyncSelectRHF<FormValues>
+                    control={control}
+                    name="statusId"
+                    label={tCompany("status")}
+                    endpoint={API.statuses}
+                  />
+                </Grid.Col>
+              </Grid>
+
+              <Divider my="xs" />
+
+              <Group justify="flex-end">
+                <Button variant="default" component={Link} to="/companies">
+                  {t("actions.cancel")}
+                </Button>
+                <Button
+                  type="submit"
+                  disabled={!canSubmit}
+                  loading={isSubmitting}
+                >
+                  {t("actions.save")}
+                </Button>
+              </Group>
+            </Stack>
+          </form>
+        </Stack>
+      </Paper>
+    </Container>
+  );
+}

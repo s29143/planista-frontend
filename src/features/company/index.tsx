@@ -1,4 +1,5 @@
 import { lazy } from "react";
+import CompanyUpdatePage from "./ui/CompanyUpdatePage";
 
 const CompanyListPage = lazy(() => import("./ui/CompanyListPage"));
 const CompanyCreatePage = lazy(() => import("./ui/CompanyCreatePage"));
@@ -6,6 +7,6 @@ const CompanyCreatePage = lazy(() => import("./ui/CompanyCreatePage"));
 
 export const companyRoutes = [
   { index: true, element: <CompanyListPage /> },
+  { path: ":id", element: <CompanyUpdatePage /> },
   { path: "create", element: <CompanyCreatePage /> },
-  // { path: ":id", element: <CompanyDetailsPage /> },
 ];

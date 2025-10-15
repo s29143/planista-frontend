@@ -14,5 +14,9 @@
     "acquired": "Źródło pozyskania",
     "district": "Województwo",
     "country": "Kraj",
-    "status": "Status"
+    "status": "Status",
+    "title": {
+        "create": "Dodaj firmę",
+        "update": "Edytuj firmę"
+    }
 }
