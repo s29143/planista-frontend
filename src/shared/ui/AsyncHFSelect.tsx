@@ -73,8 +73,9 @@ export function AsyncSelectRHF<T extends FieldValues>({
           data={options}
           searchValue={search}
           onSearchChange={setSearch}
-          value={field.value ?? null}
+          value={String(field.value ?? null)}
           onChange={(v) => field.onChange(v ?? undefined)}
+          clearable={true}
           error={fieldState.error?.message}
           nothingFoundMessage={
             loading ? t("messages.loading") : t("messages.noData")

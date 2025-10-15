@@ -13,6 +13,10 @@ export async function fetchOptions(
     'page': 0, 'size': 0
   }});
   if (res.status !== 200) return [];
-  const data = await res.data['_embedded']?.[Object.keys(res.data['_embedded'])[0]];
+  let data;
+  data = await res.data['_embedded']?.[Object.keys(res.data['_embedded'])[0]];
+  if(!data) {
+    data = res.data.content;
+  }
   return (Array.isArray(data) ? data : []).map(mapItem);
 }
