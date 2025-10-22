@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useAuthStore } from "@/features/auth/model/store";
+import { normalizeProblem } from "./errorTypes";
 
 export const http = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
@@ -22,7 +23,7 @@ async function refreshAccessToken(): Promise<string | null> {
     const r = await axios.post(
       `${import.meta.env.VITE_API_URL}/auth/refresh`,
       null,
-      { withCredentials: true, headers: { "X-Client": "WEB", "Content-Type" : 'application/json' } }
+      { withCredentials: true, headers: { "X-Client": "WEB", "Content-Type": "application/json" } }
     );
     const token = r.data?.accessToken as string | undefined;
     return token ?? null;
@@ -45,6 +46,12 @@ http.interceptors.response.use(
           return http(original);
         }
         useAuthStore.getState().clearSession();
+        error.normalized = {
+          status: 401,
+          title: "Unauthorized",
+          message: "Sesja wygasła. Zaloguj się ponownie.",
+          fieldErrors: {},
+        };
         throw error;
       }
 
@@ -55,17 +62,41 @@ http.interceptors.response.use(
       refreshWaiters = [];
 
       if (token) {
-        useAuthStore.getState().setSession(
-          useAuthStore.getState().user,
-          token
-        );
+        useAuthStore.getState().setSession(useAuthStore.getState().user, token);
         original.headers.Authorization = `Bearer ${token}`;
         original._retry = true;
         return http(original);
       } else {
         useAuthStore.getState().clearSession();
+        error.normalized = {
+          status: 401,
+          title: "Unauthorized",
+          message: "Nie udało się odświeżyć sesji. Zaloguj się ponownie.",
+          fieldErrors: {},
+        };
       }
     }
+
+    if (!error.normalized) {
+      if (error.response?.data) {
+        error.normalized = normalizeProblem(error.response.data);
+      } else if (error.request) {
+        error.normalized = {
+          status: 0,
+          title: "Network Error",
+          message: "Brak połączenia z serwerem",
+          fieldErrors: {},
+        };
+      } else {
+        error.normalized = {
+          status: 500,
+          title: "Error",
+          message: error.message ?? "Unknown error",
+          fieldErrors: {},
+        };
+      }
+    }
+
     return Promise.reject(error);
   }
 );

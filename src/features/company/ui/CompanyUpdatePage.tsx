@@ -1,5 +1,5 @@
 import { notifications } from "@mantine/notifications";
-import { Check, X } from "lucide-react";
+import { X } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
 import { http } from "@/shared/api/http";
 import CompanyForm from "./CompanyForm";
@@ -66,33 +66,15 @@ export default function CompanyUpdatePage() {
       alive = false;
     };
   }, [id, navigate, t, API.companies]);
-  async function onSubmit(payload: FormValues) {
-    try {
-      if (!id) throw new Error("No company id provided");
-      await http.put(`/companies/${id}`, payload);
-
-      notifications.show({
-        color: "teal",
-        icon: <Check size={18} />,
-        title: t("messages.success"),
-        message: "Firma została utworzona.",
-      });
-
-      navigate("/companies");
-    } catch (e: any) {
-      notifications.show({
-        color: "red",
-        icon: <X size={18} />,
-        title: t("messages.error"),
-        message: e?.message ?? t("error.save"),
-      });
-    }
-  }
 
   return (
     <CompanyForm
-      onSubmit={onSubmit}
       loading={loading}
+      save={async (values) => {
+        await http.put(`/companies/${id}`, values);
+        return { id };
+      }}
+      onSuccess={() => navigate(`/companies`)}
       initialValues={initial}
       title={tCompany("title.update")}
     />

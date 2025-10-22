@@ -12,13 +12,15 @@ import {
   Anchor,
   Container,
 } from "@mantine/core";
-import { useForm, type DefaultValues, type Resolver } from "react-hook-form";
+import { useForm, type Resolver } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Link } from "react-router-dom";
 import { AsyncSelectRHF } from "@/shared/ui/AsyncHFSelect";
 import { useEffect, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { createCompanySchema, type FormValues } from "../model/companySchema";
+import { notifications } from "@mantine/notifications";
+import { X } from "lucide-react";
 
 const API = {
   acquisitions: "/company-acquires",
@@ -27,16 +29,20 @@ const API = {
   statuses: "/company-statuses",
   users: "/users",
 };
+type SaveFn = (values: FormValues) => Promise<{ id?: string } | void>;
 
 export default function CompanyForm({
-  onSubmit,
   initialValues,
   loading = false,
+  save,
+  onSuccess,
   title,
 }: {
-  onSubmit: (data: FormValues) => Promise<void>;
+  onError?: (errors: any) => void;
   initialValues?: Partial<FormValues>;
   loading?: boolean;
+  save: SaveFn;
+  onSuccess?: (id?: string) => void;
   title?: React.ReactNode;
 }) {
   const { t } = useTranslation();
@@ -44,28 +50,55 @@ export default function CompanyForm({
 
   const schema = useMemo(() => createCompanySchema(t, tCompany), [t, tCompany]);
 
-  const defaults: DefaultValues<FormValues> = {
-    shortName: "",
-    fullName: "",
-  };
   const {
     register,
     control,
+    setError,
     handleSubmit,
     reset,
     formState: { errors, isSubmitting, isValid },
-  } = useForm<FormValues, any, FormValues>({
+  } = useForm<FormValues>({
     resolver: zodResolver(schema) as Resolver<FormValues, any, FormValues>,
     mode: "onChange",
-    defaultValues: defaults,
+    defaultValues: { shortName: "", fullName: "", ...initialValues },
   });
 
   useEffect(() => {
-    if (initialValues) {
-      reset({ ...defaults, ...initialValues });
+    if (initialValues) reset((prev) => ({ ...prev, ...initialValues }));
+  }, [initialValues, reset]);
+
+  const submit = async (payload: FormValues) => {
+    try {
+      const result = await save(payload);
+      onSuccess?.(result?.id);
+    } catch (e: any) {
+      const n = e?.normalized as
+        | {
+            fieldErrors?: Record<string, string>;
+            title?: string;
+            message?: string;
+          }
+        | undefined;
+
+      if (n?.fieldErrors) {
+        Object.entries(n.fieldErrors).forEach(([field, msg]) =>
+          setError(field as keyof FormValues, { type: "server", message: msg })
+        );
+      }
+      if (!n?.fieldErrors || Object.keys(n.fieldErrors).length === 0) {
+        setError("root.server" as any, {
+          type: "server",
+          message: n?.message ?? t("error.save"),
+        });
+      }
+      notifications.show({
+        color: "red",
+        icon: <X size={18} />,
+        title: n?.title ?? t("messages.error"),
+        message: n?.message ?? t("error.save"),
+      });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [initialValues]);
+  };
 
   const canSubmit = useMemo(
     () => isValid && !isSubmitting,
@@ -84,7 +117,7 @@ export default function CompanyForm({
             </Anchor>
           </Group>
 
-          <form onSubmit={handleSubmit(onSubmit)} noValidate>
+          <form onSubmit={handleSubmit(submit)} noValidate>
             <Stack gap="lg">
               <Grid gutter="md">
                 <Grid.Col span={{ base: 12, md: 6 }}>
