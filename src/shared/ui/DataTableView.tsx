@@ -73,6 +73,7 @@ export function DataTableView<TRow>({
         ? "ascending"
         : "descending"
       : "none";
+    console.log(columns);
 
     return (
       <th

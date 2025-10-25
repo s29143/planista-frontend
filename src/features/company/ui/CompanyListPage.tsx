@@ -126,9 +126,14 @@ export default function CompanyListPage() {
     },
     { key: "industry", header: "Branża" },
     {
-      key: "createdAt",
-      header: t("createdAt"),
-      cell: (c) => (c.createdAt ? new Date(c.createdAt).toISOString() : "—"),
+      key: "status",
+      header: t("status"),
+      cell: (row) => row.status?.name,
+    },
+    {
+      key: "user",
+      header: t("user"),
+      cell: (c) => c.user?.name || "—",
     },
   ];
   return (

@@ -76,5 +76,11 @@
   "views": {
     "table": "Table",
     "grid": "Grid"
+  },
+  "audit": {
+    "createdAt": "Created at",
+    "updatedAt": "Updated at",
+    "createdBy": "Created by",
+    "updatedBy": "Updated by"
   }
 }

@@ -76,5 +76,11 @@
   "views": {
     "table": "Tabela",
     "grid": "Siatka"
+  },
+  "audit": {
+    "createdAt": "Utworzono",
+    "updatedAt": "Zaktualizowano",
+    "createdBy": "Utworzone przez",
+    "updatedBy": "Zaktualizowane przez"
   }
 }

@@ -9,6 +9,7 @@ import type { FilterField } from "@/shared/ui/FilterBar";
 import { http } from "@/shared/api/http";
 import z from "zod";
 import type { Company } from "../model/store";
+import { useTranslation } from "react-i18next";
 
 const companyFiltersSchema = z.object({
   q: z.string().trim().optional().default(""),
@@ -114,18 +115,17 @@ async function fetchCompanies(
   return res.data;
 }
 
-const companyColumns: ColumnDef<Company>[] = [
-  { key: "shortName", header: "Nazwa", sortable: true },
-  { key: "nip", header: "NIP" },
-  {
-    key: "createdAt",
-    header: "Utworzono",
-    cell: (c) =>
-      c.createdAt ? new Date(c.createdAt).toLocaleDateString() : "—",
-  },
-];
-
 export function CompanyListView() {
+  const { t } = useTranslation("company");
+  const companyColumns: ColumnDef<Company>[] = [
+    { key: "shortName", header: t("shortName"), sortable: true },
+    { key: "nip", header: t("nip") },
+    {
+      key: "status",
+      header: t("status"),
+      cell: (row) => row.status.name,
+    },
+  ];
   return (
     <DataListView<CompanyFilters, Company>
       filtersConfig={companyFilterFields}
@@ -133,7 +133,6 @@ export function CompanyListView() {
       fetcher={fetchCompanies}
       columns={companyColumns}
       renderGridCard={(row) => <CompanyCard {...row} />}
-      initialPageSize={10}
     />
   );
 }
