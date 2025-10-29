@@ -11,11 +11,12 @@ import {
   Group,
   Center,
 } from "@mantine/core";
-import { useLogin } from "../api/queries";
+import { useLogin, useMe } from "../api/queries";
 import { useAuthStore } from "../model/store";
 import { useNavigate, useLocation, Navigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import axios from "axios";
+import { useEffect } from "react";
 
 export default function LoginPage() {
   const { t } = useTranslation("common");
@@ -37,6 +38,28 @@ export default function LoginPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
+
+  const { isBootstrapped, setBootstrapped, accessToken, setSession } =
+    useAuthStore();
+
+  const { data, isLoading, isError } = useMe(!isBootstrapped);
+
+  useEffect(() => {
+    if (!isBootstrapped && data) {
+      setSession(data, accessToken ?? "");
+      setBootstrapped(true);
+    } else if (!isBootstrapped && (isError || !isLoading)) {
+      setBootstrapped(true);
+    }
+  }, [
+    isBootstrapped,
+    data,
+    isError,
+    isLoading,
+    accessToken,
+    setBootstrapped,
+    setSession,
+  ]);
 
   const {
     register,

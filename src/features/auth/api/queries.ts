@@ -60,7 +60,7 @@ export function useLogout() {
   return useMutation({
     mutationKey: ["auth", "logout"],
     mutationFn: async () => {
-      await http.post("/auth/logout", null, { withCredentials: true, headers: {'X-Client': "WEB"} });
+      await http.post("/auth/logout", null, { withCredentials: true, headers: {'X-Client': "WEB", "Content-Type": 'application/json'} });
       return true;
     },
     onSuccess: () => {
