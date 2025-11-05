@@ -1,4 +1,3 @@
-import CompanyCard from "./CompanyCard";
 import { DataListView } from "@/shared/ui/DataListView";
 import type {
   ColumnDef,
@@ -132,7 +131,6 @@ export function CompanyListView() {
       filtersSchema={companyFiltersSchema}
       fetcher={fetchCompanies}
       columns={companyColumns}
-      renderGridCard={(row) => <CompanyCard {...row} />}
     />
   );
 }

@@ -1,4 +1,3 @@
-import CompanyCard from "./CompanyCard";
 import { DataListView } from "@/shared/ui/DataListView";
 import type {
   ColumnDef,
@@ -12,36 +11,31 @@ import { useTranslation } from "react-i18next";
 import type { Company } from "../model/store";
 
 const companyFiltersSchema = z.object({
-  q: z.string().trim().optional().default(""),
+  search: z.string().trim().optional().default(""),
   district: z.string().optional(),
   industry: z.string().optional(),
-  status: z.enum(["active", "inactive", "prospect"]).optional(),
-  employeesMin: z.number().int().nonnegative().optional(),
-  employeesMax: z.number().int().nonnegative().optional(),
-  created: z
-    .tuple([z.date().nullable(), z.date().nullable()])
-    .optional()
-    .default([null, null]),
+  status: z.string().optional(),
 });
 export type CompanyFilters = z.infer<typeof companyFiltersSchema>;
 
 const companyFilterFields: FilterField<keyof CompanyFilters & string>[] = [
   {
     type: "text",
-    name: "q",
+    name: "search",
     label: "Szukaj",
     placeholder: "Nazwa, NIP, miasto...",
   },
   {
     type: "select",
-    name: "district",
-    label: "Miasto",
-    data: ["Warszawa", "Kraków", "Gdańsk", "Wrocław"].map((c) => ({
+    name: "industry",
+    label: "Branża",
+    multiple: true,
+    data: ["IT", "Finanse", "Budownictwo", "Logistyka"].map((c) => ({
       value: c,
       label: c,
     })),
     clearable: true,
-    placeholder: "Dowolne",
+    placeholder: "Dowolna",
   },
   {
     type: "select",
@@ -66,14 +60,6 @@ const companyFilterFields: FilterField<keyof CompanyFilters & string>[] = [
     clearable: true,
     placeholder: "Dowolny",
   },
-  { type: "number", name: "employeesMin", label: "Pracownicy od", min: 0 },
-  { type: "number", name: "employeesMax", label: "Pracownicy do", min: 0 },
-  {
-    type: "dateRange",
-    name: "created",
-    label: "Utworzone",
-    placeholder: "Zakres dat",
-  },
 ];
 
 async function fetchCompanies(
@@ -87,25 +73,10 @@ async function fetchCompanies(
   if (q.sortBy) {
     params.sort = q.sortBy + (q.sortDir === "desc" ? ",desc" : ",asc");
   }
-  const {
-    q: search,
-    district,
-    industry,
-    status,
-    employeesMin,
-    employeesMax,
-    created,
-  } = q.filters;
-  if (search) params.q = search;
+  const { search, district, industry } = q.filters;
+  if (search) params.search = search;
   if (district) params.district = district;
   if (industry) params.industry = industry;
-  if (status) params.status = status;
-  if (employeesMin != null) params.employeesMin = employeesMin;
-  if (employeesMax != null) params.employeesMax = employeesMax;
-  if (created && (created[0] || created[1])) {
-    params.createdFrom = created[0]?.toISOString();
-    params.createdTo = created[1]?.toISOString();
-  }
 
   const res = await http.get<PagedResponse<Company>>("/companies", {
     params,
@@ -142,7 +113,6 @@ export default function CompanyListPage() {
       filtersSchema={companyFiltersSchema}
       fetcher={fetchCompanies}
       columns={companyColumns}
-      renderGridCard={(row) => <CompanyCard {...row} />}
       initialPageSize={10}
     />
   );
