@@ -3,17 +3,18 @@ import {
   Grid,
   NumberInput,
   Paper,
-  Select,
   TextInput,
   Tooltip,
 } from "@mantine/core";
 import { useDebouncedValue } from "@mantine/hooks";
 import { RefreshCw, Search } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import type z from "zod";
 import { DatePickerInput } from "@mantine/dates";
 import isEqual from "fast-deep-equal";
+import AsyncSelect from "./AsyncSelect";
+import type { Option } from "../api/fetchOptions";
 
 export type FilterFieldBase<K extends string> = {
   name: K;
@@ -28,10 +29,11 @@ export type TextField<K extends string> = FilterFieldBase<K> & {
 
 export type SelectField<K extends string> = FilterFieldBase<K> & {
   type: "select";
-  data: { value: string; label: string }[];
+  endpoint: string;
   placeholder?: string;
   multiple?: boolean;
   clearable?: boolean;
+  mapItem?: (i: any) => Option;
 };
 
 export type NumberField<K extends string> = FilterFieldBase<K> & {
@@ -67,6 +69,7 @@ export function FilterBar<TFilters extends Record<string, any>>({
   onChange,
   onReset,
 }: FilterBarProps<TFilters>) {
+  const suppressNextOnChange = useRef(false);
   const { t } = useTranslation();
   const [local, setLocal] = useState<TFilters>(value);
   const [debounced] = useDebouncedValue(local, 300);
@@ -74,13 +77,19 @@ export function FilterBar<TFilters extends Record<string, any>>({
   useEffect(() => {
     const parsed = schema.safeParse(debounced);
     if (!parsed.success) return;
-    if (isEqual(parsed.data, value)) return;
 
+    if (suppressNextOnChange.current) {
+      suppressNextOnChange.current = false;
+      return;
+    }
+
+    if (isEqual(parsed.data, value)) return;
     onChange(parsed.data);
   }, [debounced, schema, value, onChange]);
 
   useEffect(() => {
     if (isEqual(value, local)) return;
+    suppressNextOnChange.current = true;
     setLocal(value);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value]);
@@ -119,16 +128,19 @@ export function FilterBar<TFilters extends Record<string, any>>({
                   span={{ base: 5, sm: 2, lg: 1 }}
                   key={String(f.name + "-col")}
                 >
-                  <Select
+                  <AsyncSelect
+                    endpoint={f.endpoint}
                     key={String(f.name)}
                     label={f.label}
-                    style={{ width: "100%" as const }}
-                    data={field.data}
                     placeholder={field.placeholder}
                     clearable={field.clearable}
                     multiple={field.multiple}
-                    searchable={true}
-                    value={(val as string) ?? null}
+                    value={
+                      field.multiple
+                        ? (val as string[]) ?? []
+                        : (val as string) ?? undefined
+                    }
+                    mapItem={f.mapItem}
                     onChange={(v) =>
                       setLocal({ ...local, [name]: v ?? undefined })
                     }
@@ -199,15 +211,19 @@ export function FilterBar<TFilters extends Record<string, any>>({
         })}
 
         {onReset && (
-          <Grid.Col span={{ base: 5, sm: 2, md: 1, lg: 1 }}>
+          <Grid.Col span="content" style={{ alignSelf: "end" }}>
             <Tooltip label={t("actions.reset") as string}>
               <ActionIcon
                 variant="light"
                 color="gray"
-                onClick={onReset}
+                onClick={() => {
+                  onReset();
+                  suppressNextOnChange.current = true;
+                  setLocal(schema.parse({}));
+                }}
                 aria-label="reset-filters"
               >
-                <RefreshCw size={16} />
+                <RefreshCw size={18} />
               </ActionIcon>
             </Tooltip>
           </Grid.Col>

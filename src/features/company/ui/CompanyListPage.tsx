@@ -9,12 +9,13 @@ import { http } from "@/shared/api/http";
 import z from "zod";
 import { useTranslation } from "react-i18next";
 import type { Company } from "../model/store";
+import qs from "qs";
 
 const companyFiltersSchema = z.object({
   search: z.string().trim().optional().default(""),
-  district: z.string().optional(),
-  industry: z.string().optional(),
-  status: z.string().optional(),
+  district: z.string().array().optional().default([]),
+  user: z.string().array().optional().default([]),
+  status: z.string().array().optional().default([]),
 });
 export type CompanyFilters = z.infer<typeof companyFiltersSchema>;
 
@@ -27,37 +28,33 @@ const companyFilterFields: FilterField<keyof CompanyFilters & string>[] = [
   },
   {
     type: "select",
-    name: "industry",
-    label: "Branża",
+    name: "district",
+    label: "Województwo",
     multiple: true,
-    data: ["IT", "Finanse", "Budownictwo", "Logistyka"].map((c) => ({
-      value: c,
-      label: c,
-    })),
     clearable: true,
+    endpoint: "/districts",
     placeholder: "Dowolna",
   },
   {
     type: "select",
-    name: "industry",
-    label: "Branża",
-    data: ["IT", "Finanse", "Budownictwo", "Logistyka"].map((c) => ({
-      value: c,
-      label: c,
-    })),
+    name: "user",
+    label: "Opiekun",
+    multiple: true,
     clearable: true,
+    endpoint: "/users",
     placeholder: "Dowolna",
+    mapItem: (i) => ({
+      value: String(i.id),
+      label: `${i.firstname} ${i.lastname} (${i.username})`,
+    }),
   },
   {
     type: "select",
     name: "status",
     label: "Status",
-    data: [
-      { value: "active", label: "Aktywna" },
-      { value: "inactive", label: "Nieaktywna" },
-      { value: "prospect", label: "Prospekt" },
-    ],
+    multiple: true,
     clearable: true,
+    endpoint: "/company-statuses",
     placeholder: "Dowolny",
   },
 ];
@@ -73,14 +70,16 @@ async function fetchCompanies(
   if (q.sortBy) {
     params.sort = q.sortBy + (q.sortDir === "desc" ? ",desc" : ",asc");
   }
-  const { search, district, industry } = q.filters;
+  const { search, district, status, user } = q.filters;
   if (search) params.search = search;
-  if (district) params.district = district;
-  if (industry) params.industry = industry;
+  if (district) params.districtId = district;
+  if (status) params.statusId = status;
+  if (user) params.userId = user;
 
   const res = await http.get<PagedResponse<Company>>("/companies", {
     params,
     signal,
+    paramsSerializer: (p) => qs.stringify(p, { arrayFormat: "repeat" }),
   });
   return res.data;
 }
@@ -95,7 +94,6 @@ export default function CompanyListPage() {
       header: t("district"),
       cell: (c) => c.district?.name || "—",
     },
-    { key: "industry", header: "Branża" },
     {
       key: "status",
       header: t("status"),

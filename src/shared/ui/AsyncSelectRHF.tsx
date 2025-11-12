@@ -7,10 +7,8 @@ import {
   type Path,
 } from "react-hook-form";
 import { useDebouncedValue } from "@mantine/hooks";
-import { fetchOptions } from "../api/fetchOptions";
+import { fetchOptions, type Option } from "../api/fetchOptions";
 import { useTranslation } from "react-i18next";
-
-export type Option = { value: string; label: string };
 
 type AsyncSelectRHFProps<T extends FieldValues> = {
   control: Control<T>;

@@ -15,7 +15,7 @@ import {
 import { useForm, type Resolver } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Link } from "react-router-dom";
-import { AsyncSelectRHF } from "@/shared/ui/AsyncHFSelect";
+import { AsyncSelectRHF } from "@/shared/ui/AsyncSelectRHF";
 import { useEffect, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { createCompanySchema, type FormValues } from "../model/companySchema";
