@@ -1,4 +1,3 @@
-// companySchema.ts
 import { z } from "zod";
 import type { TFunction } from "i18next";
 
@@ -36,11 +35,11 @@ export const createCompanySchema = (t: TFunction, tCompany: TFunction) =>
 
     nip: z
       .preprocess(emptyToUndef, z.string().optional())
-      .refine((v) => !v || nipRegex.test(v), { message: "NIP powinien zawierać 10 cyfr" }),
+      .refine((v) => !v || nipRegex.test(v), { message: tCompany("errors.invalidNip")}),
 
     postalCode: z
       .preprocess(emptyToUndef, z.string().optional())
-      .refine((v) => !v || postalRegex.test(v), { message: "Kod pocztowy w formacie 00-000" }),
+      .refine((v) => !v || postalRegex.test(v), { message: tCompany("errors.invalidPostalCode")}),
 
     street: stringOptional,
     houseNumber: stringOptional,
@@ -48,7 +47,7 @@ export const createCompanySchema = (t: TFunction, tCompany: TFunction) =>
 
     phoneNumber: z
       .preprocess(emptyToUndef, z.string().optional())
-      .refine((v) => !v || phoneRegex.test(v), { message: "Niepoprawny numer telefonu" }),
+      .refine((v) => !v || phoneRegex.test(v), { message:  tCompany("errors.invalidPhone")}),
 
     email: emailOptional,
     wwwSite: urlOptional,

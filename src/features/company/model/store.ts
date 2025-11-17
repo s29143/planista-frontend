@@ -35,14 +35,12 @@ export type SortDir = "asc" | "desc";
 
 
 type CompanyStore = {
-  view: "table" | "grid";
   page: number;
   pageSize: number;
   sortBy: keyof Company | null;
   sortDir: SortDir;
   total: number;
   filters: Filters;
-  setView: (v: CompanyStore["view"]) => void;
   setPage: (p: number) => void;
   setPageSize: (s: number) => void;
   setSort: (by: keyof Company) => void;
@@ -53,14 +51,12 @@ type CompanyStore = {
 
 
 export const useCompanyStore = create<CompanyStore>((set, get) => ({
-  view: "table",
   page: 1,
   pageSize: 10,
   sortBy: null,
   sortDir: "asc",
   total: 0,
   filters: FiltersSchema.parse({}),
-    setView: (v) => set({ view: v }),
     setPage: (p) => set({ page: p }),
     setPageSize: (s) => set({ pageSize: s, page: 1 }),
     setSort: (by) => {
