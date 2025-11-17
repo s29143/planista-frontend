@@ -66,7 +66,12 @@
     "users": "Users",
     "roles": "Roles",
     "permissions": "Permissions",
-    "signin": "Sign in"
+    "signin": "Sign in",
+    "dictionaries": "Dictionaries",
+    "districts": "Districts",
+    "countries": "Countries",
+    "acquiredSources": "Acquired Sources",
+    "statuses": "Statuses"
   },
   "data" : {
     "perPage": "{{count}} per page",

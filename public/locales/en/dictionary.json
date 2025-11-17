@@ -1,0 +1,8 @@
+{
+    "id": "ID",
+    "name": "Name",
+    "title": {
+        "create": "Create Dictionary Item",
+        "update": "Update Dictionary Item"
+    }
+}

@@ -19,5 +19,11 @@
     "title": {
         "create": "Create Company",
         "update": "Update Company"
+    },
+    "errors": {
+        "required": "This field is required",
+        "invalidEmail": "Invalid email format",
+        "invalidPhone": "Invalid phone number format",
+        "invalidNip": "Invalid NIP number"
     }
 }

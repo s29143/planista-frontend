@@ -18,5 +18,11 @@
     "title": {
         "create": "Dodaj firmę",
         "update": "Edytuj firmę"
+    },
+    "errors": {
+        "required": "To pole jest wymagane",
+        "invalidEmail": "Nieprawidłowy format email",
+        "invalidPhone": "Nieprawidłowy format numeru telefonu",
+        "invalidNip": "Nieprawidłowy numer NIP"
     }
 }
