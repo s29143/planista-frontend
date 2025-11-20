@@ -17,6 +17,8 @@ import {
   Users,
   ListTodo,
   Settings,
+  Book,
+  MapPin,
 } from "lucide-react";
 import { useMe } from "@/features/auth/api/queries";
 import type { User } from "@/features/auth/model/store";
@@ -45,10 +47,22 @@ function isActivePath(pathname: string, to: string) {
   return pathname === to || pathname.startsWith(`${to}/`);
 }
 
+type DictonaryLink = {
+  label?: string;
+  name: string;
+  element: React.ReactNode;
+};
+
 export function SidebarNav() {
   const { t } = useTranslation("common");
   const { pathname } = useLocation();
   const user = useMe().data;
+  const dictonaries: DictonaryLink[] = [
+    { name: "districts", element: <Building2 size={16} /> },
+    { name: "countries", element: <MapPin size={16} /> },
+    { name: "company-statuses", element: <ListTodo size={16} /> },
+    { name: "company-acquires", element: <Users size={16} /> },
+  ];
 
   const name =
     [user?.firstname, user?.lastname].filter(Boolean).join(" ") ||
@@ -114,7 +128,14 @@ export function SidebarNav() {
           <NavLink
             label={t("pages.settings", "Settings")}
             leftSection={<Settings size={16} />}
-            defaultOpened={pathname.startsWith("/settings")}
+            defaultOpened={
+              pathname.startsWith("/dictionaries") ||
+              pathname.startsWith("/users")
+            }
+            active={
+              pathname.startsWith("/dictionaries") ||
+              pathname.startsWith("/users")
+            }
           >
             <NavLink
               label={t("pages.users", "Users")}
@@ -123,6 +144,23 @@ export function SidebarNav() {
               leftSection={<Users size={16} />}
               active={isActivePath(pathname, "/users")}
             />
+            <NavLink
+              label={t("pages.dictionaries", "Dictionaries")}
+              leftSection={<Book size={16} />}
+              defaultOpened={pathname.startsWith("/dictionaries")}
+              active={pathname.startsWith("/dictionaries")}
+            >
+              {dictonaries.map((dict) => (
+                <NavLink
+                  key={dict.name}
+                  label={t("pages." + (dict.label || dict.name), dict.name)}
+                  component={Link}
+                  to={`/dictionaries/${dict.name}`}
+                  leftSection={dict.element}
+                  active={isActivePath(pathname, `/dictionaries/${dict.name}`)}
+                />
+              ))}
+            </NavLink>
           </NavLink>
         </Stack>
       </ScrollArea>

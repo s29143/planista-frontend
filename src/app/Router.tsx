@@ -6,6 +6,7 @@ import MainLayout from "@/shared/ui/layout/MainLayout";
 import LoginLayout from "@/shared/ui/layout/LoginLayout";
 import { authRoutes } from "@/features/auth";
 import { companyRoutes } from "@/features/company";
+import { dictItemRoutes } from "@/features/dictonaries";
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
       {
         path: "companies",
         children: companyRoutes,
+      },
+      {
+        path: "dictionaries",
+        children: dictItemRoutes,
       },
       {
         path: "*",
