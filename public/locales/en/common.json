@@ -71,7 +71,9 @@
     "districts": "Districts",
     "countries": "Countries",
     "acquiredSources": "Acquired Sources",
-    "statuses": "Statuses"
+    "statuses": "Statuses",
+    "company-statuses": "Company Statuses",
+    "company-acquires": "Company Acquires"
   },
   "data" : {
     "perPage": "{{count}} per page",

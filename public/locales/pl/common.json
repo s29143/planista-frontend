@@ -71,7 +71,9 @@
     "districts": "Województwa",
     "countries": "Kraje",
     "acquiredSources": "Źródła pozyskania",
-    "statuses": "Statusy"
+    "statuses": "Statusy",
+    "company-statuses": "Statusy firm",
+    "company-acquires": "Źródła pozyskania firm"
   },
   "data" : {
     "perPage": "{{count}} na stronę",
