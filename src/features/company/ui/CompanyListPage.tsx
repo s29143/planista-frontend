@@ -1,23 +1,13 @@
 import { DataListView } from "@/shared/ui/DataListView";
-import type {
-  ColumnDef,
-  PagedResponse,
-  QueryState,
-} from "@/shared/ui/DataTableView";
+import type { ColumnDef } from "@/shared/ui/DataTableView";
 import type { FilterField } from "@/shared/ui/FilterBar";
-import { http } from "@/shared/api/http";
-import z from "zod";
 import { useTranslation } from "react-i18next";
 import type { Company } from "../model/store";
-import qs from "qs";
-
-const companyFiltersSchema = z.object({
-  search: z.string().trim().optional().default(""),
-  district: z.string().array().optional().default([]),
-  user: z.string().array().optional().default([]),
-  status: z.string().array().optional().default([]),
-});
-export type CompanyFilters = z.infer<typeof companyFiltersSchema>;
+import {
+  companyFiltersSchema,
+  fetchCompanies,
+  type CompanyFilters,
+} from "../api/queries";
 
 const companyFilterFields: FilterField<keyof CompanyFilters & string>[] = [
   {
@@ -58,31 +48,6 @@ const companyFilterFields: FilterField<keyof CompanyFilters & string>[] = [
     placeholder: "Dowolny",
   },
 ];
-
-async function fetchCompanies(
-  q: QueryState<CompanyFilters, Company>,
-  signal?: AbortSignal
-) {
-  const params: Record<string, any> = {
-    page: q.page,
-    size: q.size,
-  };
-  if (q.sortBy) {
-    params.sort = q.sortBy + (q.sortDir === "desc" ? ",desc" : ",asc");
-  }
-  const { search, district, status, user } = q.filters;
-  if (search) params.search = search;
-  if (district) params.districtId = district;
-  if (status) params.statusId = status;
-  if (user) params.userId = user;
-
-  const res = await http.get<PagedResponse<Company>>("/companies", {
-    params,
-    signal,
-    paramsSerializer: (p) => qs.stringify(p, { arrayFormat: "repeat" }),
-  });
-  return res.data;
-}
 
 export default function CompanyListPage() {
   const { t } = useTranslation("company");
