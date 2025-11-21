@@ -67,6 +67,7 @@ export default function DictItemListPage() {
   }, [module]);
   return (
     <DataListView<DictItemFilters, DictItem>
+      key={module}
       filtersConfig={dictItemFilterFields}
       filtersSchema={dictItemFiltersSchema}
       fetcher={fetchDictItems}
