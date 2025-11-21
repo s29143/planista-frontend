@@ -18,7 +18,9 @@ import {
   ListTodo,
   Settings,
   Book,
-  MapPin,
+  Globe,
+  ClipboardList,
+  Users2,
 } from "lucide-react";
 import { useMe } from "@/features/auth/api/queries";
 import type { User } from "@/features/auth/model/store";
@@ -59,9 +61,9 @@ export function SidebarNav() {
   const user = useMe().data;
   const dictonaries: DictonaryLink[] = [
     { name: "districts", element: <Building2 size={16} /> },
-    { name: "countries", element: <MapPin size={16} /> },
-    { name: "company-statuses", element: <ListTodo size={16} /> },
-    { name: "company-acquires", element: <Users size={16} /> },
+    { name: "countries", element: <Globe size={16} /> },
+    { name: "company-statuses", element: <ClipboardList size={16} /> },
+    { name: "company-acquires", element: <Users2 size={16} /> },
   ];
 
   const name =
