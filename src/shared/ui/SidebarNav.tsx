@@ -150,16 +150,27 @@ export function SidebarNav() {
               defaultOpened={pathname.startsWith("/dictionaries")}
               active={pathname.startsWith("/dictionaries")}
             >
-              {dictonaries.map((dict) => (
-                <NavLink
-                  key={dict.name}
-                  label={t("pages." + (dict.label || dict.name), dict.name)}
-                  component={Link}
-                  to={`/dictionaries/${dict.name}`}
-                  leftSection={dict.element}
-                  active={isActivePath(pathname, `/dictionaries/${dict.name}`)}
-                />
-              ))}
+              {dictonaries
+                .map((d) => {
+                  return {
+                    ...d,
+                    label: t("pages." + (d.label || d.name), d.name),
+                  };
+                })
+                .sort((a, b) => a.label!.localeCompare(b.label!))
+                .map((dict) => (
+                  <NavLink
+                    key={dict.name}
+                    label={dict.label}
+                    component={Link}
+                    to={`/dictionaries/${dict.name}`}
+                    leftSection={dict.element}
+                    active={isActivePath(
+                      pathname,
+                      `/dictionaries/${dict.name}`
+                    )}
+                  />
+                ))}
             </NavLink>
           </NavLink>
         </Stack>
