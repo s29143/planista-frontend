@@ -128,7 +128,11 @@ export default function DictItemForm({
               <Divider my="xs" />
 
               <Group justify="flex-end">
-                <Button variant="default" component={Link} to="/companies">
+                <Button
+                  variant="default"
+                  component={Link}
+                  to={`/dictionaries/${module}`}
+                >
                   {t("actions.cancel")}
                 </Button>
                 <Button
