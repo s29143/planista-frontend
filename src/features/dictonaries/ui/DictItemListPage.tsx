@@ -42,12 +42,16 @@ export default function DictItemListPage() {
       params.sort = q.sortBy + (q.sortDir === "desc" ? ",desc" : ",asc");
     }
     const { search } = q.filters;
+    params.name = "";
     if (search) params.name = search;
 
-    const res = await http.get("/" + module, {
-      params,
-      signal,
-    });
+    const res = await http.get(
+      "/" + module + "/search/findByNameContainingIgnoreCase",
+      {
+        params,
+        signal,
+      }
+    );
     return {
       content: res.data["_embedded"][module!].map(
         (item: any): DictItem => ({
