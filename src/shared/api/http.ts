@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useAuthStore } from "@/features/auth/model/store";
 import { normalizeProblem } from "./errorTypes";
+import i18next from "i18next";
 
 export const http = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
@@ -12,6 +13,8 @@ http.interceptors.request.use((config) => {
   config.headers = config.headers ?? {};
   if (token) 
     config.headers.Authorization = `Bearer ${token}`;
+  const lang = i18next.language || "en";
+  config.headers["Accept-Language"] = lang;
   return config;
 });
 
