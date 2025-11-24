@@ -21,7 +21,7 @@ import { useTranslation } from "react-i18next";
 import { createCompanySchema, type FormValues } from "../model/companySchema";
 import { notifications } from "@mantine/notifications";
 import { X } from "lucide-react";
-import { IMaskInput } from "react-imask";
+import { MaskedTextInput } from "@/shared/ui/MaskedTextInput";
 
 const API = {
   acquisitions: "/company-acquires",
@@ -141,22 +141,20 @@ export default function CompanyForm({
                 </Grid.Col>
 
                 <Grid.Col span={{ base: 12, md: 4 }}>
-                  <TextInput
+                  <MaskedTextInput
                     label={tCompany("nip")}
                     placeholder="1234567890"
-                    component={IMaskInput}
                     mask="0000000000"
                     {...register("nip")}
                     error={errors.nip?.message}
                   />
                 </Grid.Col>
                 <Grid.Col span={{ base: 12, md: 4 }}>
-                  <TextInput
+                  <MaskedTextInput
                     label={tCompany("postalCode")}
                     placeholder="00-000"
-                    {...register("postalCode")}
-                    component={IMaskInput}
                     mask="00-000"
+                    {...register("postalCode")}
                     error={errors.postalCode?.message}
                   />
                 </Grid.Col>
@@ -187,10 +185,9 @@ export default function CompanyForm({
                 </Grid.Col>
 
                 <Grid.Col span={{ base: 12, md: 4 }}>
-                  <TextInput
+                  <MaskedTextInput
                     label={tCompany("phoneNumber")}
                     placeholder="+48 123 456 789"
-                    component={IMaskInput}
                     mask={[
                       {
                         mask: "000 000 000",
