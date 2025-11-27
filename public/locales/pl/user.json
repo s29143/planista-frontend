@@ -1,0 +1,12 @@
+{
+    "firstname": "Imię",
+    "lastname": "Nazwisko",
+    "username": "Nazwa użytkownika",
+    "password": "Hasło",
+    "repassword": "Powtórz hasło",
+    "title": {
+        "create": "Utwórz użytkownika",
+        "update": "Aktualizuj użytkownika"
+    },
+    "userList": "Lista użytkowników"
+}

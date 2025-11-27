@@ -15,7 +15,8 @@
     "reset": "Reset",
     "select": "Select...",
     "backToList": "Back to list",
-    "add": "Add"
+    "add": "Add",
+    "search": "Search"
   },
   "messages": {
     "loading": "Loading...",
@@ -48,7 +49,9 @@
     "invalidPhone": "Invalid phone number",
     "invalidNumber": "{{field}} must be a number",
     "min": "{{field}} must have at least {{min}} characters",
-    "max": "{{field}} must have at most {{max}} characters"
+    "max": "{{field}} must have at most {{max}} characters",
+    "passwordMatch": "Passwords do not match",
+    "passwordStrength": "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character"
   },
   "layout": {
     "home": "Home",

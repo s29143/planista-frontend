@@ -15,7 +15,8 @@
     "reset": "Resetuj",
     "select": "Wybierz...",
     "backToList" : "Wróć do listy",
-    "add": "Dodaj"
+    "add": "Dodaj",
+    "search": "Szukaj"
   },
   "messages": {
     "loading": "Ładowanie...",
@@ -48,7 +49,9 @@
     "invalidPhone": "Nieprawidłowy numer telefonu",
     "invalidNumber": "{{field}} musi być liczbą",
     "min": "{{field}} musi mieć minimum {{min}} znaków",
-    "max": "{{field}} musi mieć maksymalnie {{max}} znaków"
+    "max": "{{field}} musi mieć maksymalnie {{max}} znaków",
+    "passwordMatch": "Hasła nie pasują do siebie",
+    "passwordStrength": "Hasło musi zawierać co najmniej jedną wielką literę, jedną małą literę, jedną cyfrę i jeden znak specjalny"
   },
   "layout": {
     "home": "Strona główna",
