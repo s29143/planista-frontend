@@ -1,0 +1,12 @@
+{
+    "firstname": "First Name",
+    "lastname": "Last Name",
+    "username": "Username",
+    "password": "Password",
+    "repassword": "Repeat Password",
+    "title": {
+        "create": "Create User",
+        "update": "Update User"
+    },
+    "userList": "User List"
+}

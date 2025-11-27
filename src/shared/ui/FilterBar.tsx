@@ -112,7 +112,10 @@ export function FilterBar<TFilters extends Record<string, any>>({
                     key={String(f.name)}
                     label={f.label}
                     style={{ width: "100%" as const }}
-                    placeholder={(f as TextField<string>).placeholder}
+                    placeholder={
+                      (f as TextField<string>).placeholder ??
+                      t("actions.search")
+                    }
                     leftSection={<Search size={16} />}
                     value={(val as string) ?? ""}
                     onChange={(e) =>
@@ -132,7 +135,7 @@ export function FilterBar<TFilters extends Record<string, any>>({
                     endpoint={f.endpoint}
                     key={String(f.name)}
                     label={f.label}
-                    placeholder={field.placeholder}
+                    placeholder={field.placeholder ?? t("actions.select")}
                     clearable={field.clearable}
                     multiple={field.multiple}
                     value={
@@ -159,7 +162,7 @@ export function FilterBar<TFilters extends Record<string, any>>({
                     key={String(f.name)}
                     label={f.label}
                     style={{ width: "100%" as const }}
-                    placeholder={field.placeholder}
+                    placeholder={field.placeholder ?? t("actions.search")}
                     min={field.min}
                     max={field.max}
                     value={typeof val === "number" ? val : undefined}
