@@ -18,11 +18,13 @@
     "add": "Add",
     "search": "Search"
   },
+  "success": "Success",
   "messages": {
     "loading": "Loading...",
     "error": "An error occurred",
     "notFound": "Not found",
     "success": "Operation completed successfully",
+    "created": "Successfully created",
     "unauthorized": "Unauthorized",
     "noData": "Brak danych do wyświetlenia",
     "saved": "Saved"

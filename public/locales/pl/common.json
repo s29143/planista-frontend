@@ -23,10 +23,12 @@
     "error": "Wystąpił nieoczekiwany błąd",
     "notFound": "Nie znaleziono",
     "success": "Operacja zakończona pomyślnie",
+    "created": "Pomyślnie utworzono",
     "unauthorized": "Brak uprawnień",
     "noData": "Brak danych do wyświetlenia",
     "saved": "Zapisano"
   },
+  "success": "Sukces",
   "errors": {
     "network": "Błąd sieci. Sprawdź swoje połączenie.",
     "server": "Błąd serwera. Spróbuj ponownie później.",
