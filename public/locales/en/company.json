@@ -24,6 +24,7 @@
         "required": "This field is required",
         "invalidEmail": "Invalid email format",
         "invalidPhone": "Invalid phone number format",
-        "invalidNip": "Invalid NIP number"
+        "invalidNip": "Invalid NIP number",
+        "invalidPostalCode": "Invalid postal code format"
     }
 }

@@ -12,7 +12,7 @@ import {
   Anchor,
   Container,
 } from "@mantine/core";
-import { useForm, type Resolver } from "react-hook-form";
+import { Controller, useForm, type Resolver } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Link } from "react-router-dom";
 import { AsyncSelectRHF } from "@/shared/ui/AsyncSelectRHF";
@@ -141,22 +141,39 @@ export default function CompanyForm({
                 </Grid.Col>
 
                 <Grid.Col span={{ base: 12, md: 4 }}>
-                  <MaskedTextInput
-                    label={tCompany("nip")}
-                    placeholder="1234567890"
-                    mask="0000000000"
-                    {...register("nip")}
-                    error={errors.nip?.message}
+                  <Controller
+                    name="nip"
+                    control={control}
+                    render={({ field }) => (
+                      <MaskedTextInput
+                        label={tCompany("nip")}
+                        placeholder="1234567890"
+                        mask="0000000000"
+                        value={field.value ?? ""}
+                        onAccept={(value) => field.onChange(value)}
+                        onBlur={field.onBlur}
+                        error={errors.nip?.message}
+                      />
+                    )}
                   />
                 </Grid.Col>
                 <Grid.Col span={{ base: 12, md: 4 }}>
-                  <MaskedTextInput
-                    label={tCompany("postalCode")}
-                    placeholder="00-000"
-                    mask="00-000"
-                    {...register("postalCode")}
-                    error={errors.postalCode?.message}
-                  />
+                  <Controller
+                    name="postalCode"
+                    control={control}
+                    render={({ field }) => (
+                      <MaskedTextInput
+                        label={tCompany("postalCode")}
+                        placeholder="00-000"
+                        mask="00-000"
+                        {...register("postalCode")}
+                        error={errors.postalCode?.message}
+                        value={field.value ?? ""}
+                        onAccept={(value) => field.onChange(value)}
+                        onBlur={field.onBlur}
+                      />
+                    )}
+                  ></Controller>
                 </Grid.Col>
 
                 <Grid.Col span={{ base: 12, md: 6 }}>
@@ -185,20 +202,29 @@ export default function CompanyForm({
                 </Grid.Col>
 
                 <Grid.Col span={{ base: 12, md: 4 }}>
-                  <MaskedTextInput
-                    label={tCompany("phoneNumber")}
-                    placeholder="+48 123 456 789"
-                    mask={[
-                      {
-                        mask: "000 000 000",
-                      },
-                      {
-                        mask: "+48 000 000 000",
-                      },
-                    ]}
-                    {...register("phoneNumber")}
-                    error={errors.phoneNumber?.message}
-                  />
+                  <Controller
+                    name="phoneNumber"
+                    control={control}
+                    render={({ field }) => (
+                      <MaskedTextInput
+                        label={tCompany("phoneNumber")}
+                        placeholder="+48 123 456 789"
+                        mask={[
+                          {
+                            mask: "000 000 000",
+                          },
+                          {
+                            mask: "+48 000 000 000",
+                          },
+                        ]}
+                        {...register("phoneNumber")}
+                        error={errors.phoneNumber?.message}
+                        value={field.value ?? ""}
+                        onAccept={(value) => field.onChange(value)}
+                        onBlur={field.onBlur}
+                      />
+                    )}
+                  ></Controller>
                 </Grid.Col>
                 <Grid.Col span={{ base: 12, md: 4 }}>
                   <TextInput
