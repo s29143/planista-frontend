@@ -1,5 +1,9 @@
-import { Button, Table } from "@mantine/core";
-import { ArrowDown, ArrowUp, ArrowUpDown } from "lucide-react";
+import { Button, Group, Modal, Table } from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
+import { notifications } from "@mantine/notifications";
+import { ArrowDown, ArrowUp, ArrowUpDown, TrashIcon } from "lucide-react";
+import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
 export type SortDir = "asc" | "desc";
@@ -43,14 +47,21 @@ export function DataTableView<TRow>({
   rows,
   sort,
   setSort,
+  canDelete = false,
+  deleteFn,
 }: {
   columns: ColumnDef<TRow>[];
   rows: TRow[];
   sort: SortState<TRow>;
   setSort: (by: keyof TRow) => void;
+  canDelete?: boolean;
+  deleteFn?: (row: any) => Promise<void>;
 }) {
   const navigate = useNavigate();
-
+  const [opened, { open, close }] = useDisclosure(false);
+  const [isDeleting, setIsDeleting] = useState<boolean>(false);
+  const [rowToDelete, setRowToDelete] = useState<TRow | null>(null);
+  const { t } = useTranslation();
   const Th = ({
     col,
     label,
@@ -99,42 +110,107 @@ export function DataTableView<TRow>({
     );
   };
 
+  const handleConfirmDelete = async () => {
+    if (!deleteFn || !rowToDelete) return;
+    try {
+      setIsDeleting(true);
+      await deleteFn(rowToDelete);
+      close();
+      setRowToDelete(null);
+    } catch (e) {
+      console.log("delete error", e);
+      notifications.show({
+        title: t("actions.deleteFailed", "Delete failed"),
+        message: (e as Error).message,
+        color: "red",
+      });
+    } finally {
+      setIsDeleting(false);
+    }
+  };
+  const handleTrashClick = (e: React.MouseEvent, row: TRow) => {
+    e.stopPropagation();
+    if (!deleteFn) return;
+    setRowToDelete(row);
+    open();
+  };
   return (
-    <Table
-      stickyHeader
-      withTableBorder
-      withColumnBorders
-      highlightOnHover
-      verticalSpacing="sm"
-    >
-      <Table.Thead>
-        <Table.Tr>
-          {columns.map((c) => (
-            <Th
-              key={String(c.key)}
-              col={c.key}
-              label={c.header}
-              sortable={c.sortable !== false}
-            />
-          ))}
-        </Table.Tr>
-      </Table.Thead>
-      <Table.Tbody>
-        {rows.map((r) => (
-          <Table.Tr
-            key={String((r as Row).id)}
+    <>
+      <Modal
+        opened={opened}
+        onClose={() => {
+          if (isDeleting) return;
+          close();
+        }}
+        title={t("actions.delete", "Delete")}
+        centered
+      >
+        <p>{t("actions.confirmDelete", "Confirm delete")}</p>
+        <Group justify="flex-end" mt="md">
+          <Button
+            variant="default"
             onClick={() => {
-              navigate(String((r as Row).id));
+              if (isDeleting) return;
+              close();
             }}
           >
+            Anuluj
+          </Button>
+          <Button
+            color="red"
+            onClick={handleConfirmDelete}
+            loading={isDeleting}
+          >
+            Usuń
+          </Button>
+        </Group>
+      </Modal>
+      <Table
+        stickyHeader
+        withTableBorder
+        withColumnBorders
+        highlightOnHover
+        verticalSpacing="sm"
+      >
+        <Table.Thead>
+          <Table.Tr>
             {columns.map((c) => (
-              <Table.Td key={String(c.key)}>
-                {c.cell ? c.cell(r) : (r as any)[c.key] ?? "—"}
-              </Table.Td>
+              <Th
+                key={String(c.key)}
+                col={c.key}
+                label={c.header}
+                sortable={c.sortable !== false}
+              />
             ))}
           </Table.Tr>
-        ))}
-      </Table.Tbody>
-    </Table>
+        </Table.Thead>
+        <Table.Tbody>
+          {rows.map((r) => (
+            <Table.Tr
+              key={String((r as Row).id)}
+              className="cursor-pointer"
+              onClick={() => {
+                navigate(String((r as Row).id));
+              }}
+            >
+              {columns.map((c) => (
+                <Table.Td key={String(c.key)}>
+                  {c.cell ? c.cell(r) : (r as any)[c.key] ?? "—"}
+                </Table.Td>
+              ))}
+              {canDelete && (
+                <Table.Td
+                  key={String((r as Row).id)}
+                  style={{ width: 40 }}
+                  onClick={(e) => handleTrashClick(e, r)}
+                >
+                  <TrashIcon size={16} />
+                </Table.Td>
+              )}
+            </Table.Tr>
+          ))}
+        </Table.Tbody>
+      </Table>
+    </>
   );
 }

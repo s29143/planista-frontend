@@ -18,7 +18,7 @@ export default function CompanyCreatePage() {
       onSuccess={(id) => {
         notifications.show({
           title: t("success"),
-          message: t('messages.created'),
+          message: t("messages.created"),
           color: "green",
         });
         navigate(id ? `/companies/${id}` : "/companies");

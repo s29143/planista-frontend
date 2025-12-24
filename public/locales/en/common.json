@@ -16,7 +16,8 @@
     "select": "Select...",
     "backToList": "Back to list",
     "add": "Add",
-    "search": "Search"
+    "search": "Search",
+    "confirmDelete": "Are you sure you want to delete?"
   },
   "success": "Success",
   "messages": {
@@ -60,7 +61,7 @@
     "profile": "Profile",
     "settings": "Settings",
     "logout": "Log out"
-  }, 
+  },
   "pages": {
     "dashboard": "Dashboard",
     "companies": "Companies",
@@ -80,7 +81,7 @@
     "company-statuses": "Company Statuses",
     "company-acquires": "Company Acquires"
   },
-  "data" : {
+  "data": {
     "perPage": "{{count}} per page",
     "total": "Total: {{count}}",
     "noRecords": "No records to display"

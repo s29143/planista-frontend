@@ -77,6 +77,10 @@ export default function DictItemListPage() {
       fetcher={fetchDictItems}
       columns={dictItemColumns}
       initialPageSize={20}
+      canDelete={true}
+      deleteFn={async (row) => {
+        http.delete(`/${module}/` + row.id);
+      }}
     />
   );
 }

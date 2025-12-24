@@ -38,6 +38,8 @@ export type DataListViewProps<TFilters extends Record<string, any>, TRow> = {
   columns: ColumnDef<TRow>[];
 
   initialPageSize?: number;
+  canDelete?: boolean;
+  deleteFn: (row: any) => Promise<void>;
 };
 
 export function DataListView<TFilters extends Record<string, any>, TRow>({
@@ -46,6 +48,8 @@ export function DataListView<TFilters extends Record<string, any>, TRow>({
   fetcher,
   columns,
   initialPageSize = 10,
+  canDelete = false,
+  deleteFn,
 }: DataListViewProps<TFilters, TRow>) {
   const { t } = useTranslation();
 
@@ -221,6 +225,24 @@ export function DataListView<TFilters extends Record<string, any>, TRow>({
             rows={rows}
             sort={query}
             setSort={(col) => store.setSort(col)}
+            deleteFn={async (row) => {
+              await deleteFn(row);
+              fetcherRef
+                .current(queryRef.current)
+                .then((res) => {
+                  setRows(res.content ?? []);
+                  setTotalElements(res.totalElements);
+                  setTotalPages(res.totalPages);
+                })
+                .catch((e) => {
+                  if (!axios.isCancel(e))
+                    setError(e?.message ?? "Unknown error");
+                })
+                .finally(() => {
+                  setLoading(false);
+                });
+            }}
+            canDelete={canDelete}
           />
         ) : (
           <Group justify="center" py="xl">

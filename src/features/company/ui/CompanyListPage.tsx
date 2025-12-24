@@ -8,6 +8,7 @@ import {
   fetchCompanies,
   type CompanyFilters,
 } from "../api/queries";
+import { http } from "@/shared/api/http";
 
 const companyFilterFields: FilterField<keyof CompanyFilters & string>[] = [
   {
@@ -77,6 +78,10 @@ export default function CompanyListPage() {
       fetcher={fetchCompanies}
       columns={companyColumns}
       initialPageSize={10}
+      canDelete={true}
+      deleteFn={async (row) => {
+        http.delete("/companies/" + row.id);
+      }}
     />
   );
 }

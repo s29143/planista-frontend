@@ -14,9 +14,10 @@
     "retry": "Ponów próbę",
     "reset": "Resetuj",
     "select": "Wybierz...",
-    "backToList" : "Wróć do listy",
+    "backToList": "Wróć do listy",
     "add": "Dodaj",
-    "search": "Szukaj"
+    "search": "Szukaj",
+    "confirmDelete": "Czy na pewno chcesz usunąć?"
   },
   "messages": {
     "loading": "Ładowanie...",
@@ -80,7 +81,7 @@
     "company-statuses": "Statusy firm",
     "company-acquires": "Źródła pozyskania firm"
   },
-  "data" : {
+  "data": {
     "perPage": "{{count}} na stronę",
     "total": "Razem: {{count}}",
     "noRecords": "Brak rekordów do wyświetlenia"
