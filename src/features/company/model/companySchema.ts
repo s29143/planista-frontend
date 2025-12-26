@@ -8,25 +8,25 @@ const phoneRegex = /^[0-9+\-\s()]{6,20}$/i;
 const emptyToUndef = (v: unknown) =>
   typeof v === "string" ? (v.trim() === "" ? undefined : v.trim()) : v;
 
-const emailOptional = z.preprocess(
-  emptyToUndef,
-  z.email("Niepoprawny e-mail").optional()
-);
-
-const urlOptional = z.preprocess(
-  emptyToUndef,
-  z.url("Niepoprawny adres URL").optional()
-);
-
 const stringOptional = z.preprocess(emptyToUndef, z.string().optional());
 
-
-export const createCompanySchema = (t: TFunction, tCompany: TFunction) =>
-   z.object({
+export const createCompanySchema = (t: TFunction, tCompany: TFunction) => {
+  const emailOptional = z.preprocess(
+    emptyToUndef,
+    z.email(t("validation.invalidEmail")).optional()
+  );
+  const urlOptional = z.preprocess(
+    emptyToUndef,
+    z.url(t("validation.invalidUrl")).optional()
+  );
+  return z.object({
     shortName: z
       .string()
       .min(2, t("validation.min", { field: tCompany("shortName"), min: 2 }))
-      .max(255, t("validation.max", { field: tCompany("shortName"), max: 255 })),
+      .max(
+        255,
+        t("validation.max", { field: tCompany("shortName"), max: 255 })
+      ),
 
     fullName: z
       .string()
@@ -35,11 +35,15 @@ export const createCompanySchema = (t: TFunction, tCompany: TFunction) =>
 
     nip: z
       .preprocess(emptyToUndef, z.string().optional())
-      .refine((v) => !v || nipRegex.test(v), { message: tCompany("errors.invalidNip")}),
+      .refine((v) => !v || nipRegex.test(v), {
+        message: tCompany("errors.invalidNip"),
+      }),
 
     postalCode: z
       .preprocess(emptyToUndef, z.string().optional())
-      .refine((v) => !v || postalRegex.test(v), { message: tCompany("errors.invalidPostalCode")}),
+      .refine((v) => !v || postalRegex.test(v), {
+        message: tCompany("errors.invalidPostalCode"),
+      }),
 
     street: stringOptional,
     houseNumber: stringOptional,
@@ -47,7 +51,9 @@ export const createCompanySchema = (t: TFunction, tCompany: TFunction) =>
 
     phoneNumber: z
       .preprocess(emptyToUndef, z.string().optional())
-      .refine((v) => !v || phoneRegex.test(v), { message:  tCompany("errors.invalidPhone")}),
+      .refine((v) => !v || phoneRegex.test(v), {
+        message: tCompany("errors.invalidPhone"),
+      }),
 
     email: emailOptional,
     wwwSite: urlOptional,
@@ -55,23 +61,34 @@ export const createCompanySchema = (t: TFunction, tCompany: TFunction) =>
     comments: stringOptional,
     userId: z
       .preprocess(emptyToUndef, z.union([z.string(), z.number()]))
-      .transform((v) => (v == null || v === "undefined" ? undefined : Number(v))),
+      .transform((v) =>
+        v == null || v === "undefined" ? undefined : Number(v)
+      ),
 
     acquiredId: z
       .preprocess(emptyToUndef, z.union([z.string(), z.number()]).optional())
-      .transform((v) => (v == null || v === "undefined" ? undefined : Number(v))),
+      .transform((v) =>
+        v == null || v === "undefined" ? undefined : Number(v)
+      ),
 
     districtId: z
       .preprocess(emptyToUndef, z.union([z.string(), z.number()]).optional())
-      .transform((v) => (v == null || v === "undefined" ? undefined : Number(v))),
+      .transform((v) =>
+        v == null || v === "undefined" ? undefined : Number(v)
+      ),
 
     countryId: z
       .preprocess(emptyToUndef, z.union([z.string(), z.number()]).optional())
-      .transform((v) => (v == null || v === "undefined" ? undefined : Number(v))),
+      .transform((v) =>
+        v == null || v === "undefined" ? undefined : Number(v)
+      ),
 
     statusId: z
       .preprocess(emptyToUndef, z.union([z.string(), z.number()]).optional())
-      .transform((v) => (v == null || v === "undefined" ? undefined : Number(v))),
+      .transform((v) =>
+        v == null || v === "undefined" ? undefined : Number(v)
+      ),
   });
+};
 
 export type FormValues = z.output<ReturnType<typeof createCompanySchema>>;

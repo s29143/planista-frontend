@@ -8,6 +8,7 @@ import { authRoutes } from "@/features/auth";
 import { companyRoutes } from "@/features/company";
 import { dictItemRoutes } from "@/features/dictonaries";
 import { userRoutes } from "@/features/users";
+import { contactRoutes } from "@/features/contact";
 
 const router = createBrowserRouter([
   {
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
       {
         path: "companies",
         children: companyRoutes,
+      },
+      {
+        path: "contacts",
+        children: contactRoutes,
       },
       {
         path: "dictionaries",

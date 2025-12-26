@@ -1,0 +1,30 @@
+{
+  "firstName": "First name",
+  "lastName": "Last name",
+  "jobTitle": "Job title",
+  "phoneNumber": "Phone number",
+  "mobileNumber": "Mobile number",
+  "email": "E-mail",
+  "phoneAgreement": "Phone agreement",
+  "emailAgreement": "E-mail agreement",
+  "user": "User",
+  "company": "Company",
+  "status": "Status",
+  "title": {
+    "create": "Create Contact",
+    "update": "Update Contact"
+  },
+  "errors": {
+    "required": "This field is required",
+    "invalidEmail": "Invalid email format",
+    "invalidPhone": "Invalid phone number format"
+  },
+  "placeholders": {
+    "firstName": "e.g. John",
+    "lastName": "e.g. Doe",
+    "jobTitle": "e.g. Sales Manager",
+    "phoneNumber": "e.g. +1 234 567 890",
+    "mobileNumber": "e.g. +1 987 654 321",
+    "email": "e.g. John.Doe@example.com"
+  }
+}

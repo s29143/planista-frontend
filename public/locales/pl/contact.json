@@ -1,0 +1,30 @@
+{
+  "firstName": "Imię",
+  "lastName": "Nazwisko",
+  "jobTitle": "Stanowisko",
+  "phoneNumber": "Numer telefonu",
+  "mobileNumber": "Numer komórkowy",
+  "email": "E-mail",
+  "phoneAgreement": "Zgoda na telefon",
+  "emailAgreement": "Zgoda na e-mail",
+  "user": "Użytkownik",
+  "company": "Firma",
+  "status": "Status",
+  "title": {
+    "create": "Dodaj kontakt",
+    "update": "Edytuj kontakt"
+  },
+  "errors": {
+    "required": "To pole jest wymagane",
+    "invalidEmail": "Nieprawidłowy format email",
+    "invalidPhone": "Nieprawidłowy format numeru telefonu"
+  },
+  "placeholders": {
+    "firstName": "np. Jan",
+    "lastName": "np. Kowalski",
+    "jobTitle": "np. Kierownik sprzedaży",
+    "phoneNumber": "np. +48 123 456 789",
+    "mobileNumber": "np. +48 987 654 321",
+    "email": "np. Jan.Kowalski@example.com"
+  }
+}
