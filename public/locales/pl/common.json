@@ -79,7 +79,12 @@
     "acquiredSources": "Źródła pozyskania",
     "statuses": "Statusy",
     "company-statuses": "Statusy firm",
-    "company-acquires": "Źródła pozyskania firm"
+    "company-acquires": "Źródła pozyskania firm",
+    "contact-statuses": "Statusy kontaktów",
+    "action-types": "Typy działań",
+    "orders": "Zlecenia",
+    "order-statuses": "Statusy zleceń",
+    "order-types": "Typy zleceń"
   },
   "data": {
     "perPage": "{{count}} na stronę",

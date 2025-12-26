@@ -20,7 +20,10 @@ import {
   Book,
   Globe,
   ClipboardList,
-  Users2,
+  User2,
+  UserCheck,
+  Tags,
+  Zap,
 } from "lucide-react";
 import { useMe } from "@/features/auth/api/queries";
 import type { User } from "@/features/auth/model/store";
@@ -63,7 +66,11 @@ export function SidebarNav() {
     { name: "districts", element: <Building2 size={16} /> },
     { name: "countries", element: <Globe size={16} /> },
     { name: "company-statuses", element: <ClipboardList size={16} /> },
-    { name: "company-acquires", element: <Users2 size={16} /> },
+    { name: "company-acquires", element: <User2 size={16} /> },
+    { name: "contact-statuses", element: <UserCheck size={16} /> },
+    { name: "action-types", element: <Zap size={16} /> },
+    { name: "order-statuses", element: <ClipboardList size={16} /> },
+    { name: "order-types", element: <Tags size={16} /> },
   ];
 
   const name =

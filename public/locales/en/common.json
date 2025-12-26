@@ -79,7 +79,12 @@
     "acquiredSources": "Acquired Sources",
     "statuses": "Statuses",
     "company-statuses": "Company Statuses",
-    "company-acquires": "Company Acquires"
+    "company-acquires": "Company Acquires",
+    "contact-statuses": "Contact Statuses",
+    "action-types": "Action Types",
+    "orders": "Orders",
+    "order-statuses": "Order Statuses",
+    "order-types": "Order Types"
   },
   "data": {
     "perPage": "{{count}} per page",

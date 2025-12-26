@@ -14,7 +14,7 @@ export type ContactsQuery = {
 
 export const contactFiltersSchema = z.object({
   search: z.string().trim().optional().default(""),
-  district: z.string().array().optional().default([]),
+  company: z.string().trim().optional().default(""),
   user: z.string().array().optional().default([]),
   status: z.string().array().optional().default([]),
 });
@@ -36,9 +36,9 @@ export async function fetchContacts(
   if (q.sortBy) {
     params.sort = q.sortBy + (q.sortDir === "desc" ? ",desc" : ",asc");
   }
-  const { search, district, status, user } = q.filters;
+  const { search, company, status, user } = q.filters;
   if (search) params.search = search;
-  if (district) params.districtId = district;
+  if (company) params.company = company;
   if (status) params.statusId = status;
   if (user) params.userId = user;
 
