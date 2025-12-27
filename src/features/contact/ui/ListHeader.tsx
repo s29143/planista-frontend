@@ -1,10 +1,10 @@
 import { useTranslation } from "react-i18next";
-import { useCompanyStore } from "../model/store";
+import { useContactStore } from "../model/store";
 import { Badge, Group, Select } from "@mantine/core";
 
 export default function ListHeader() {
   const { t } = useTranslation();
-  const { pageSize, setPageSize, total } = useCompanyStore();
+  const { pageSize, setPageSize, total } = useContactStore();
 
   return (
     <Group justify="space-between" align="center">

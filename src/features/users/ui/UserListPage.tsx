@@ -8,6 +8,7 @@ import {
   fetchUsers,
   type UserFilters,
 } from "../api/queries";
+import { http } from "@/shared/api/http";
 
 const userFilterFields: FilterField<keyof UserFilters & string>[] = [
   {
@@ -34,6 +35,9 @@ export default function UserListPage() {
       fetcher={fetchUsers}
       columns={userColumns}
       initialPageSize={10}
+      deleteFn={async (row) => {
+        http.delete("/users/" + row.id);
+      }}
     />
   );
 }
