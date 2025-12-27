@@ -8,8 +8,11 @@
   "phoneAgreement": "Phone agreement",
   "emailAgreement": "E-mail agreement",
   "user": "User",
+  "userId": "User",
   "company": "Company",
+  "companyId": "Company",
   "status": "Status",
+  "statusId": "Status",
   "title": {
     "create": "Create Contact",
     "update": "Update Contact"

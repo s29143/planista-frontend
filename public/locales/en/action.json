@@ -1,0 +1,22 @@
+{
+  "date": "Date",
+  "text": "Text",
+  "done": "Done",
+  "prior": "Priority",
+  "reminder": "Reminder",
+  "user": "User",
+  "userId": "User",
+  "company": "Company",
+  "companyId": "Company",
+  "contact": "Contact",
+  "contactId": "Contact",
+  "type": "Type",
+  "typeId": "Type",
+  "title": {
+    "create": "Create Action",
+    "update": "Update Action"
+  },
+  "errors": {
+    "required": "This field is required"
+  }
+}

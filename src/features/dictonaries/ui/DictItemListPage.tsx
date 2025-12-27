@@ -3,16 +3,13 @@ import type { ColumnDef } from "@/shared/ui/DataTableView";
 import type { FilterField } from "@/shared/ui/FilterBar";
 import { http } from "@/shared/api/http";
 import { useTranslation } from "react-i18next";
-import { type DictItem } from "../model/store";
+import { type DictItem, type Filters } from "../model/store";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
-import {
-  dictItemFiltersSchema,
-  fetchDictItems,
-  type DictItemFilters,
-} from "../api/queries";
+import { fetchDictItems } from "../api/queries";
+import { FiltersSchema } from "@/features/company/model/store";
 
-const dictItemFilterFields: FilterField<keyof DictItemFilters & string>[] = [
+const dictItemFilterFields: FilterField<keyof Filters & string>[] = [
   {
     type: "text",
     name: "search",
@@ -37,10 +34,10 @@ export default function DictItemListPage() {
     }
   }, [module]);
   return (
-    <DataListView<DictItemFilters, DictItem>
+    <DataListView<Filters, DictItem>
       key={module}
       filtersConfig={dictItemFilterFields}
-      filtersSchema={dictItemFiltersSchema}
+      filtersSchema={FiltersSchema}
       fetcher={fetch}
       columns={dictItemColumns}
       initialPageSize={20}

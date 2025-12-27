@@ -76,7 +76,10 @@ export default function DictItemForm({
 
       if (n?.fieldErrors) {
         Object.entries(n.fieldErrors).forEach(([field, msg]) =>
-          setError(field as keyof FormValues, { type: "server", message: msg })
+          setError(field as keyof FormValues, {
+            type: "server",
+            message: msg.replaceAll("{field}", tDictItem(field)),
+          })
         );
       }
       if (!n?.fieldErrors || Object.keys(n.fieldErrors).length === 0) {

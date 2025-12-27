@@ -1,5 +1,4 @@
 import {
-  TextInput,
   Button,
   Group,
   Stack,
@@ -11,6 +10,7 @@ import {
   Anchor,
   Container,
   Checkbox,
+  Textarea,
 } from "@mantine/core";
 import { Controller, useForm, type Resolver } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -18,19 +18,20 @@ import { Link } from "react-router-dom";
 import { AsyncSelectRHF } from "@/shared/ui/AsyncSelectRHF";
 import { useEffect, useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { createContactSchema, type FormValues } from "../model/contactSchema";
+import { createActionSchema, type FormValues } from "../model/actionSchema";
 import { notifications } from "@mantine/notifications";
 import { X } from "lucide-react";
-import { MaskedTextInput } from "@/shared/ui/MaskedTextInput";
+import { DateInput } from "@mantine/dates";
 
 const API = {
-  statuses: "/contact-statuses",
+  types: "/action-types",
   company: "/companies",
+  contact: "/contacts",
   users: "/users",
 };
 type SaveFn = (values: FormValues) => Promise<{ id?: string } | void>;
 
-export default function ContactForm({
+export default function ActionForm({
   initialValues,
   loading = false,
   save,
@@ -45,9 +46,9 @@ export default function ContactForm({
   title?: React.ReactNode;
 }) {
   const { t } = useTranslation();
-  const { t: tContact } = useTranslation("contact");
+  const { t: tAction } = useTranslation("action");
 
-  const schema = useMemo(() => createContactSchema(t, tContact), [t, tContact]);
+  const schema = useMemo(() => createActionSchema(), []);
 
   const {
     register,
@@ -59,7 +60,7 @@ export default function ContactForm({
   } = useForm<FormValues>({
     resolver: zodResolver(schema) as Resolver<FormValues, any, FormValues>,
     mode: "onChange",
-    defaultValues: { firstName: "", lastName: "", ...initialValues },
+    defaultValues: { text: "", ...initialValues },
   });
 
   useEffect(() => {
@@ -83,7 +84,7 @@ export default function ContactForm({
         Object.entries(n.fieldErrors).forEach(([field, msg]) =>
           setError(field as keyof FormValues, {
             type: "server",
-            message: msg.replaceAll("{field}", tContact(field)),
+            message: msg.replaceAll("{field}", tAction(field)),
           })
         );
       }
@@ -114,7 +115,7 @@ export default function ContactForm({
         <Stack gap="md">
           <Group justify="space-between" align="center">
             <Title order={2}>{title}</Title>
-            <Anchor component={Link} to="/contacts" size="sm">
+            <Anchor component={Link} to="/actions" size="sm">
               ← {t("actions.backToList")}
             </Anchor>
           </Group>
@@ -122,115 +123,63 @@ export default function ContactForm({
           <form onSubmit={handleSubmit(submit)} noValidate>
             <Stack gap="lg">
               <Grid gutter="md">
-                <Grid.Col span={{ base: 12, md: 6 }}>
-                  <TextInput
-                    label={tContact("firstName")}
-                    placeholder={tContact("placeholders.firstName")}
-                    withAsterisk
-                    {...register("firstName")}
-                    error={errors.firstName?.message}
-                  />
-                </Grid.Col>
-                <Grid.Col span={{ base: 12, md: 6 }}>
-                  <TextInput
-                    label={tContact("lastName")}
-                    placeholder={tContact("placeholders.lastName")}
-                    withAsterisk
-                    {...register("lastName")}
-                    error={errors.lastName?.message}
-                  />
-                </Grid.Col>
-
-                <Grid.Col span={{ base: 12, md: 12 }}>
-                  <TextInput
-                    label={tContact("jobTitle")}
-                    placeholder={tContact("placeholders.jobTitle")}
-                    {...register("jobTitle")}
-                    error={errors.jobTitle?.message}
-                  />
-                </Grid.Col>
-
-                <Grid.Col span={{ base: 12, md: 6 }}>
-                  <Controller
-                    name="phoneNumber"
-                    control={control}
-                    render={({ field }) => (
-                      <MaskedTextInput
-                        label={tContact("phoneNumber")}
-                        placeholder="+48 123 456 789"
-                        mask={[
-                          {
-                            mask: "000 000 000",
-                          },
-                          {
-                            mask: "+48 000 000 000",
-                          },
-                        ]}
-                        {...register("phoneNumber")}
-                        error={errors.phoneNumber?.message}
-                        value={field.value ?? ""}
-                        onAccept={(value) => field.onChange(value)}
-                        onBlur={field.onBlur}
-                      />
-                    )}
-                  ></Controller>
-                </Grid.Col>
-
-                <Grid.Col span={{ base: 12, md: 6 }}>
-                  <Controller
-                    name="mobileNumber"
-                    control={control}
-                    render={({ field }) => (
-                      <MaskedTextInput
-                        label={tContact("mobileNumber")}
-                        placeholder="+48 123 456 789"
-                        mask={[
-                          {
-                            mask: "000 000 000",
-                          },
-                          {
-                            mask: "+48 000 000 000",
-                          },
-                        ]}
-                        {...register("mobileNumber")}
-                        error={errors.mobileNumber?.message}
-                        value={field.value ?? ""}
-                        onAccept={(value) => field.onChange(value)}
-                        onBlur={field.onBlur}
-                      />
-                    )}
-                  ></Controller>
-                </Grid.Col>
                 <Grid.Col span={{ base: 12, md: 4 }}>
-                  <TextInput
-                    label={tContact("email")}
-                    placeholder={tContact("placeholders.email")}
-                    {...register("email")}
-                    error={errors.email?.message}
+                  <Controller
+                    name="date"
+                    control={control}
+                    render={({ field }) => (
+                      <DateInput
+                        label={tAction("date")}
+                        placeholder={tAction("placeholders.date")}
+                        withAsterisk
+                        valueFormat="YYYY-MM-DD"
+                        value={field.value ?? null}
+                        onChange={(value) => field.onChange(value)}
+                        onBlur={field.onBlur}
+                        error={errors.date?.message}
+                      />
+                    )}
+                  />
+                </Grid.Col>
+                <Grid.Col span={12}>
+                  <Textarea
+                    label={tAction("text")}
+                    minRows={3}
+                    autosize
+                    {...register("text")}
+                    error={errors.text?.message}
                   />
                 </Grid.Col>
                 <Grid.Col span={{ base: 12, md: 4 }}>
                   <Checkbox
-                    label={tContact("phoneAgreement")}
-                    {...register("phoneAgreement")}
-                    error={errors.phoneAgreement?.message}
+                    label={tAction("done")}
+                    {...register("done")}
+                    error={errors.done?.message}
                     className="mt-8"
                   />
                 </Grid.Col>
                 <Grid.Col span={{ base: 12, md: 4 }}>
                   <Checkbox
-                    label={tContact("emailAgreement")}
-                    {...register("emailAgreement")}
-                    error={errors.emailAgreement?.message}
+                    label={tAction("prior")}
+                    {...register("prior")}
+                    error={errors.prior?.message}
+                    className="mt-8"
+                  />
+                </Grid.Col>
+                <Grid.Col span={{ base: 12, md: 4 }}>
+                  <Checkbox
+                    label={tAction("reminder")}
+                    {...register("reminder")}
+                    error={errors.reminder?.message}
                     className="mt-8"
                   />
                 </Grid.Col>
 
-                <Grid.Col span={{ base: 12, md: 4 }}>
+                <Grid.Col span={{ base: 12, md: 3 }}>
                   <AsyncSelectRHF<FormValues>
                     control={control}
                     name="companyId"
-                    label={tContact("company")}
+                    label={tAction("company")}
                     withAsterisk
                     mapItem={(i) => {
                       return {
@@ -241,11 +190,25 @@ export default function ContactForm({
                     endpoint={API.company}
                   />
                 </Grid.Col>
-                <Grid.Col span={{ base: 12, md: 4 }}>
+                <Grid.Col span={{ base: 12, md: 3 }}>
+                  <AsyncSelectRHF<FormValues>
+                    control={control}
+                    name="contactId"
+                    label={tAction("contact")}
+                    mapItem={(i) => {
+                      return {
+                        value: String(i.id),
+                        label: `${i.firstName} ${i.lastName})`,
+                      };
+                    }}
+                    endpoint={API.contact}
+                  />
+                </Grid.Col>
+                <Grid.Col span={{ base: 12, md: 3 }}>
                   <AsyncSelectRHF<FormValues>
                     control={control}
                     name="userId"
-                    label={tContact("user")}
+                    label={tAction("user")}
                     mapItem={(i) => {
                       return {
                         value: String(i.id),
@@ -255,21 +218,19 @@ export default function ContactForm({
                     endpoint={API.users}
                   />
                 </Grid.Col>
-
                 <Grid.Col span={{ base: 12, md: 3 }}>
                   <AsyncSelectRHF<FormValues>
                     control={control}
-                    name="statusId"
-                    label={tContact("status")}
-                    endpoint={API.statuses}
+                    name="typeId"
+                    label={tAction("type")}
+                    endpoint={API.types}
                   />
                 </Grid.Col>
               </Grid>
-
               <Divider my="xs" />
 
               <Group justify="flex-end">
-                <Button variant="default" component={Link} to="/contacts">
+                <Button variant="default" component={Link} to="/actions">
                   {t("actions.cancel")}
                 </Button>
                 <Button

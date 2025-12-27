@@ -2,7 +2,6 @@ import type { PagedResponse, QueryState } from "@/shared/ui/DataTableView";
 import type { Contact, Filters, SortDir } from "../model/store";
 import { http } from "@/shared/api/http";
 import qs from "qs";
-import z from "zod";
 
 export type ContactsQuery = {
   page: number;
@@ -12,21 +11,13 @@ export type ContactsQuery = {
   filters: Filters;
 };
 
-export const contactFiltersSchema = z.object({
-  search: z.string().trim().optional().default(""),
-  company: z.string().trim().optional().default(""),
-  user: z.string().array().optional().default([]),
-  status: z.string().array().optional().default([]),
-});
-
-export type ContactFilters = z.infer<typeof contactFiltersSchema>;
 export type ContactsResponse = {
   content: Contact[];
   total: number;
 };
 
 export async function fetchContacts(
-  q: QueryState<ContactFilters, Contact>,
+  q: QueryState<Filters, Contact>,
   signal?: AbortSignal
 ) {
   const params: Record<string, any> = {

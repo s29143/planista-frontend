@@ -8,8 +8,11 @@
   "phoneAgreement": "Zgoda na telefon",
   "emailAgreement": "Zgoda na e-mail",
   "user": "Użytkownik",
+  "userId": "Użytkownik",
   "company": "Firma",
+  "companyId": "Firma",
   "status": "Status",
+  "statusId": "Status",
   "title": {
     "create": "Dodaj kontakt",
     "update": "Edytuj kontakt"

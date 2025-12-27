@@ -83,7 +83,10 @@ export default function CompanyForm({
 
       if (n?.fieldErrors) {
         Object.entries(n.fieldErrors).forEach(([field, msg]) =>
-          setError(field as keyof FormValues, { type: "server", message: msg })
+          setError(field as keyof FormValues, {
+            type: "server",
+            message: msg.replaceAll("{field}", tCompany(field)),
+          })
         );
       }
       if (!n?.fieldErrors || Object.keys(n.fieldErrors).length === 0) {

@@ -1,30 +1,34 @@
 {
-    "shortName": "Short name",
-    "fullName": "Full name",
-    "nip": "NIP",
-    "postalCode": "Postal code",
-    "street": "Street",
-    "houseNumber": "House number",
-    "apartmentNumber": "Apartment number",
-    "phoneNumber": "Phone number",
-    "email": "Email",
-    "wwwSite": "Website",
-    "comments": "Comments",
-    "userId": "User",
-    "user": "User",
-    "acquired": "Acquired from",
-    "district": "District",
-    "country": "Country",
-    "status": "Status",
-    "title": {
-        "create": "Create Company",
-        "update": "Update Company"
-    },
-    "errors": {
-        "required": "This field is required",
-        "invalidEmail": "Invalid email format",
-        "invalidPhone": "Invalid phone number format",
-        "invalidNip": "Invalid NIP number",
-        "invalidPostalCode": "Invalid postal code format"
-    }
+  "shortName": "Short name",
+  "fullName": "Full name",
+  "nip": "NIP",
+  "postalCode": "Postal code",
+  "street": "Street",
+  "houseNumber": "House number",
+  "apartmentNumber": "Apartment number",
+  "phoneNumber": "Phone number",
+  "email": "Email",
+  "wwwSite": "Website",
+  "comments": "Comments",
+  "userId": "User",
+  "user": "User",
+  "acquired": "Acquired from",
+  "acquiredId": "Acquired from",
+  "district": "District",
+  "disctrictId": "District",
+  "country": "Country",
+  "countryId": "Country",
+  "status": "Status",
+  "statusId": "Status",
+  "title": {
+    "create": "Create Company",
+    "update": "Update Company"
+  },
+  "errors": {
+    "required": "This field is required",
+    "invalidEmail": "Invalid email format",
+    "invalidPhone": "Invalid phone number format",
+    "invalidNip": "Invalid NIP number",
+    "invalidPostalCode": "Invalid postal code format"
+  }
 }

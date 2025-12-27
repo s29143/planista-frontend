@@ -1,14 +1,9 @@
 import type { QueryState } from "@/shared/ui/DataTableView";
-import z from "zod";
-import type { DictItem } from "../model/store";
+import type { DictItem, Filters } from "../model/store";
 import { http } from "@/shared/api/http";
 
-export const dictItemFiltersSchema = z.object({
-  search: z.string().trim().optional().default(""),
-});
-export type DictItemFilters = z.infer<typeof dictItemFiltersSchema>;
 export async function fetchDictItems(
-  q: QueryState<DictItemFilters, DictItem>,
+  q: QueryState<Filters, DictItem>,
   module: string,
   signal?: AbortSignal
 ) {

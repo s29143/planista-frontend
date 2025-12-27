@@ -2,12 +2,12 @@ import z from "zod";
 import { create } from "zustand";
 
 export type DictItem = {
-id: string;
-name: string;
+  id: string;
+  name: string;
 };
 
 const FiltersSchema = z.object({
-q: z.string().trim().optional().default(""),
+  search: z.string().trim().optional().default(""),
 });
 export type Filters = z.infer<typeof FiltersSchema>;
 
@@ -28,7 +28,6 @@ type DictItemStore = {
   resetFilters: () => void;
 };
 
-
 export const useDictItemStore = create<DictItemStore>((set, get) => ({
   page: 1,
   pageSize: 20,
@@ -47,11 +46,10 @@ export const useDictItemStore = create<DictItemStore>((set, get) => ({
     }
   },
   setFilters: (f) =>
-  set((state) => ({
-    filters: FiltersSchema.parse({ ...state.filters, ...f }),
-    page: 1,
-    })
-  ),
+    set((state) => ({
+      filters: FiltersSchema.parse({ ...state.filters, ...f }),
+      page: 1,
+    })),
   setTotal: (t) => set({ total: t }),
   resetFilters: () => set({ filters: FiltersSchema.parse({}) }),
 }));

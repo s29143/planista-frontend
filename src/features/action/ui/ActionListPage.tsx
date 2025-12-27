@@ -2,11 +2,11 @@ import { DataListView } from "@/shared/ui/DataListView";
 import type { ColumnDef } from "@/shared/ui/DataTableView";
 import type { FilterField } from "@/shared/ui/FilterBar";
 import { useTranslation } from "react-i18next";
-import { FiltersSchema, type Contact, type Filters } from "../model/store";
-import { fetchContacts } from "../api/queries";
+import { FiltersSchema, type Action, type Filters } from "../model/store";
+import { fetchActions } from "../api/queries";
 import { http } from "@/shared/api/http";
 
-const contactFilterFields: FilterField<keyof Filters & string>[] = [
+const actionFilterFields: FilterField<keyof Filters & string>[] = [
   {
     type: "text",
     name: "search",
@@ -34,29 +34,29 @@ const contactFilterFields: FilterField<keyof Filters & string>[] = [
   },
   {
     type: "select",
-    name: "status",
-    label: "Status",
+    name: "type",
+    label: "type",
     multiple: true,
     clearable: true,
-    endpoint: "/contact-statuses",
+    endpoint: "/action-types",
     placeholder: "Dowolny",
   },
 ];
 
-export default function ContactListPage() {
-  const { t } = useTranslation("contact");
-  const ContactColumns: ColumnDef<Contact>[] = [
-    { key: "lastName", header: t("lastName") },
-    { key: "firstName", header: t("firstName") },
+export default function ActionListPage() {
+  const { t } = useTranslation("action");
+  const actionColumns: ColumnDef<Action>[] = [
+    { key: "date", header: t("date") },
+    { key: "text", header: t("text") },
     {
       key: "company",
       header: t("company"),
       cell: (c) => c.company?.shortName || "—",
     },
     {
-      key: "status",
-      header: t("status"),
-      cell: (row) => row.status?.name,
+      key: "type",
+      header: t("type"),
+      cell: (row) => row.type?.name,
     },
     {
       key: "user",
@@ -65,15 +65,15 @@ export default function ContactListPage() {
     },
   ];
   return (
-    <DataListView<Filters, Contact>
-      filtersConfig={contactFilterFields}
+    <DataListView<Filters, Action>
+      filtersConfig={actionFilterFields}
       filtersSchema={FiltersSchema}
-      fetcher={fetchContacts}
-      columns={ContactColumns}
+      fetcher={fetchActions}
+      columns={actionColumns}
       initialPageSize={10}
       canDelete={true}
       deleteFn={async (row) => {
-        http.delete("/contacts/" + row.id);
+        http.delete("/action/" + row.id);
       }}
     />
   );

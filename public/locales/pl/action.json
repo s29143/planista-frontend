@@ -1,0 +1,22 @@
+{
+  "date": "Data",
+  "text": "Tekst",
+  "done": "Wykonane",
+  "prior": "Priorytet",
+  "reminder": "Przypomnienie",
+  "user": "Użytkownik",
+  "userId": "Użytkownik",
+  "company": "Firma",
+  "companyId": "Firma",
+  "contact": "Kontakt",
+  "contactId": "Kontakt",
+  "type": "Typ",
+  "typeId": "Typ",
+  "title": {
+    "create": "Dodaj działanie",
+    "update": "Edytuj działanie"
+  },
+  "errors": {
+    "required": "To pole jest wymagane"
+  }
+}

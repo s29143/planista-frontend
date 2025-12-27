@@ -1,48 +1,50 @@
 import type { Company } from "@/features/company/model/store";
+import type { Contact } from "@/features/contact/model/store";
 import z from "zod";
 import { create } from "zustand";
 
-export type Contact = {
+export type Action = {
   id: string;
-  firstName: string;
-  lastName: string;
-  jobTitle?: string;
-  phoneNumber?: string;
-  mobileNumber?: string;
-  email?: string;
+  date: string;
+  text: string;
+  done: boolean;
+  prior: boolean;
+  reminder: boolean;
+  user: { id: string; name: string };
   company?: Company;
-  user?: { id: string; name: string };
-  status: { id: string; name: string };
+  contact?: Contact;
+  type?: { id: string; name: string };
   createdAt?: string;
   updatedAt?: string;
 };
+
 export const FiltersSchema = z.object({
   search: z.string().trim().optional().default(""),
   company: z.string().trim().optional().default(""),
   user: z.string().array().optional().default([]),
-  status: z.string().array().optional().default([]),
+  type: z.string().array().optional().default([]),
 });
 
 export type Filters = z.infer<typeof FiltersSchema>;
 
 export type SortDir = "asc" | "desc";
 
-type ContactStore = {
+type ActionStore = {
   page: number;
   pageSize: number;
-  sortBy: keyof Contact | null;
+  sortBy: keyof Action | null;
   sortDir: SortDir;
   total: number;
   filters: Filters;
   setPage: (p: number) => void;
   setPageSize: (s: number) => void;
-  setSort: (by: keyof Contact) => void;
+  setSort: (by: keyof Action) => void;
   setFilters: (f: Partial<Filters>) => void;
   setTotal: (t: number) => void;
   resetFilters: () => void;
 };
 
-export const useContactStore = create<ContactStore>((set, get) => ({
+export const useActionStore = create<ActionStore>((set, get) => ({
   page: 1,
   pageSize: 10,
   sortBy: null,

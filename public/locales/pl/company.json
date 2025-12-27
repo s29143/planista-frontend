@@ -1,29 +1,34 @@
 {
-    "fullName": "Nazwa firmy",
-    "shortName": "Nazwa skrócona",
-    "nip": "NIP",
-    "postalCode": "Kod pocztowy",
-    "street": "Ulica",
-    "houseNumber": "Numer domu",
-    "apartmentNumber": "Numer mieszkania",
-    "phoneNumber": "Numer telefonu",
-    "email": "Email",
-    "wwwSite": "Strona WWW",
-    "comments": "Uwagi",
-    "user": "Opiekun",
-    "acquired": "Źródło pozyskania",
-    "district": "Województwo",
-    "country": "Kraj",
-    "status": "Status",
-    "title": {
-        "create": "Dodaj firmę",
-        "update": "Edytuj firmę"
-    },
-    "errors": {
-        "required": "To pole jest wymagane",
-        "invalidEmail": "Nieprawidłowy format email",
-        "invalidPhone": "Nieprawidłowy format numeru telefonu",
-        "invalidNip": "Nieprawidłowy numer NIP",
-        "invalidPostalCode": "Nieprawidłowy format kodu pocztowego"
-    }
+  "fullName": "Nazwa firmy",
+  "shortName": "Nazwa skrócona",
+  "nip": "NIP",
+  "postalCode": "Kod pocztowy",
+  "street": "Ulica",
+  "houseNumber": "Numer domu",
+  "apartmentNumber": "Numer mieszkania",
+  "phoneNumber": "Numer telefonu",
+  "email": "Email",
+  "wwwSite": "Strona WWW",
+  "comments": "Uwagi",
+  "user": "Opiekun",
+  "userId": "Opiekun",
+  "acquired": "Źródło pozyskania",
+  "acquiredId": "Źródło pozyskania",
+  "district": "Województwo",
+  "disctrictId": "Województwo",
+  "country": "Kraj",
+  "countryId": "Kraj",
+  "status": "Status",
+  "statusId": "Status",
+  "title": {
+    "create": "Dodaj firmę",
+    "update": "Edytuj firmę"
+  },
+  "errors": {
+    "required": "To pole jest wymagane",
+    "invalidEmail": "Nieprawidłowy format email",
+    "invalidPhone": "Nieprawidłowy format numeru telefonu",
+    "invalidNip": "Nieprawidłowy numer NIP",
+    "invalidPostalCode": "Nieprawidłowy format kodu pocztowego"
+  }
 }

@@ -1,23 +1,23 @@
 import type { PagedResponse, QueryState } from "@/shared/ui/DataTableView";
-import type { Company, Filters, SortDir } from "../model/store";
+import type { Action, Filters, SortDir } from "../model/store";
 import { http } from "@/shared/api/http";
 import qs from "qs";
 
-export type CompaniesQuery = {
+export type ActionsQuery = {
   page: number;
   pageSize: number;
-  sortBy?: keyof Company | null;
+  sortBy?: keyof Action | null;
   sortDir?: SortDir;
   filters: Filters;
 };
 
-export type CompaniesResponse = {
-  content: Company[];
+export type ActionsResponse = {
+  content: Action[];
   total: number;
 };
 
-export async function fetchCompanies(
-  q: QueryState<Filters, Company>,
+export async function fetchActions(
+  q: QueryState<Filters, Action>,
   signal?: AbortSignal
 ) {
   const params: Record<string, any> = {
@@ -27,13 +27,13 @@ export async function fetchCompanies(
   if (q.sortBy) {
     params.sort = q.sortBy + (q.sortDir === "desc" ? ",desc" : ",asc");
   }
-  const { search, district, status, user } = q.filters;
+  const { search, company, type, user } = q.filters;
   if (search) params.search = search;
-  if (district) params.districtId = district;
-  if (status) params.statusId = status;
+  if (company) params.company = company;
+  if (type) params.typeId = type;
   if (user) params.userId = user;
 
-  const res = await http.get<PagedResponse<Company>>("/companies", {
+  const res = await http.get<PagedResponse<Action>>("/actions", {
     params,
     signal,
     paramsSerializer: (p) => qs.stringify(p, { arrayFormat: "repeat" }),

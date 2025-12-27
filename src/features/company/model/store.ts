@@ -2,37 +2,29 @@ import z from "zod";
 import { create } from "zustand";
 
 export type Company = {
-id: string;
-fullName: string;
-shortName: string;
-nip?: string;
-district?: { id: string; name: string };
-industry?: { id: string; name: string };
-user?: { id: string; name: string };
-acquiredBy?: { id: string; name: string };
-status: { id: string; name: string };
-createdAt?: string;
-updatedAt?: string;
+  id: string;
+  fullName: string;
+  shortName: string;
+  nip?: string;
+  district?: { id: string; name: string };
+  industry?: { id: string; name: string };
+  user?: { id: string; name: string };
+  acquiredBy?: { id: string; name: string };
+  status: { id: string; name: string };
+  createdAt?: string;
+  updatedAt?: string;
 };
 
-
-const FiltersSchema = z.object({
-q: z.string().trim().optional().default(""),
-city: z.string().trim().optional(),
-industry: z.string().trim().optional(),
-status: z.enum(["active", "inactive", "prospect"]).optional(),
-employeesMin: z.number().int().nonnegative().optional(),
-employeesMax: z.number().int().nonnegative().optional(),
-created: z
-.tuple([z.date().optional(), z.date().optional()])
-.optional()
-.default([undefined, undefined]),
+export const FiltersSchema = z.object({
+  search: z.string().trim().optional().default(""),
+  district: z.string().array().optional().default([]),
+  user: z.string().array().optional().default([]),
+  status: z.string().array().optional().default([]),
 });
+
 export type Filters = z.infer<typeof FiltersSchema>;
 
-
 export type SortDir = "asc" | "desc";
-
 
 type CompanyStore = {
   page: number;
@@ -49,7 +41,6 @@ type CompanyStore = {
   resetFilters: () => void;
 };
 
-
 export const useCompanyStore = create<CompanyStore>((set, get) => ({
   page: 1,
   pageSize: 10,
@@ -57,9 +48,9 @@ export const useCompanyStore = create<CompanyStore>((set, get) => ({
   sortDir: "asc",
   total: 0,
   filters: FiltersSchema.parse({}),
-    setPage: (p) => set({ page: p }),
-    setPageSize: (s) => set({ pageSize: s, page: 1 }),
-    setSort: (by) => {
+  setPage: (p) => set({ page: p }),
+  setPageSize: (s) => set({ pageSize: s, page: 1 }),
+  setSort: (by) => {
     const { sortBy, sortDir } = get();
     if (sortBy === by) {
       set({ sortDir: sortDir === "asc" ? "desc" : "asc" });
@@ -68,11 +59,10 @@ export const useCompanyStore = create<CompanyStore>((set, get) => ({
     }
   },
   setFilters: (f) =>
-  set((state) => ({
-    filters: FiltersSchema.parse({ ...state.filters, ...f }),
-    page: 1,
-    })
-  ),
+    set((state) => ({
+      filters: FiltersSchema.parse({ ...state.filters, ...f }),
+      page: 1,
+    })),
   setTotal: (t) => set({ total: t }),
   resetFilters: () => set({ filters: FiltersSchema.parse({}), page: 1 }),
 }));

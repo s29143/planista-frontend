@@ -2,15 +2,12 @@ import { DataListView } from "@/shared/ui/DataListView";
 import type { ColumnDef } from "@/shared/ui/DataTableView";
 import type { FilterField } from "@/shared/ui/FilterBar";
 import { useTranslation } from "react-i18next";
-import type { Company } from "../model/store";
-import {
-  companyFiltersSchema,
-  fetchCompanies,
-  type CompanyFilters,
-} from "../api/queries";
+import { FiltersSchema, type Company } from "../model/store";
+import { fetchCompanies } from "../api/queries";
+import type { Filters } from "../model/store";
 import { http } from "@/shared/api/http";
 
-const companyFilterFields: FilterField<keyof CompanyFilters & string>[] = [
+const companyFilterFields: FilterField<keyof Filters & string>[] = [
   {
     type: "text",
     name: "search",
@@ -72,9 +69,9 @@ export default function CompanyListPage() {
     },
   ];
   return (
-    <DataListView<CompanyFilters, Company>
+    <DataListView<Filters, Company>
       filtersConfig={companyFilterFields}
-      filtersSchema={companyFiltersSchema}
+      filtersSchema={FiltersSchema}
       fetcher={fetchCompanies}
       columns={companyColumns}
       initialPageSize={10}

@@ -9,6 +9,7 @@ import { companyRoutes } from "@/features/company";
 import { dictItemRoutes } from "@/features/dictonaries";
 import { userRoutes } from "@/features/users";
 import { contactRoutes } from "@/features/contact";
+import { actionRoutes } from "@/features/action";
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,11 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <div>Strona główna - dostęp tylko dla zalogowanych</div>,
+      },
+
+      {
+        path: "actions",
+        children: actionRoutes,
       },
       {
         path: "companies",
