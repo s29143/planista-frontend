@@ -1,0 +1,25 @@
+{
+  "product": "Product",
+  "quantity": "Quantity",
+  "dateFrom": "Date From",
+  "dateTo": "Date To",
+  "company": "Company",
+  "companyId": "Company",
+  "contact": "Contact",
+  "contactId": "Contact",
+  "type": "Type",
+  "typeId": "Type",
+  "status": "Status",
+  "statusId": "Status",
+  "title": {
+    "create": "Create Order",
+    "update": "Update Order"
+  },
+  "errors": {
+    "required": "This field is required"
+  },
+  "placeholders": {
+    "product": "Enter product",
+    "quantity": "Enter quantity"
+  }
+}

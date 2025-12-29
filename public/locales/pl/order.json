@@ -1,0 +1,25 @@
+{
+  "product": "Produkt",
+  "quantity": "Ilość",
+  "dateFrom": "Data od",
+  "dateTo": "Data do",
+  "company": "Firma",
+  "companyId": "Firma",
+  "contact": "Kontakt",
+  "contactId": "Kontakt",
+  "type": "Typ",
+  "typeId": "Typ",
+  "status": "Status",
+  "statusId": "Status",
+  "title": {
+    "create": "Dodaj zlecenie",
+    "update": "Edytuj zlecenie"
+  },
+  "errors": {
+    "required": "To pole jest wymagane"
+  },
+  "placeholders": {
+    "product": "Wpisz produkt",
+    "quantity": "Wpisz ilość"
+  }
+}

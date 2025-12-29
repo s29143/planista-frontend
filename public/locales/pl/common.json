@@ -51,8 +51,8 @@
     "invalidUrl": "Nieprawidłowy adres URL",
     "invalidPhone": "Nieprawidłowy numer telefonu",
     "invalidNumber": "{{field}} musi być liczbą",
-    "min": "{{field}} musi mieć minimum {{min}} znaków",
-    "max": "{{field}} musi mieć maksymalnie {{max}} znaków",
+    "min": "{{field}} musi być minimum {{min}}",
+    "max": "{{field}} musi być maksymalnie {{max}}",
     "passwordMatch": "Hasła nie pasują do siebie",
     "passwordStrength": "Hasło musi zawierać co najmniej jedną wielką literę, jedną małą literę, jedną cyfrę i jeden znak specjalny"
   },
@@ -100,5 +100,10 @@
     "updatedAt": "Zaktualizowano",
     "createdBy": "Utworzone przez",
     "updatedBy": "Zaktualizowane przez"
+  },
+  "placeholders": {
+    "search": "Szukaj...",
+    "select": "Wybierz...",
+    "date": "Wybierz datę"
   }
 }

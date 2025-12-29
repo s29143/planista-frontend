@@ -2,8 +2,8 @@ import { DataListView } from "@/shared/ui/DataListView";
 import type { ColumnDef } from "@/shared/ui/DataTableView";
 import type { FilterField } from "@/shared/ui/FilterBar";
 import { useTranslation } from "react-i18next";
-import { FiltersSchema, type Action, type Filters } from "../model/store";
-import { fetchActions } from "../api/queries";
+import { FiltersSchema, type Filters, type Order } from "../model/store";
+import { fetchOrders } from "../api/queries";
 import { http } from "@/shared/api/http";
 
 const filterFields: FilterField<keyof Filters & string>[] = [
@@ -38,16 +38,16 @@ const filterFields: FilterField<keyof Filters & string>[] = [
     label: "type",
     multiple: true,
     clearable: true,
-    endpoint: "/action-types",
+    endpoint: "/order-types",
     placeholder: "Dowolny",
   },
 ];
 
-export default function ActionListPage() {
-  const { t } = useTranslation("action");
-  const columns: ColumnDef<Action>[] = [
-    { key: "date", header: t("date") },
-    { key: "text", header: t("text") },
+export default function OrderListPage() {
+  const { t } = useTranslation("order");
+  const columns: ColumnDef<Order>[] = [
+    { key: "product", header: t("product") },
+    { key: "quantity", header: t("quantity") },
     {
       key: "company",
       header: t("company"),
@@ -56,24 +56,24 @@ export default function ActionListPage() {
     {
       key: "type",
       header: t("type"),
-      cell: (row) => row.type?.name || "—",
+      cell: (row) => row.type?.name,
     },
     {
-      key: "user",
-      header: t("user"),
-      cell: (c) => c.user?.name || "—",
+      key: "status",
+      header: t("status"),
+      cell: (c) => c.status?.name || "—",
     },
   ];
   return (
-    <DataListView<Filters, Action>
+    <DataListView<Filters, Order>
       filtersConfig={filterFields}
       filtersSchema={FiltersSchema}
-      fetcher={fetchActions}
+      fetcher={fetchOrders}
       columns={columns}
       initialPageSize={10}
       canDelete={true}
       deleteFn={async (row) => {
-        http.delete("/actions/" + row.id);
+        http.delete("/orders/" + row.id);
       }}
     />
   );

@@ -9,8 +9,8 @@ import {
   Divider,
   Anchor,
   Container,
-  Checkbox,
-  Textarea,
+  TextInput,
+  NumberInput,
 } from "@mantine/core";
 import { Controller, useForm, type Resolver } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -18,7 +18,7 @@ import { Link } from "react-router-dom";
 import { AsyncSelectRHF } from "@/shared/ui/AsyncSelectRHF";
 import { useEffect, useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { createActionSchema, type FormValues } from "../model/actionSchema";
+import { createOrderSchema, type FormValues } from "../model/orderSchema";
 import { notifications } from "@mantine/notifications";
 import { X } from "lucide-react";
 import { DateInput } from "@mantine/dates";
@@ -27,7 +27,7 @@ const API = {
   types: "/action-types",
   company: "/companies",
   contact: "/contacts",
-  users: "/users",
+  status: "/action-statuses",
 };
 type SaveFn = (values: FormValues) => Promise<{ id?: string } | void>;
 
@@ -46,9 +46,9 @@ export default function ActionForm({
   title?: React.ReactNode;
 }) {
   const { t } = useTranslation();
-  const { t: tAction } = useTranslation("action");
+  const { t: tOrder } = useTranslation("order");
 
-  const schema = useMemo(() => createActionSchema(), []);
+  const schema = useMemo(() => createOrderSchema(t, tOrder), [t, tOrder]);
 
   const {
     register,
@@ -60,7 +60,7 @@ export default function ActionForm({
   } = useForm<FormValues>({
     resolver: zodResolver(schema) as Resolver<FormValues, any, FormValues>,
     mode: "onChange",
-    defaultValues: { text: "", ...initialValues },
+    defaultValues: { product: "", ...initialValues },
   });
 
   useEffect(() => {
@@ -84,7 +84,7 @@ export default function ActionForm({
         Object.entries(n.fieldErrors).forEach(([field, msg]) =>
           setError(field as keyof FormValues, {
             type: "server",
-            message: msg.replaceAll("{field}", tAction(field)),
+            message: msg.replaceAll("{field}", tOrder(field)),
           })
         );
       }
@@ -115,7 +115,7 @@ export default function ActionForm({
         <Stack gap="md">
           <Group justify="space-between" align="center">
             <Title order={2}>{title}</Title>
-            <Anchor component={Link} to="/actions" size="sm">
+            <Anchor component={Link} to="/orders" size="sm">
               ← {t("actions.backToList")}
             </Anchor>
           </Group>
@@ -123,63 +123,73 @@ export default function ActionForm({
           <form onSubmit={handleSubmit(submit)} noValidate>
             <Stack gap="lg">
               <Grid gutter="md">
-                <Grid.Col span={{ base: 12, md: 4 }}>
+                <Grid.Col span={{ base: 12, md: 6 }}>
+                  <TextInput
+                    label={tOrder("product")}
+                    withAsterisk
+                    placeholder={tOrder("placeholders.product")}
+                    {...register("product")}
+                    error={errors.product?.message}
+                  />
+                </Grid.Col>
+                <Grid.Col span={{ base: 12, md: 6 }}>
                   <Controller
-                    name="date"
+                    name="quantity"
+                    control={control}
+                    render={({ field }) => (
+                      <NumberInput
+                        label={tOrder("quantity")}
+                        withAsterisk
+                        placeholder={tOrder("placeholders.quantity")}
+                        value={field.value ?? undefined}
+                        onChange={(value) => field.onChange(value)}
+                        onBlur={field.onBlur}
+                        error={errors.quantity?.message}
+                      />
+                    )}
+                  />
+                </Grid.Col>
+                <Grid.Col span={{ base: 12, md: 6 }}>
+                  <Controller
+                    name="dateFrom"
                     control={control}
                     render={({ field }) => (
                       <DateInput
-                        label={tAction("date")}
+                        label={tOrder("dateFrom")}
                         placeholder={t("placeholders.date")}
                         withAsterisk
                         valueFormat="YYYY-MM-DD"
                         value={field.value ?? null}
                         onChange={(value) => field.onChange(value)}
                         onBlur={field.onBlur}
-                        error={errors.date?.message}
+                        error={errors.dateFrom?.message}
                       />
                     )}
                   />
                 </Grid.Col>
-                <Grid.Col span={12}>
-                  <Textarea
-                    label={tAction("text")}
-                    minRows={3}
-                    autosize
-                    {...register("text")}
-                    error={errors.text?.message}
+                <Grid.Col span={{ base: 12, md: 6 }}>
+                  <Controller
+                    name="dateTo"
+                    control={control}
+                    render={({ field }) => (
+                      <DateInput
+                        label={tOrder("dateTo")}
+                        placeholder={t("placeholders.date")}
+                        withAsterisk
+                        valueFormat="YYYY-MM-DD"
+                        value={field.value ?? null}
+                        onChange={(value) => field.onChange(value)}
+                        onBlur={field.onBlur}
+                        error={errors.dateTo?.message}
+                      />
+                    )}
                   />
                 </Grid.Col>
-                <Grid.Col span={{ base: 12, md: 4 }}>
-                  <Checkbox
-                    label={tAction("done")}
-                    {...register("done")}
-                    error={errors.done?.message}
-                    className="mt-8"
-                  />
-                </Grid.Col>
-                <Grid.Col span={{ base: 12, md: 4 }}>
-                  <Checkbox
-                    label={tAction("prior")}
-                    {...register("prior")}
-                    error={errors.prior?.message}
-                    className="mt-8"
-                  />
-                </Grid.Col>
-                <Grid.Col span={{ base: 12, md: 4 }}>
-                  <Checkbox
-                    label={tAction("reminder")}
-                    {...register("reminder")}
-                    error={errors.reminder?.message}
-                    className="mt-8"
-                  />
-                </Grid.Col>
-
                 <Grid.Col span={{ base: 12, md: 3 }}>
                   <AsyncSelectRHF<FormValues>
                     control={control}
                     name="companyId"
-                    label={tAction("company")}
+                    label={tOrder("company")}
                     withAsterisk
                     mapItem={(i) => {
                       return {
@@ -194,7 +204,7 @@ export default function ActionForm({
                   <AsyncSelectRHF<FormValues>
                     control={control}
                     name="contactId"
-                    label={tAction("contact")}
+                    label={tOrder("contact")}
                     mapItem={(i) => {
                       return {
                         value: String(i.id),
@@ -207,22 +217,16 @@ export default function ActionForm({
                 <Grid.Col span={{ base: 12, md: 3 }}>
                   <AsyncSelectRHF<FormValues>
                     control={control}
-                    name="userId"
-                    label={tAction("user")}
-                    mapItem={(i) => {
-                      return {
-                        value: String(i.id),
-                        label: `${i.firstname} ${i.lastname} (${i.username})`,
-                      };
-                    }}
-                    endpoint={API.users}
+                    name="statusId"
+                    label={tOrder("status")}
+                    endpoint={API.status}
                   />
                 </Grid.Col>
                 <Grid.Col span={{ base: 12, md: 3 }}>
                   <AsyncSelectRHF<FormValues>
                     control={control}
                     name="typeId"
-                    label={tAction("type")}
+                    label={tOrder("type")}
                     endpoint={API.types}
                   />
                 </Grid.Col>
@@ -230,7 +234,7 @@ export default function ActionForm({
               <Divider my="xs" />
 
               <Group justify="flex-end">
-                <Button variant="default" component={Link} to="/actions">
+                <Button variant="default" component={Link} to="/orders">
                   {t("actions.cancel")}
                 </Button>
                 <Button

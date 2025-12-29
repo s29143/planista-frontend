@@ -10,6 +10,7 @@ import { dictItemRoutes } from "@/features/dictonaries";
 import { userRoutes } from "@/features/users";
 import { contactRoutes } from "@/features/contact";
 import { actionRoutes } from "@/features/action";
+import { orderRoutes } from "@/features/order";
 
 const router = createBrowserRouter([
   {
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
       {
         path: "dictionaries",
         children: dictItemRoutes,
+      },
+      {
+        path: "orders",
+        children: orderRoutes,
       },
       {
         path: "users",

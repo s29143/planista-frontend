@@ -135,6 +135,13 @@ export function SidebarNav() {
             active={isActivePath(pathname, "/actions")}
           />
           <NavLink
+            label={t("pages.orders", "Orders")}
+            component={Link}
+            to="/orders"
+            leftSection={<ClipboardList size={16} />}
+            active={isActivePath(pathname, "/orders")}
+          />
+          <NavLink
             label={t("pages.settings", "Settings")}
             leftSection={<Settings size={16} />}
             defaultOpened={
