@@ -1,12 +1,19 @@
 {
-    "firstname": "First Name",
-    "lastname": "Last Name",
-    "username": "Username",
-    "password": "Password",
-    "repassword": "Repeat Password",
-    "title": {
-        "create": "Create User",
-        "update": "Update User"
-    },
-    "userList": "User List"
+  "firstname": "First Name",
+  "lastname": "Last Name",
+  "username": "Username",
+  "password": "Password",
+  "repassword": "Repeat Password",
+  "title": {
+    "create": "Create User",
+    "update": "Update User"
+  },
+  "userList": "User List",
+  "role": "Role",
+  "roles": {
+    "admin": "Administrator",
+    "manager": "Manager",
+    "planner": "Planner",
+    "production": "Production"
+  }
 }

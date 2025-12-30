@@ -3,17 +3,20 @@ import { http } from "@/shared/api/http";
 import { z } from "zod";
 import { useAuthStore } from "../model/store";
 
-const LoginDto = z.object({ username: z.string().nonempty(), password: z.string().nonempty() });
+const LoginDto = z.object({
+  username: z.string().nonempty(),
+  password: z.string().nonempty(),
+});
 const LoginResponse = z.object({
   accessToken: z.string(),
 });
 
-const MeResponse =  z.object({
-    id: z.number(),
-    username: z.string(),
-    firstname: z.string(),
-    lastname: z.string(),
-    roles: z.array(z.string()).optional(),
+const MeResponse = z.object({
+  id: z.number(),
+  username: z.string(),
+  firstname: z.string(),
+  lastname: z.string(),
+  role: z.string().optional(),
 });
 
 const Session = z.object({
@@ -60,7 +63,10 @@ export function useLogout() {
   return useMutation({
     mutationKey: ["auth", "logout"],
     mutationFn: async () => {
-      await http.post("/auth/logout", null, { withCredentials: true, headers: {'X-Client': "WEB", "Content-Type": 'application/json'} });
+      await http.post("/auth/logout", null, {
+        withCredentials: true,
+        headers: { "X-Client": "WEB", "Content-Type": "application/json" },
+      });
       return true;
     },
     onSuccess: () => {

@@ -35,7 +35,7 @@ const filterFields: FilterField<keyof Filters & string>[] = [
   {
     type: "select",
     name: "type",
-    label: "type",
+    label: "Typ",
     multiple: true,
     clearable: true,
     endpoint: "/order-types",

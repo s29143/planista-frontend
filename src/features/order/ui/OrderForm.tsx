@@ -24,14 +24,14 @@ import { X } from "lucide-react";
 import { DateInput } from "@mantine/dates";
 
 const API = {
-  types: "/action-types",
+  types: "/order-types",
   company: "/companies",
   contact: "/contacts",
-  status: "/action-statuses",
+  status: "/order-statuses",
 };
 type SaveFn = (values: FormValues) => Promise<{ id?: string } | void>;
 
-export default function ActionForm({
+export default function OrderForm({
   initialValues,
   loading = false,
   save,

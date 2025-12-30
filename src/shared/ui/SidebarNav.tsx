@@ -27,16 +27,22 @@ import {
 } from "lucide-react";
 import { useMe } from "@/features/auth/api/queries";
 import type { User } from "@/features/auth/model/store";
+import type { TFunction } from "i18next";
 
-function roleBadge(role?: string): { color: string; label: string } {
+function roleBadge(
+  tUser: TFunction,
+  role?: string
+): { color: string; label: string } {
   const r = (role || "USER").toUpperCase();
   switch (r) {
     case "ADMIN":
-      return { color: "red", label: "Admin" };
+      return { color: "red", label: tUser("roles.admin", "Admin") };
     case "MANAGER":
-      return { color: "violet", label: "Manager" };
-    case "OWNER":
-      return { color: "orange", label: "Owner" };
+      return { color: "violet", label: tUser("roles.manager", "Manager") };
+    case "PLANNER":
+      return { color: "orange", label: tUser("roles.planner", "Planner") };
+    case "PRODUCTION":
+      return { color: "blue", label: tUser("roles.production", "Production") };
     default:
       return { color: "blue", label: r.charAt(0) + r.slice(1).toLowerCase() };
   }
@@ -60,6 +66,7 @@ type DictonaryLink = {
 
 export function SidebarNav() {
   const { t } = useTranslation("common");
+  const { t: tUser } = useTranslation("user");
   const { pathname } = useLocation();
   const user = useMe().data;
   const dictonaries: DictonaryLink[] = [
@@ -76,7 +83,7 @@ export function SidebarNav() {
   const name =
     [user?.firstname, user?.lastname].filter(Boolean).join(" ") ||
     user?.username;
-  const { color, label } = roleBadge(user?.roles?.[0]);
+  const { color, label } = roleBadge(tUser, user?.role);
 
   return (
     <Stack gap="md" h="100%">

@@ -33,6 +33,7 @@ export default function UserUpdatePage() {
           firstname: s(data.firstname),
           lastname: s(data.lastname),
           password: s(data.password),
+          role: s(data.role),
         };
 
         setInitial(mapped);

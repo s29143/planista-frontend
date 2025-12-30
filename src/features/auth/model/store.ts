@@ -5,7 +5,7 @@ export type User = {
   username: string;
   firstname: string;
   lastname: string;
-  roles?: string[];
+  roles?: string;
 };
 
 type AuthState = {

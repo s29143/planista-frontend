@@ -11,8 +11,9 @@ import {
   Anchor,
   Container,
   PasswordInput,
+  Select,
 } from "@mantine/core";
-import { useForm, type Resolver } from "react-hook-form";
+import { Controller, useForm, type Resolver } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Link } from "react-router-dom";
 import { useEffect, useMemo } from "react";
@@ -43,6 +44,7 @@ export default function UserForm({
   const schema = useMemo(() => createUserSchema(t, tUser), [t, tUser]);
 
   const {
+    control,
     register,
     setError,
     handleSubmit,
@@ -154,6 +156,32 @@ export default function UserForm({
                     withAsterisk
                     {...register("repassword")}
                     error={errors.repassword?.message}
+                  />
+                </Grid.Col>
+                <Grid.Col span={{ base: 12, md: 4 }}>
+                  <Controller
+                    control={control}
+                    name={"role"}
+                    render={({ field, fieldState }) => (
+                      <Select
+                        label={tUser("role")}
+                        placeholder={"Select role"}
+                        data={[
+                          { value: "ADMIN", label: tUser("roles.admin") },
+                          { value: "MANAGER", label: tUser("roles.manager") },
+                          { value: "planner", label: tUser("roles.planner") },
+                          {
+                            value: "production",
+                            label: tUser("roles.production"),
+                          },
+                        ]}
+                        value={String(field.value ?? null)}
+                        onChange={(v) => field.onChange(v ?? undefined)}
+                        clearable={true}
+                        error={fieldState.error?.message}
+                        nothingFoundMessage={t("messages.noData")}
+                      />
+                    )}
                   />
                 </Grid.Col>
               </Grid>
