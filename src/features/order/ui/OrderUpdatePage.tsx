@@ -66,7 +66,7 @@ export default function OrderUpdatePage() {
         await http.put(`/orders/${id}`, values);
         return { id };
       }}
-      onSuccess={() => navigate(`/orders`)}
+      onSuccess={() => navigate(-1)}
       initialValues={initial}
       title={tOrder("title.update")}
     />

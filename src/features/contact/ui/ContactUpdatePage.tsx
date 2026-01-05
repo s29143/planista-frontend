@@ -69,7 +69,7 @@ export default function ContactUpdatePage() {
         await http.put(`/contacts/${id}`, values);
         return { id };
       }}
-      onSuccess={() => navigate(`/contacts`)}
+      onSuccess={() => navigate(-1)}
       initialValues={initial}
       title={tContact("title.update")}
     />

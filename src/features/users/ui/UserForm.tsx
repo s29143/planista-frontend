@@ -21,6 +21,7 @@ import { useTranslation } from "react-i18next";
 import { createUserSchema, type FormValues } from "../model/userSchema";
 import { notifications } from "@mantine/notifications";
 import { X } from "lucide-react";
+import CancelButton from "@/shared/ui/CancelButton";
 
 type SaveFn = (values: FormValues) => Promise<{ id?: string } | void>;
 
@@ -189,9 +190,7 @@ export default function UserForm({
               <Divider my="xs" />
 
               <Group justify="flex-end">
-                <Button variant="default" component={Link} to="/users">
-                  {t("actions.cancel")}
-                </Button>
+                <CancelButton />
                 <Button
                   type="submit"
                   disabled={!canSubmit}

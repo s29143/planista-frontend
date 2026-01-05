@@ -20,6 +20,11 @@
   "countryId": "Kraj",
   "status": "Status",
   "statusId": "Status",
+  "contacts": "Kontakty",
+  "actions": "Działania",
+  "actionId": "Działania",
+  "orders": "Zlecenia",
+  "orderId": "Zlecenia",
   "title": {
     "create": "Dodaj firmę",
     "update": "Edytuj firmę"

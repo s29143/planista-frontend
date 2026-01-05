@@ -62,7 +62,7 @@ export default function UserUpdatePage() {
         await http.put(`/users/${id}`, values);
         return { id };
       }}
-      onSuccess={() => navigate(`/users`)}
+      onSuccess={() => navigate(-1)}
       initialValues={initial}
       title={tUser("title.update")}
     />

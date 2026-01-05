@@ -22,6 +22,7 @@ import { createActionSchema, type FormValues } from "../model/actionSchema";
 import { notifications } from "@mantine/notifications";
 import { X } from "lucide-react";
 import { DateInput } from "@mantine/dates";
+import CancelButton from "@/shared/ui/CancelButton";
 
 const API = {
   types: "/action-types",
@@ -230,9 +231,7 @@ export default function ActionForm({
               <Divider my="xs" />
 
               <Group justify="flex-end">
-                <Button variant="default" component={Link} to="/actions">
-                  {t("actions.cancel")}
-                </Button>
+                <CancelButton />
                 <Button
                   type="submit"
                   disabled={!canSubmit}

@@ -31,7 +31,7 @@ export type PagedResponse<TRow> = {
 
 export type ColumnDef<TRow> = {
   key: keyof TRow;
-  header: React.ReactNode;
+  header?: string;
   width?: number | string;
   cell?: (row: TRow) => React.ReactNode;
   sortable?: boolean;
@@ -178,7 +178,7 @@ export function DataTableView<TRow>({
               <Th
                 key={String(c.key)}
                 col={c.key}
-                label={c.header}
+                label={c.header ?? String(c.key)}
                 sortable={c.sortable !== false}
               />
             ))}

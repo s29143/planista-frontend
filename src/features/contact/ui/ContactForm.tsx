@@ -22,6 +22,7 @@ import { createContactSchema, type FormValues } from "../model/contactSchema";
 import { notifications } from "@mantine/notifications";
 import { X } from "lucide-react";
 import { MaskedTextInput } from "@/shared/ui/MaskedTextInput";
+import CancelButton from "@/shared/ui/CancelButton";
 
 const API = {
   statuses: "/contact-statuses",
@@ -269,9 +270,7 @@ export default function ContactForm({
               <Divider my="xs" />
 
               <Group justify="flex-end">
-                <Button variant="default" component={Link} to="/contacts">
-                  {t("actions.cancel")}
-                </Button>
+                <CancelButton />
                 <Button
                   type="submit"
                   disabled={!canSubmit}

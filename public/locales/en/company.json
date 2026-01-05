@@ -20,6 +20,11 @@
   "countryId": "Country",
   "status": "Status",
   "statusId": "Status",
+  "actions": "Actions",
+  "actionId": "Actions",
+  "orders": "Orders",
+  "orderId": "Orders",
+  "contacts": "Contacts",
   "title": {
     "create": "Create Company",
     "update": "Update Company"

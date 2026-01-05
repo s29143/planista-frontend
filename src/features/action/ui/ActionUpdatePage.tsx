@@ -67,7 +67,7 @@ export default function ActionUpdatePage() {
         await http.put(`/actions/${id}`, values);
         return { id };
       }}
-      onSuccess={() => navigate(`/actions`)}
+      onSuccess={() => navigate(-1)}
       initialValues={initial}
       title={tAction("title.update")}
     />

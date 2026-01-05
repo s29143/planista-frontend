@@ -74,9 +74,10 @@ export default function CompanyUpdatePage() {
         await http.put(`/companies/${id}`, values);
         return { id };
       }}
-      onSuccess={() => navigate(`/companies`)}
+      onSuccess={() => navigate(-1)}
       initialValues={initial}
       title={tCompany("title.update")}
+      id={Number(id)}
     />
   );
 }
