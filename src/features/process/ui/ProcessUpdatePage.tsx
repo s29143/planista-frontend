@@ -2,18 +2,18 @@ import { notifications } from "@mantine/notifications";
 import { X } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
 import { http } from "@/shared/api/http";
-import OrderForm from "./OrderForm";
+import ProcessForm from "./ProcessForm";
 import { useTranslation } from "react-i18next";
-import type { FormValues } from "../model/orderSchema";
+import type { FormValues } from "../model/processSchema";
 import { useEffect, useState } from "react";
 
-export default function OrderUpdatePage() {
+export default function ProcessUpdatePage() {
   const { t } = useTranslation();
-  const { t: tOrder } = useTranslation("order");
+  const { t: tProcess } = useTranslation("process");
   const navigate = useNavigate();
   const { id } = useParams();
   const API = {
-    orders: "/orders",
+    processs: "/processes",
   };
   const [loading, setLoading] = useState<boolean>(true);
   const [initial, setInitial] = useState<Partial<FormValues> | undefined>(
@@ -26,18 +26,16 @@ export default function OrderUpdatePage() {
     let alive = true;
     (async () => {
       try {
-        const { data } = await http.get(`${API.orders}/${id}`);
+        const { data } = await http.get(`${API.processs}/${id}`);
         if (!alive) return;
 
         const mapped: Partial<FormValues> = {
-          product: s(data.product),
           quantity: data.quantity ?? undefined,
-          dateFrom: s(data.dateFrom),
-          dateTo: s(data.dateTo),
-          companyId: idOrUndef(data?.company?.id),
+          plannedTime: s(data.plannedTime),
+          orderId: idOrUndef(data?.order?.id),
           statusId: idOrUndef(data?.status?.id),
-          typeId: idOrUndef(data?.type?.id),
-          contactId: idOrUndef(data?.contact?.id),
+          technologyId: idOrUndef(data?.technology?.id),
+          workstationId: idOrUndef(data?.workstation?.id),
         };
 
         setInitial(mapped);
@@ -49,7 +47,7 @@ export default function OrderUpdatePage() {
           title: t("messages.error"),
           message: e?.message ?? t("messages.notFound"),
         });
-        navigate("/orders");
+        navigate("/processes");
       } finally {
         if (alive) setLoading(false);
       }
@@ -57,19 +55,18 @@ export default function OrderUpdatePage() {
     return () => {
       alive = false;
     };
-  }, [id, navigate, t, API.orders]);
+  }, [id, navigate, t, API.processs]);
 
   return (
-    <OrderForm
+    <ProcessForm
       loading={loading}
       save={async (values) => {
-        await http.put(`/orders/${id}`, values);
+        await http.put(`/processes/${id}`, values);
         return { id };
       }}
       onSuccess={() => navigate(-1)}
       initialValues={initial}
-      title={tOrder("title.update")}
-      id={Number(id)}
+      title={tProcess("title.update")}
     />
   );
 }

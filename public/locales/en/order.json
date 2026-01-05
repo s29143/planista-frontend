@@ -11,6 +11,7 @@
   "typeId": "Type",
   "status": "Status",
   "statusId": "Status",
+  "processes": "Processes",
   "title": {
     "create": "Create Order",
     "update": "Update Order"

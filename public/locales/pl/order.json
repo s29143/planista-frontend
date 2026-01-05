@@ -11,6 +11,7 @@
   "typeId": "Typ",
   "status": "Status",
   "statusId": "Status",
+  "processes": "Procesy",
   "title": {
     "create": "Dodaj zlecenie",
     "update": "Edytuj zlecenie"

@@ -24,6 +24,9 @@ import {
   UserCheck,
   Tags,
   Zap,
+  ListChecks,
+  Cpu,
+  Monitor,
 } from "lucide-react";
 import { useMe } from "@/features/auth/api/queries";
 import type { User } from "@/features/auth/model/store";
@@ -78,6 +81,9 @@ export function SidebarNav() {
     { name: "action-types", element: <Zap size={16} /> },
     { name: "order-statuses", element: <ClipboardList size={16} /> },
     { name: "order-types", element: <Tags size={16} /> },
+    { name: "process-statuses", element: <ListChecks size={16} /> },
+    { name: "technologies", element: <Cpu size={16} /> },
+    { name: "workstations", element: <Monitor size={16} /> },
   ];
 
   const name =

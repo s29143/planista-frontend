@@ -11,6 +11,7 @@ import { userRoutes } from "@/features/users";
 import { contactRoutes } from "@/features/contact";
 import { actionRoutes } from "@/features/action";
 import { orderRoutes } from "@/features/order";
+import { processRoutes } from "@/features/process";
 
 const router = createBrowserRouter([
   {
@@ -53,6 +54,10 @@ const router = createBrowserRouter([
       {
         path: "orders",
         children: orderRoutes,
+      },
+      {
+        path: "processes",
+        children: processRoutes,
       },
       {
         path: "users",

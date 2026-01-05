@@ -9,7 +9,6 @@ import {
   Divider,
   Anchor,
   Container,
-  TextInput,
   NumberInput,
 } from "@mantine/core";
 import { Controller, useForm, type Resolver } from "react-hook-form";
@@ -18,29 +17,26 @@ import { Link } from "react-router-dom";
 import { AsyncSelectRHF } from "@/shared/ui/AsyncSelectRHF";
 import { useEffect, useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { createOrderSchema, type FormValues } from "../model/orderSchema";
+import { createProcessSchema, type FormValues } from "../model/processSchema";
 import { notifications } from "@mantine/notifications";
-import { Workflow, X } from "lucide-react";
+import { X } from "lucide-react";
 import { DateInput } from "@mantine/dates";
 import CancelButton from "@/shared/ui/CancelButton";
-import { Section } from "@/shared/ui/Section";
-import type { Process } from "@/features/process/model/store";
 
 const API = {
-  types: "/order-types",
-  company: "/companies",
-  contact: "/contacts",
-  status: "/order-statuses",
+  technologies: "/technologies",
+  order: "/orders",
+  workstation: "/workstations",
+  status: "/process-statuses",
 };
 type SaveFn = (values: FormValues) => Promise<{ id?: string } | void>;
 
-export default function OrderForm({
+export default function ProcessForm({
   initialValues,
   loading = false,
   save,
   onSuccess,
   title,
-  id,
 }: {
   onError?: (errors: any) => void;
   initialValues?: Partial<FormValues>;
@@ -48,15 +44,13 @@ export default function OrderForm({
   save: SaveFn;
   onSuccess?: (id?: string) => void;
   title?: React.ReactNode;
-  id?: number;
 }) {
   const { t } = useTranslation();
-  const { t: tOrder } = useTranslation("order");
+  const { t: tProcess } = useTranslation("process");
 
-  const schema = useMemo(() => createOrderSchema(t, tOrder), [t, tOrder]);
+  const schema = useMemo(() => createProcessSchema(t, tProcess), [t, tProcess]);
 
   const {
-    register,
     control,
     setError,
     handleSubmit,
@@ -65,7 +59,7 @@ export default function OrderForm({
   } = useForm<FormValues>({
     resolver: zodResolver(schema) as Resolver<FormValues, any, FormValues>,
     mode: "onChange",
-    defaultValues: { product: "", ...initialValues },
+    defaultValues: { plannedTime: "", ...initialValues },
   });
 
   useEffect(() => {
@@ -89,7 +83,7 @@ export default function OrderForm({
         Object.entries(n.fieldErrors).forEach(([field, msg]) =>
           setError(field as keyof FormValues, {
             type: "server",
-            message: msg.replaceAll("{field}", tOrder(field)),
+            message: msg.replaceAll("{field}", tProcess(field)),
           })
         );
       }
@@ -120,7 +114,7 @@ export default function OrderForm({
         <Stack gap="md">
           <Group justify="space-between" align="center">
             <Title order={2}>{title}</Title>
-            <Anchor component={Link} to="/orders" size="sm">
+            <Anchor component={Link} to="/processs" size="sm">
               ← {t("actions.backToList")}
             </Anchor>
           </Group>
@@ -129,23 +123,14 @@ export default function OrderForm({
             <Stack gap="lg">
               <Grid gutter="md">
                 <Grid.Col span={{ base: 12, md: 6 }}>
-                  <TextInput
-                    label={tOrder("product")}
-                    withAsterisk
-                    placeholder={tOrder("placeholders.product")}
-                    {...register("product")}
-                    error={errors.product?.message}
-                  />
-                </Grid.Col>
-                <Grid.Col span={{ base: 12, md: 6 }}>
                   <Controller
                     name="quantity"
                     control={control}
                     render={({ field }) => (
                       <NumberInput
-                        label={tOrder("quantity")}
+                        label={tProcess("quantity")}
                         withAsterisk
-                        placeholder={tOrder("placeholders.quantity")}
+                        placeholder={tProcess("placeholders.quantity")}
                         value={field.value ?? undefined}
                         onChange={(value) => field.onChange(value)}
                         onBlur={field.onBlur}
@@ -156,36 +141,18 @@ export default function OrderForm({
                 </Grid.Col>
                 <Grid.Col span={{ base: 12, md: 6 }}>
                   <Controller
-                    name="dateFrom"
+                    name="plannedTime"
                     control={control}
                     render={({ field }) => (
                       <DateInput
-                        label={tOrder("dateFrom")}
+                        label={tProcess("plannedTime")}
                         placeholder={t("placeholders.date")}
                         withAsterisk
                         valueFormat="YYYY-MM-DD"
                         value={field.value ?? null}
                         onChange={(value) => field.onChange(value)}
                         onBlur={field.onBlur}
-                        error={errors.dateFrom?.message}
-                      />
-                    )}
-                  />
-                </Grid.Col>
-                <Grid.Col span={{ base: 12, md: 6 }}>
-                  <Controller
-                    name="dateTo"
-                    control={control}
-                    render={({ field }) => (
-                      <DateInput
-                        label={tOrder("dateTo")}
-                        placeholder={t("placeholders.date")}
-                        withAsterisk
-                        valueFormat="YYYY-MM-DD"
-                        value={field.value ?? null}
-                        onChange={(value) => field.onChange(value)}
-                        onBlur={field.onBlur}
-                        error={errors.dateTo?.message}
+                        error={errors.plannedTime?.message}
                       />
                     )}
                   />
@@ -193,46 +160,46 @@ export default function OrderForm({
                 <Grid.Col span={{ base: 12, md: 3 }}>
                   <AsyncSelectRHF<FormValues>
                     control={control}
-                    name="companyId"
-                    label={tOrder("company")}
+                    name="orderId"
+                    label={tProcess("order")}
                     withAsterisk
                     mapItem={(i) => {
                       return {
                         value: String(i.id),
-                        label: `${i.shortName} (${i.nip})`,
+                        label: `#${i.id} (${i.product})`,
                       };
                     }}
-                    endpoint={API.company}
+                    endpoint={API.order}
                   />
                 </Grid.Col>
                 <Grid.Col span={{ base: 12, md: 3 }}>
                   <AsyncSelectRHF<FormValues>
                     control={control}
-                    name="contactId"
-                    label={tOrder("contact")}
+                    name="workstationId"
+                    label={tProcess("workstation")}
                     mapItem={(i) => {
                       return {
                         value: String(i.id),
                         label: `${i.firstName} ${i.lastName})`,
                       };
                     }}
-                    endpoint={API.contact}
+                    endpoint={API.workstation}
                   />
                 </Grid.Col>
                 <Grid.Col span={{ base: 12, md: 3 }}>
                   <AsyncSelectRHF<FormValues>
                     control={control}
                     name="statusId"
-                    label={tOrder("status")}
+                    label={tProcess("status")}
                     endpoint={API.status}
                   />
                 </Grid.Col>
                 <Grid.Col span={{ base: 12, md: 3 }}>
                   <AsyncSelectRHF<FormValues>
                     control={control}
-                    name="typeId"
-                    label={tOrder("type")}
-                    endpoint={API.types}
+                    name="technologyId"
+                    label={tProcess("technology")}
+                    endpoint={API.technologies}
                   />
                 </Grid.Col>
               </Grid>
@@ -252,39 +219,6 @@ export default function OrderForm({
           </form>
         </Stack>
       </Paper>
-      {id && (
-        <Stack gap="md" mb="xl" className="pt-6">
-          <Section<Process>
-            module="processes"
-            translationModule="process"
-            icon={<Workflow size={16} />}
-            label={tOrder("processes")}
-            url={`orders/${id}/processes`}
-            columns={[
-              { key: "quantity" },
-              { key: "plannedTime" },
-              {
-                key: "status",
-                cell(row) {
-                  return row.status?.name || "—";
-                },
-              },
-              {
-                key: "technology",
-                cell(row) {
-                  return row.technology?.name || "—";
-                },
-              },
-              {
-                key: "workstation",
-                cell(row) {
-                  return row.workstation?.name || "—";
-                },
-              },
-            ]}
-          ></Section>
-        </Stack>
-      )}
     </Container>
   );
 }
