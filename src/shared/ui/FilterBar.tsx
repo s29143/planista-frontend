@@ -13,7 +13,7 @@ import { useTranslation } from "react-i18next";
 import type z from "zod";
 import { DatePickerInput } from "@mantine/dates";
 import isEqual from "fast-deep-equal";
-import AsyncSelect from "./AsyncSelect";
+import AsyncSelect from "./inputs/AsyncSelect";
 import type { Option } from "../api/fetchOptions";
 
 export type FilterFieldBase<K extends string> = {

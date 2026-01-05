@@ -15,14 +15,14 @@ import {
 import { Controller, useForm, type Resolver } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Link } from "react-router-dom";
-import { AsyncSelectRHF } from "@/shared/ui/AsyncSelectRHF";
+import { AsyncSelectRHF } from "@/shared/ui/inputs/AsyncSelectRHF";
 import { useEffect, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { createActionSchema, type FormValues } from "../model/actionSchema";
 import { notifications } from "@mantine/notifications";
 import { X } from "lucide-react";
 import { DateInput } from "@mantine/dates";
-import CancelButton from "@/shared/ui/CancelButton";
+import CancelButton from "@/shared/ui/buttons/CancelButton";
 
 const API = {
   types: "/action-types",

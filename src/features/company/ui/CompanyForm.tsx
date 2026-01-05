@@ -13,19 +13,19 @@ import {
   Container,
 } from "@mantine/core";
 import { Section } from "@/shared/ui/Section";
-import { Controller, useForm, type Resolver } from "react-hook-form";
+import { useForm, type Resolver } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Link } from "react-router-dom";
-import { AsyncSelectRHF } from "@/shared/ui/AsyncSelectRHF";
+import { AsyncSelectRHF } from "@/shared/ui/inputs/AsyncSelectRHF";
 import { useEffect, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { createCompanySchema, type FormValues } from "../model/companySchema";
 import { notifications } from "@mantine/notifications";
 import { ClipboardList, ListTodo, Users, X } from "lucide-react";
-import { MaskedTextInput } from "@/shared/ui/MaskedTextInput";
+import MaskedTextInput from "@/shared/ui/inputs/MaskedTextInput";
 import type { Contact } from "@/features/contact/model/store";
 import type { Action } from "@/features/action/model/store";
-import CancelButton from "@/shared/ui/CancelButton";
+import CancelButton from "@/shared/ui/buttons/CancelButton";
 import type { Order } from "@/features/order/model/store";
 
 const API = {
@@ -152,45 +152,30 @@ export default function CompanyForm({
                   </Grid.Col>
 
                   <Grid.Col span={{ base: 12, md: 4 }}>
-                    <Controller
-                      name="nip"
+                    <MaskedTextInput
                       control={control}
-                      render={({ field }) => (
-                        <MaskedTextInput
-                          label={tCompany("nip")}
-                          placeholder="1234567890"
-                          mask="0000000000"
-                          value={field.value ?? ""}
-                          onAccept={(value) => field.onChange(value)}
-                          onBlur={field.onBlur}
-                          error={errors.nip?.message}
-                        />
-                      )}
+                      name="nip"
+                      label={tCompany("nip")}
+                      placeholder="1234567890"
+                      mask="0000000000"
+                      error={errors.nip?.message}
                     />
                   </Grid.Col>
                   <Grid.Col span={{ base: 12, md: 4 }}>
-                    <Controller
-                      name="postalCode"
+                    <MaskedTextInput
                       control={control}
-                      render={({ field }) => (
-                        <MaskedTextInput
-                          label={tCompany("postalCode")}
-                          placeholder="00-000"
-                          mask="00-000"
-                          {...register("postalCode")}
-                          error={errors.postalCode?.message}
-                          value={field.value ?? ""}
-                          onAccept={(value) => field.onChange(value)}
-                          onBlur={field.onBlur}
-                        />
-                      )}
-                    ></Controller>
+                      label={tCompany("postalCode")}
+                      placeholder="00-000"
+                      mask="00-000"
+                      {...register("postalCode")}
+                      error={errors.postalCode?.message}
+                    />
                   </Grid.Col>
 
                   <Grid.Col span={{ base: 12, md: 6 }}>
                     <TextInput
                       label={tCompany("street")}
-                      placeholder="ul. Przykładowa"
+                      placeholder={tCompany("placeholders.street")}
                       {...register("street")}
                       error={errors.street?.message}
                     />
@@ -213,29 +198,21 @@ export default function CompanyForm({
                   </Grid.Col>
 
                   <Grid.Col span={{ base: 12, md: 4 }}>
-                    <Controller
-                      name="phoneNumber"
+                    <MaskedTextInput
+                      label={tCompany("phoneNumber")}
+                      placeholder="+48 123 456 789"
                       control={control}
-                      render={({ field }) => (
-                        <MaskedTextInput
-                          label={tCompany("phoneNumber")}
-                          placeholder="+48 123 456 789"
-                          mask={[
-                            {
-                              mask: "000 000 000",
-                            },
-                            {
-                              mask: "+48 000 000 000",
-                            },
-                          ]}
-                          {...register("phoneNumber")}
-                          error={errors.phoneNumber?.message}
-                          value={field.value ?? ""}
-                          onAccept={(value) => field.onChange(value)}
-                          onBlur={field.onBlur}
-                        />
-                      )}
-                    ></Controller>
+                      mask={[
+                        {
+                          mask: "000 000 000",
+                        },
+                        {
+                          mask: "+48 000 000 000",
+                        },
+                      ]}
+                      {...register("phoneNumber")}
+                      error={errors.phoneNumber?.message}
+                    />
                   </Grid.Col>
                   <Grid.Col span={{ base: 12, md: 4 }}>
                     <TextInput

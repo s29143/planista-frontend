@@ -15,13 +15,13 @@ export default function ProcessCreatePage() {
         return { id: data?.id as string | undefined };
       }}
       title={tProcess("title.create")}
-      onSuccess={(id) => {
+      onSuccess={() => {
         notifications.show({
           title: t("success"),
           message: t("messages.created"),
           color: "green",
         });
-        navigate(id ? `/processes/${id}` : "/processes");
+        navigate(-1);
       }}
     />
   );

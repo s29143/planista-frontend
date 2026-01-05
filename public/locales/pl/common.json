@@ -84,7 +84,11 @@
     "action-types": "Typy działań",
     "orders": "Zlecenia",
     "order-statuses": "Statusy zleceń",
-    "order-types": "Typy zleceń"
+    "order-types": "Typy zleceń",
+    "processes": "Procesy",
+    "process-statuses": "Statusy procesów",
+    "technologies": "Technologie",
+    "workstations": "Stanowiska pracy"
   },
   "data": {
     "perPage": "{{count}} na stronę",

@@ -21,7 +21,7 @@ import { useTranslation } from "react-i18next";
 import { createUserSchema, type FormValues } from "../model/userSchema";
 import { notifications } from "@mantine/notifications";
 import { X } from "lucide-react";
-import CancelButton from "@/shared/ui/CancelButton";
+import CancelButton from "@/shared/ui/buttons/CancelButton";
 
 type SaveFn = (values: FormValues) => Promise<{ id?: string } | void>;
 

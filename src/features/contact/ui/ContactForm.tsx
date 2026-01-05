@@ -12,17 +12,17 @@ import {
   Container,
   Checkbox,
 } from "@mantine/core";
-import { Controller, useForm, type Resolver } from "react-hook-form";
+import { useForm, type Resolver } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Link } from "react-router-dom";
-import { AsyncSelectRHF } from "@/shared/ui/AsyncSelectRHF";
+import { AsyncSelectRHF } from "@/shared/ui/inputs/AsyncSelectRHF";
 import { useEffect, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { createContactSchema, type FormValues } from "../model/contactSchema";
 import { notifications } from "@mantine/notifications";
 import { X } from "lucide-react";
-import { MaskedTextInput } from "@/shared/ui/MaskedTextInput";
-import CancelButton from "@/shared/ui/CancelButton";
+import MaskedTextInput from "@/shared/ui/inputs/MaskedTextInput";
+import CancelButton from "@/shared/ui/buttons/CancelButton";
 
 const API = {
   statuses: "/contact-statuses",
@@ -152,55 +152,39 @@ export default function ContactForm({
                 </Grid.Col>
 
                 <Grid.Col span={{ base: 12, md: 6 }}>
-                  <Controller
-                    name="phoneNumber"
+                  <MaskedTextInput
                     control={control}
-                    render={({ field }) => (
-                      <MaskedTextInput
-                        label={tContact("phoneNumber")}
-                        placeholder="+48 123 456 789"
-                        mask={[
-                          {
-                            mask: "000 000 000",
-                          },
-                          {
-                            mask: "+48 000 000 000",
-                          },
-                        ]}
-                        {...register("phoneNumber")}
-                        error={errors.phoneNumber?.message}
-                        value={field.value ?? ""}
-                        onAccept={(value) => field.onChange(value)}
-                        onBlur={field.onBlur}
-                      />
-                    )}
-                  ></Controller>
+                    label={tContact("phoneNumber")}
+                    placeholder="+48 123 456 789"
+                    mask={[
+                      {
+                        mask: "000 000 000",
+                      },
+                      {
+                        mask: "+48 000 000 000",
+                      },
+                    ]}
+                    {...register("phoneNumber")}
+                    error={errors.phoneNumber?.message}
+                  />
                 </Grid.Col>
 
                 <Grid.Col span={{ base: 12, md: 6 }}>
-                  <Controller
-                    name="mobileNumber"
+                  <MaskedTextInput
                     control={control}
-                    render={({ field }) => (
-                      <MaskedTextInput
-                        label={tContact("mobileNumber")}
-                        placeholder="+48 123 456 789"
-                        mask={[
-                          {
-                            mask: "000 000 000",
-                          },
-                          {
-                            mask: "+48 000 000 000",
-                          },
-                        ]}
-                        {...register("mobileNumber")}
-                        error={errors.mobileNumber?.message}
-                        value={field.value ?? ""}
-                        onAccept={(value) => field.onChange(value)}
-                        onBlur={field.onBlur}
-                      />
-                    )}
-                  ></Controller>
+                    label={tContact("mobileNumber")}
+                    placeholder="+48 123 456 789"
+                    mask={[
+                      {
+                        mask: "000 000 000",
+                      },
+                      {
+                        mask: "+48 000 000 000",
+                      },
+                    ]}
+                    {...register("mobileNumber")}
+                    error={errors.mobileNumber?.message}
+                  />
                 </Grid.Col>
                 <Grid.Col span={{ base: 12, md: 4 }}>
                   <TextInput

@@ -84,7 +84,11 @@
     "action-types": "Action Types",
     "orders": "Orders",
     "order-statuses": "Order Statuses",
-    "order-types": "Order Types"
+    "order-types": "Order Types",
+    "processes": "Processes",
+    "process-statuses": "Process Statuses",
+    "technologies": "Technologies",
+    "workstations": "Workstations"
   },
   "data": {
     "perPage": "{{count}} per page",

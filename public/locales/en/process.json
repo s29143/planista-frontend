@@ -1,0 +1,24 @@
+{
+  "quantity": "Quantity",
+  "plannedTime": "Planned time",
+  "orderId": "Order",
+  "workstation": "Workstation",
+  "workstationId": "Workstation",
+  "technology": "Technology",
+  "technologyId": "Technology",
+  "status": "Status",
+  "statusId": "Status",
+  "executions": "Executions",
+  "order": "Order",
+  "title": {
+    "create": "Add process",
+    "update": "Edit process"
+  },
+  "errors": {
+    "required": "This field is required"
+  },
+  "placeholders": {
+    "product": "Enter product",
+    "quantity": "Enter quantity"
+  }
+}

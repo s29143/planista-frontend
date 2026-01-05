@@ -1,0 +1,24 @@
+{
+  "quantity": "Ilość",
+  "plannedTime": "Czas planowany",
+  "orderId": "Zlecenie",
+  "workstation": "Stanowisko",
+  "workstationId": "Stanowisko",
+  "technology": "Technologia",
+  "technologyId": "Technologia",
+  "status": "Status",
+  "statusId": "Status",
+  "executions": "Wykonania",
+  "order": "Zlecenie",
+  "title": {
+    "create": "Dodaj etap",
+    "update": "Edytuj etap"
+  },
+  "errors": {
+    "required": "To pole jest wymagane"
+  },
+  "placeholders": {
+    "product": "Wpisz produkt",
+    "quantity": "Wpisz ilość"
+  }
+}

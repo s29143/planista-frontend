@@ -15,13 +15,13 @@ export default function CompanyCreatePage() {
         return { id: data?.id as string | undefined };
       }}
       title={tCompany("title.create")}
-      onSuccess={(id) => {
+      onSuccess={() => {
         notifications.show({
           title: t("success"),
           message: t("messages.created"),
           color: "green",
         });
-        navigate(id ? `/companies/${id}` : "/companies");
+        navigate(-1);
       }}
     />
   );

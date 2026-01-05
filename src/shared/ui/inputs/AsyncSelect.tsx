@@ -1,7 +1,7 @@
 import { MultiSelect, Select } from "@mantine/core";
 import { useDebouncedValue } from "@mantine/hooks";
 import { useEffect, useState } from "react";
-import { fetchOptions, type Option } from "../api/fetchOptions";
+import { fetchOptions, type Option } from "../../api/fetchOptions";
 
 type Props = {
   label: React.ReactNode;

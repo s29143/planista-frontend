@@ -7,21 +7,19 @@ import {
   Grid,
   LoadingOverlay,
   Divider,
-  Anchor,
   Container,
-  NumberInput,
 } from "@mantine/core";
 import { Controller, useForm, type Resolver } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Link } from "react-router-dom";
-import { AsyncSelectRHF } from "@/shared/ui/AsyncSelectRHF";
+import { AsyncSelectRHF } from "@/shared/ui/inputs/AsyncSelectRHF";
 import { useEffect, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { createProcessSchema, type FormValues } from "../model/processSchema";
 import { notifications } from "@mantine/notifications";
 import { X } from "lucide-react";
-import { DateInput } from "@mantine/dates";
-import CancelButton from "@/shared/ui/CancelButton";
+import { TimePicker } from "@mantine/dates";
+import CancelButton from "@/shared/ui/buttons/CancelButton";
+import NumInput from "@/shared/ui/inputs/NumInput";
 
 const API = {
   technologies: "/technologies",
@@ -114,29 +112,18 @@ export default function ProcessForm({
         <Stack gap="md">
           <Group justify="space-between" align="center">
             <Title order={2}>{title}</Title>
-            <Anchor component={Link} to="/processs" size="sm">
-              ← {t("actions.backToList")}
-            </Anchor>
           </Group>
 
           <form onSubmit={handleSubmit(submit)} noValidate>
             <Stack gap="lg">
               <Grid gutter="md">
                 <Grid.Col span={{ base: 12, md: 6 }}>
-                  <Controller
-                    name="quantity"
+                  <NumInput<FormValues>
                     control={control}
-                    render={({ field }) => (
-                      <NumberInput
-                        label={tProcess("quantity")}
-                        withAsterisk
-                        placeholder={tProcess("placeholders.quantity")}
-                        value={field.value ?? undefined}
-                        onChange={(value) => field.onChange(value)}
-                        onBlur={field.onBlur}
-                        error={errors.quantity?.message}
-                      />
-                    )}
+                    name="quantity"
+                    label={tProcess("quantity")}
+                    error={errors.quantity?.message}
+                    withAsterisk
                   />
                 </Grid.Col>
                 <Grid.Col span={{ base: 12, md: 6 }}>
@@ -144,15 +131,14 @@ export default function ProcessForm({
                     name="plannedTime"
                     control={control}
                     render={({ field }) => (
-                      <DateInput
+                      <TimePicker
                         label={tProcess("plannedTime")}
-                        placeholder={t("placeholders.date")}
                         withAsterisk
-                        valueFormat="YYYY-MM-DD"
-                        value={field.value ?? null}
+                        value={field.value}
                         onChange={(value) => field.onChange(value)}
                         onBlur={field.onBlur}
                         error={errors.plannedTime?.message}
+                        format="24h"
                       />
                     )}
                   />

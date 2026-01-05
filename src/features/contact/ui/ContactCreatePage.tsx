@@ -15,13 +15,13 @@ export default function ContactCreatePage() {
         return { id: data?.id as string | undefined };
       }}
       title={tCotnact("title.create")}
-      onSuccess={(id) => {
+      onSuccess={() => {
         notifications.show({
           title: t("success"),
           message: t("messages.created"),
           color: "green",
         });
-        navigate(id ? `/contacts/${id}` : "/contacts");
+        navigate(-1);
       }}
     />
   );

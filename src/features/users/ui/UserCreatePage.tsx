@@ -13,7 +13,7 @@ export default function UserCreatePage() {
         return { id: data?.id as string | undefined };
       }}
       title={tUser("title.create")}
-      onSuccess={(id) => navigate(id ? `/users/${id}` : "/users")}
+      onSuccess={() => navigate(-1)}
     />
   );
 }

@@ -15,13 +15,13 @@ export default function OrderCreatePage() {
         return { id: data?.id as string | undefined };
       }}
       title={tOrder("title.create")}
-      onSuccess={(id) => {
+      onSuccess={() => {
         notifications.show({
           title: t("success"),
           message: t("messages.created"),
           color: "green",
         });
-        navigate(id ? `/orders/${id}` : "/orders");
+        navigate(-1);
       }}
     />
   );
