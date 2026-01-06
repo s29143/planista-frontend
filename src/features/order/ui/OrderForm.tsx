@@ -167,7 +167,7 @@ export default function OrderForm({
                 <Grid.Col span={{ base: 12, md: 6 }}>
                   <DateFormInput
                     control={control}
-                    name="dateFrom"
+                    name="dateTo"
                     label={tOrder("dateTo")}
                     placeholder={t("placeholders.date")}
                     withAsterisk
