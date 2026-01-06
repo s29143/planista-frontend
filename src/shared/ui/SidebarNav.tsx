@@ -28,9 +28,9 @@ import {
   Cpu,
   Monitor,
 } from "lucide-react";
-import { useMe } from "@/features/auth/api/queries";
 import type { TFunction } from "i18next";
 import type { User } from "@/shared/types/user";
+import { useMe } from "../api/queries";
 
 function roleBadge(
   tUser: TFunction,
