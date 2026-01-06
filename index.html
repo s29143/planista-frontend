@@ -1,20 +1,39 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
+    <meta
+      name="description"
+      content="Planista - Aplikacja do zarządzania procesami produkcyjnymi"
+    />
+    <meta
+      name="keywords"
+      content="planista, zarządzanie, produkcja, aplikacja, frontend"
+    />
+    <meta name="author" content="Kacper Malinowski - s29143" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="
+        default-src 'self';
+        script-src 'self';
+        style-src 'self' 'unsafe-inline';
+        img-src 'self' data:;
+        font-src 'self' data:;
+        connect-src 'self' http://localhost:8080 ws://localhost:5173 planista.komplus.pl;
+        frame-ancestors 'none';
+        base-uri 'self';
+        form-action 'self';
+      "
+    />
 
-<head>
-  <meta charset="UTF-8" />
-  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="color-scheme" content="light dark" />
-  <meta name="description" content="Planista - Aplikacja do zarządzania procesami produkcyjnymi" />
-  <meta name="keywords" content="planista, zarządzanie, produkcja, aplikacja, frontend" />
-  <meta name="author" content="Kacper Malinowski - s29143" />
-  <title>Planista</title>
-</head>
+    <title>Planista</title>
+  </head>
 
-<body>
-  <div id="root"></div>
-  <script type="module" src="/src/main.tsx"></script>
-</body>
-
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
 </html>
