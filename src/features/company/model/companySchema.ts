@@ -1,12 +1,10 @@
 import { z } from "zod";
 import type { TFunction } from "i18next";
+import { emptyToUndef } from "@/shared/helpers";
 
 const nipRegex = /^\d{10}$/;
 const postalRegex = /^\d{2}-\d{3}$/;
 const phoneRegex = /^[0-9+\-\s()]{6,20}$/i;
-
-const emptyToUndef = (v: unknown) =>
-  typeof v === "string" ? (v.trim() === "" ? undefined : v.trim()) : v;
 
 const stringOptional = z.preprocess(emptyToUndef, z.string().optional());
 

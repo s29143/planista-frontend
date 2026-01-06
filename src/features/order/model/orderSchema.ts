@@ -1,8 +1,6 @@
+import { emptyToUndef } from "@/shared/helpers";
 import type { TFunction } from "i18next";
 import { z } from "zod";
-
-const emptyToUndef = (v: unknown) =>
-  typeof v === "string" ? (v.trim() === "" ? undefined : v.trim()) : v;
 
 export const createOrderSchema = (t: TFunction, tOrder: TFunction) => {
   return z.object({

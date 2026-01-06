@@ -6,45 +6,41 @@ import { FiltersSchema, type Filters, type Order } from "../model/store";
 import { fetchOrders } from "../api/queries";
 import { http } from "@/shared/api/http";
 
-const filterFields: FilterField<keyof Filters & string>[] = [
-  {
-    type: "text",
-    name: "search",
-    label: "Szukaj",
-    placeholder: "Szukaj",
-  },
-  {
-    type: "text",
-    name: "company",
-    label: "Firma",
-    placeholder: "Szukaj",
-  },
-  {
-    type: "select",
-    name: "user",
-    label: "Opiekun",
-    multiple: true,
-    clearable: true,
-    endpoint: "/users",
-    placeholder: "Dowolna",
-    mapItem: (i) => ({
-      value: String(i.id),
-      label: `${i.firstname} ${i.lastname} (${i.username})`,
-    }),
-  },
-  {
-    type: "select",
-    name: "type",
-    label: "Typ",
-    multiple: true,
-    clearable: true,
-    endpoint: "/order-types",
-    placeholder: "Dowolny",
-  },
-];
-
 export default function OrderListPage() {
   const { t } = useTranslation("order");
+  const filterFields: FilterField<keyof Filters & string>[] = [
+    {
+      type: "text",
+      name: "product",
+      label: t("product"),
+      placeholder: t("common:placeholders.search"),
+    },
+    {
+      type: "text",
+      name: "company",
+      label: t("company"),
+      placeholder: t("common:placeholders.search"),
+    },
+    {
+      type: "select",
+      name: "status",
+      label: t("status"),
+      multiple: true,
+      clearable: true,
+      endpoint: "/order-statuses",
+      placeholder: t("common:placeholders.any"),
+    },
+    {
+      type: "select",
+      name: "type",
+      label: t("type"),
+      multiple: true,
+      clearable: true,
+      endpoint: "/order-types",
+      placeholder: t("common:placeholders.any"),
+    },
+  ];
+
   const columns: ColumnDef<Order>[] = [
     { key: "product", header: t("product") },
     { key: "quantity", header: t("quantity") },

@@ -3,6 +3,7 @@ import { http } from "@/shared/api/http";
 import ProcessForm from "./ProcessForm";
 import { useTranslation } from "react-i18next";
 import { notifications } from "@mantine/notifications";
+import { durationToSeconds } from "@/shared/helpers";
 
 export default function ProcessCreatePage() {
   const { t } = useTranslation();
@@ -11,6 +12,7 @@ export default function ProcessCreatePage() {
   return (
     <ProcessForm
       save={async (values) => {
+        values.plannedTimeSeconds = durationToSeconds(values.plannedTimeForm);
         const { data } = await http.post("/processes", values);
         return { id: data?.id as string | undefined };
       }}

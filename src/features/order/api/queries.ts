@@ -27,11 +27,11 @@ export async function fetchOrders(
   if (q.sortBy) {
     params.sort = q.sortBy + (q.sortDir === "desc" ? ",desc" : ",asc");
   }
-  const { search, company, type, user } = q.filters;
-  if (search) params.search = search;
+  const { product, company, type, status } = q.filters;
+  if (product) params.product = product;
   if (company) params.company = company;
   if (type) params.typeId = type;
-  if (user) params.userId = user;
+  if (status) params.statusId = status;
 
   const res = await http.get<PagedResponse<Order>>("/orders", {
     params,

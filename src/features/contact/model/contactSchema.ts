@@ -1,10 +1,8 @@
 import { z } from "zod";
 import type { TFunction } from "i18next";
+import { emptyToUndef } from "@/shared/helpers";
 
 const phoneRegex = /^[0-9+\-\s()]{6,20}$/i;
-
-const emptyToUndef = (v: unknown) =>
-  typeof v === "string" ? (v.trim() === "" ? undefined : v.trim()) : v;
 
 export const createContactSchema = (t: TFunction, tContact: TFunction) => {
   const emailOptional = z.preprocess(

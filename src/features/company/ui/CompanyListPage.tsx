@@ -7,48 +7,47 @@ import { fetchCompanies } from "../api/queries";
 import type { Filters } from "../model/store";
 import { http } from "@/shared/api/http";
 
-const companyFilterFields: FilterField<keyof Filters & string>[] = [
-  {
-    type: "text",
-    name: "search",
-    label: "Szukaj",
-    placeholder: "Nazwa, NIP, miasto...",
-  },
-  {
-    type: "select",
-    name: "district",
-    label: "Województwo",
-    multiple: true,
-    clearable: true,
-    endpoint: "/districts",
-    placeholder: "Dowolna",
-  },
-  {
-    type: "select",
-    name: "user",
-    label: "Opiekun",
-    multiple: true,
-    clearable: true,
-    endpoint: "/users",
-    placeholder: "Dowolna",
-    mapItem: (i) => ({
-      value: String(i.id),
-      label: `${i.firstname} ${i.lastname} (${i.username})`,
-    }),
-  },
-  {
-    type: "select",
-    name: "status",
-    label: "Status",
-    multiple: true,
-    clearable: true,
-    endpoint: "/company-statuses",
-    placeholder: "Dowolny",
-  },
-];
-
 export default function CompanyListPage() {
   const { t } = useTranslation("company");
+  const companyFilterFields: FilterField<keyof Filters & string>[] = [
+    {
+      type: "text",
+      name: "search",
+      label: t("common:actions.search"),
+      placeholder: t("placeholders.search"),
+    },
+    {
+      type: "select",
+      name: "district",
+      label: t("district"),
+      multiple: true,
+      clearable: true,
+      endpoint: "/districts",
+      placeholder: t("common:placeholders.any"),
+    },
+    {
+      type: "select",
+      name: "user",
+      label: t("user"),
+      multiple: true,
+      clearable: true,
+      endpoint: "/users",
+      placeholder: t("common:placeholders.any"),
+      mapItem: (i) => ({
+        value: String(i.id),
+        label: `${i.firstname} ${i.lastname} (${i.username})`,
+      }),
+    },
+    {
+      type: "select",
+      name: "status",
+      label: t("status"),
+      multiple: true,
+      clearable: true,
+      endpoint: "/company-statuses",
+      placeholder: t("common:placeholders.any"),
+    },
+  ];
   const companyColumns: ColumnDef<Company>[] = [
     { key: "fullName", header: t("fullName") },
     { key: "nip", header: t("nip") },

@@ -1,4 +1,4 @@
-import { NumberInput } from "@mantine/core";
+import { DatePickerInput } from "@mantine/dates";
 import {
   Controller,
   type Control,
@@ -6,7 +6,7 @@ import {
   type Path,
 } from "react-hook-form";
 
-type NumInputProps<T extends FieldValues> = {
+type DateFormInputProps<T extends FieldValues> = {
   control: Control<T>;
   name: Path<T>;
   label?: string;
@@ -14,20 +14,20 @@ type NumInputProps<T extends FieldValues> = {
   error: React.ReactNode;
   withAsterisk?: boolean;
 };
-export default function NumInput<T extends FieldValues>({
+export default function DateFormInput<T extends FieldValues>({
   name,
   control,
   label,
   placeholder,
   error,
   withAsterisk,
-}: NumInputProps<T>) {
+}: DateFormInputProps<T>) {
   return (
     <Controller
       name={name}
       control={control}
       render={({ field }) => (
-        <NumberInput
+        <DatePickerInput
           label={label}
           withAsterisk={withAsterisk}
           placeholder={placeholder}
@@ -35,6 +35,7 @@ export default function NumInput<T extends FieldValues>({
           onChange={(value) => field.onChange(value)}
           onBlur={field.onBlur}
           error={error}
+          valueFormat="YYYY-MM-DD"
         />
       )}
     />

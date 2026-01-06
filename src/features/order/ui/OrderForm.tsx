@@ -21,10 +21,10 @@ import { useTranslation } from "react-i18next";
 import { createOrderSchema, type FormValues } from "../model/orderSchema";
 import { notifications } from "@mantine/notifications";
 import { Workflow, X } from "lucide-react";
-import { DateInput } from "@mantine/dates";
 import CancelButton from "@/shared/ui/buttons/CancelButton";
 import { Section } from "@/shared/ui/Section";
 import type { Process } from "@/features/process/model/store";
+import DateFormInput from "@/shared/ui/inputs/DateFormInput";
 
 const API = {
   types: "/order-types",
@@ -155,39 +155,23 @@ export default function OrderForm({
                   />
                 </Grid.Col>
                 <Grid.Col span={{ base: 12, md: 6 }}>
-                  <Controller
-                    name="dateFrom"
+                  <DateFormInput
                     control={control}
-                    render={({ field }) => (
-                      <DateInput
-                        label={tOrder("dateFrom")}
-                        placeholder={t("placeholders.date")}
-                        withAsterisk
-                        valueFormat="YYYY-MM-DD"
-                        value={field.value ?? null}
-                        onChange={(value) => field.onChange(value)}
-                        onBlur={field.onBlur}
-                        error={errors.dateFrom?.message}
-                      />
-                    )}
+                    name="dateFrom"
+                    label={tOrder("dateFrom")}
+                    placeholder={t("placeholders.date")}
+                    withAsterisk
+                    error={errors.dateFrom?.message}
                   />
                 </Grid.Col>
                 <Grid.Col span={{ base: 12, md: 6 }}>
-                  <Controller
-                    name="dateTo"
+                  <DateFormInput
                     control={control}
-                    render={({ field }) => (
-                      <DateInput
-                        label={tOrder("dateTo")}
-                        placeholder={t("placeholders.date")}
-                        withAsterisk
-                        valueFormat="YYYY-MM-DD"
-                        value={field.value ?? null}
-                        onChange={(value) => field.onChange(value)}
-                        onBlur={field.onBlur}
-                        error={errors.dateTo?.message}
-                      />
-                    )}
+                    name="dateFrom"
+                    label={tOrder("dateTo")}
+                    placeholder={t("placeholders.date")}
+                    withAsterisk
+                    error={errors.dateTo?.message}
                   />
                 </Grid.Col>
                 <Grid.Col span={{ base: 12, md: 3 }}>

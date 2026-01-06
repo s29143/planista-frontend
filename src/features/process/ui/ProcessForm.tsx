@@ -9,7 +9,7 @@ import {
   Divider,
   Container,
 } from "@mantine/core";
-import { Controller, useForm, type Resolver } from "react-hook-form";
+import { useForm, type Resolver } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AsyncSelectRHF } from "@/shared/ui/inputs/AsyncSelectRHF";
 import { useEffect, useMemo } from "react";
@@ -17,9 +17,9 @@ import { useTranslation } from "react-i18next";
 import { createProcessSchema, type FormValues } from "../model/processSchema";
 import { notifications } from "@mantine/notifications";
 import { X } from "lucide-react";
-import { TimePicker } from "@mantine/dates";
 import CancelButton from "@/shared/ui/buttons/CancelButton";
 import NumInput from "@/shared/ui/inputs/NumInput";
+import { DurationField } from "@/shared/ui/inputs/DurationInput";
 
 const API = {
   technologies: "/technologies",
@@ -57,7 +57,7 @@ export default function ProcessForm({
   } = useForm<FormValues>({
     resolver: zodResolver(schema) as Resolver<FormValues, any, FormValues>,
     mode: "onChange",
-    defaultValues: { plannedTime: "", ...initialValues },
+    defaultValues: { ...initialValues },
   });
 
   useEffect(() => {
@@ -127,20 +127,14 @@ export default function ProcessForm({
                   />
                 </Grid.Col>
                 <Grid.Col span={{ base: 12, md: 6 }}>
-                  <Controller
-                    name="plannedTime"
+                  <DurationField
+                    name="plannedTimeForm"
                     control={control}
-                    render={({ field }) => (
-                      <TimePicker
-                        label={tProcess("plannedTime")}
-                        withAsterisk
-                        value={field.value}
-                        onChange={(value) => field.onChange(value)}
-                        onBlur={field.onBlur}
-                        error={errors.plannedTime?.message}
-                        format="24h"
-                      />
-                    )}
+                    label={tProcess("plannedTime")}
+                    required
+                    error={
+                      errors.plannedTimeForm?.message as string | undefined
+                    }
                   />
                 </Grid.Col>
                 <Grid.Col span={{ base: 12, md: 3 }}>
@@ -163,12 +157,6 @@ export default function ProcessForm({
                     control={control}
                     name="workstationId"
                     label={tProcess("workstation")}
-                    mapItem={(i) => {
-                      return {
-                        value: String(i.id),
-                        label: `${i.firstName} ${i.lastName})`,
-                      };
-                    }}
                     endpoint={API.workstation}
                   />
                 </Grid.Col>

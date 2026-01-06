@@ -35,5 +35,19 @@
     "invalidPhone": "Invalid phone number format",
     "invalidNip": "Invalid NIP number",
     "invalidPostalCode": "Invalid postal code format"
+  },
+  "placeholders": {
+    "fullName": "Enter company full name",
+    "shortName": "Enter company short name",
+    "nip": "Enter NIP",
+    "postalCode": "Enter postal code",
+    "street": "Enter street",
+    "houseNumber": "Enter house number",
+    "apartmentNumber": "Enter apartment number",
+    "phoneNumber": "Enter phone number",
+    "email": "Enter email",
+    "wwwSite": "Enter website",
+    "comments": "Enter comments",
+    "search": "Name, NIP, city..."
   }
 }

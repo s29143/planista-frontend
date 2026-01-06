@@ -10,6 +10,9 @@
   "statusId": "Status",
   "executions": "Executions",
   "order": "Order",
+  "hours": "Hours",
+  "minutes": "Minutes",
+  "seconds": "Seconds",
   "title": {
     "create": "Add process",
     "update": "Edit process"

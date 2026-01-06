@@ -35,5 +35,19 @@
     "invalidPhone": "Nieprawidłowy format numeru telefonu",
     "invalidNip": "Nieprawidłowy numer NIP",
     "invalidPostalCode": "Nieprawidłowy format kodu pocztowego"
+  },
+  "placeholders": {
+    "fullName": "Wpisz nazwę firmy",
+    "shortName": "Wpisz skróconą nazwę firmy",
+    "nip": "Wpisz NIP",
+    "postalCode": "Wpisz kod pocztowy",
+    "street": "Wpisz ulicę",
+    "houseNumber": "Wpisz numer domu",
+    "apartmentNumber": "Wpisz numer mieszkania",
+    "phoneNumber": "Wpisz numer telefonu",
+    "email": "Wpisz email",
+    "wwwSite": "Wpisz stronę WWW",
+    "comments": "Wpisz uwagi",
+    "search": "Nazwa, NIP, miasto..."
   }
 }

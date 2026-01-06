@@ -6,6 +6,7 @@ import OrderForm from "./OrderForm";
 import { useTranslation } from "react-i18next";
 import type { FormValues } from "../model/orderSchema";
 import { useEffect, useState } from "react";
+import { idOrUndef, s } from "@/shared/helpers";
 
 export default function OrderUpdatePage() {
   const { t } = useTranslation();
@@ -19,8 +20,6 @@ export default function OrderUpdatePage() {
   const [initial, setInitial] = useState<Partial<FormValues> | undefined>(
     undefined
   );
-  const s = (v: unknown) => (v == null ? "" : String(v));
-  const idOrUndef = (v: unknown) => (v == null ? undefined : Number(v));
 
   useEffect(() => {
     let alive = true;

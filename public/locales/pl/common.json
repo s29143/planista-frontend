@@ -108,6 +108,7 @@
   "placeholders": {
     "search": "Szukaj...",
     "select": "Wybierz...",
-    "date": "Wybierz datę"
+    "date": "Wybierz datę",
+    "any": "Dowolny"
   }
 }

@@ -18,9 +18,9 @@ export type Order = {
 };
 
 export const FiltersSchema = z.object({
-  search: z.string().trim().optional().default(""),
+  product: z.string().trim().optional().default(""),
   company: z.string().trim().optional().default(""),
-  user: z.string().array().optional().default([]),
+  status: z.string().array().optional().default([]),
   type: z.string().array().optional().default([]),
 });
 

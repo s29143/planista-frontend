@@ -6,6 +6,11 @@ import ProcessForm from "./ProcessForm";
 import { useTranslation } from "react-i18next";
 import type { FormValues } from "../model/processSchema";
 import { useEffect, useState } from "react";
+import {
+  durationToSeconds,
+  idOrUndef,
+  secondsToDurationParts,
+} from "@/shared/helpers";
 
 export default function ProcessUpdatePage() {
   const { t } = useTranslation();
@@ -19,8 +24,6 @@ export default function ProcessUpdatePage() {
   const [initial, setInitial] = useState<Partial<FormValues> | undefined>(
     undefined
   );
-  const s = (v: unknown) => (v == null ? "" : String(v));
-  const idOrUndef = (v: unknown) => (v == null ? undefined : Number(v));
 
   useEffect(() => {
     let alive = true;
@@ -30,8 +33,8 @@ export default function ProcessUpdatePage() {
         if (!alive) return;
 
         const mapped: Partial<FormValues> = {
-          quantity: data.quantity ?? undefined,
-          plannedTime: s(data.plannedTime),
+          quantity: data.quantity,
+          plannedTimeForm: secondsToDurationParts(data.plannedTimeSeconds),
           orderId: idOrUndef(data?.order?.id),
           statusId: idOrUndef(data?.status?.id),
           technologyId: idOrUndef(data?.technology?.id),
@@ -61,6 +64,7 @@ export default function ProcessUpdatePage() {
     <ProcessForm
       loading={loading}
       save={async (values) => {
+        values.plannedTimeSeconds = durationToSeconds(values.plannedTimeForm);
         await http.put(`/processes/${id}`, values);
         return { id };
       }}

@@ -12,7 +12,7 @@ import {
   Checkbox,
   Textarea,
 } from "@mantine/core";
-import { Controller, useForm, type Resolver } from "react-hook-form";
+import { useForm, type Resolver } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Link } from "react-router-dom";
 import { AsyncSelectRHF } from "@/shared/ui/inputs/AsyncSelectRHF";
@@ -21,8 +21,8 @@ import { useTranslation } from "react-i18next";
 import { createActionSchema, type FormValues } from "../model/actionSchema";
 import { notifications } from "@mantine/notifications";
 import { X } from "lucide-react";
-import { DateInput } from "@mantine/dates";
 import CancelButton from "@/shared/ui/buttons/CancelButton";
+import DateFormInput from "@/shared/ui/inputs/DateFormInput";
 
 const API = {
   types: "/action-types",
@@ -125,21 +125,13 @@ export default function ActionForm({
             <Stack gap="lg">
               <Grid gutter="md">
                 <Grid.Col span={{ base: 12, md: 4 }}>
-                  <Controller
-                    name="date"
+                  <DateFormInput
                     control={control}
-                    render={({ field }) => (
-                      <DateInput
-                        label={tAction("date")}
-                        placeholder={t("placeholders.date")}
-                        withAsterisk
-                        valueFormat="YYYY-MM-DD"
-                        value={field.value ?? null}
-                        onChange={(value) => field.onChange(value)}
-                        onBlur={field.onBlur}
-                        error={errors.date?.message}
-                      />
-                    )}
+                    name="date"
+                    label={tAction("date")}
+                    placeholder={t("placeholders.date")}
+                    withAsterisk
+                    error={errors.date?.message}
                   />
                 </Grid.Col>
                 <Grid.Col span={12}>
@@ -210,6 +202,7 @@ export default function ActionForm({
                     control={control}
                     name="userId"
                     label={tAction("user")}
+                    withAsterisk
                     mapItem={(i) => {
                       return {
                         value: String(i.id),

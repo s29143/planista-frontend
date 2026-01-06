@@ -1,12 +1,56 @@
+import { emptyToUndef } from "@/shared/helpers";
 import type { TFunction } from "i18next";
 import { z } from "zod";
 
-const emptyToUndef = (v: unknown) =>
-  typeof v === "string" ? (v.trim() === "" ? undefined : v.trim()) : v;
-
 export const createProcessSchema = (t: TFunction, tProcess: TFunction) => {
+  const durationSchema = z
+    .object({
+      hours: z.coerce
+        .number()
+        .int()
+        .min(0, {
+          message: t("validation.min", {
+            field: tProcess("hours"),
+            min: 1,
+          }),
+        }),
+      minutes: z.coerce
+        .number()
+        .int()
+        .min(0, {
+          message: t("validation.min", {
+            field: tProcess("minutes"),
+            min: 1,
+          }),
+        })
+        .max(59, {
+          message: t("validation.max", {
+            field: tProcess("minutes"),
+            min: 1,
+          }),
+        }),
+      seconds: z.coerce
+        .number()
+        .int()
+        .min(0, {
+          message: t("validation.min", {
+            field: tProcess("seconds"),
+            min: 1,
+          }),
+        })
+        .max(59, {
+          message: t("validation.max", {
+            field: tProcess("seconds"),
+            min: 1,
+          }),
+        }),
+    })
+    .refine((v) => v.hours + v.minutes + v.seconds > 0, {
+      message: "validation.required",
+    });
   return z.object({
-    plannedTime: z.string().optional(),
+    plannedTimeForm: durationSchema,
+    plannedTimeSeconds: z.number().int().min(0),
     quantity: z
       .number()
       .int()

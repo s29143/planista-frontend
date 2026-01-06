@@ -6,45 +6,44 @@ import { FiltersSchema, type Contact, type Filters } from "../model/store";
 import { fetchContacts } from "../api/queries";
 import { http } from "@/shared/api/http";
 
-const contactFilterFields: FilterField<keyof Filters & string>[] = [
-  {
-    type: "text",
-    name: "search",
-    label: "Szukaj",
-    placeholder: "Szukaj",
-  },
-  {
-    type: "text",
-    name: "company",
-    label: "Firma",
-    placeholder: "Szukaj",
-  },
-  {
-    type: "select",
-    name: "user",
-    label: "Opiekun",
-    multiple: true,
-    clearable: true,
-    endpoint: "/users",
-    placeholder: "Dowolna",
-    mapItem: (i) => ({
-      value: String(i.id),
-      label: `${i.firstname} ${i.lastname} (${i.username})`,
-    }),
-  },
-  {
-    type: "select",
-    name: "status",
-    label: "Status",
-    multiple: true,
-    clearable: true,
-    endpoint: "/contact-statuses",
-    placeholder: "Dowolny",
-  },
-];
-
 export default function ContactListPage() {
   const { t } = useTranslation("contact");
+  const contactFilterFields: FilterField<keyof Filters & string>[] = [
+    {
+      type: "text",
+      name: "search",
+      label: t("common:actions.search"),
+      placeholder: t("common:placeholders.search"),
+    },
+    {
+      type: "text",
+      name: "company",
+      label: t("company"),
+      placeholder: t("common:placeholders.search"),
+    },
+    {
+      type: "select",
+      name: "user",
+      label: t("user"),
+      multiple: true,
+      clearable: true,
+      endpoint: "/users",
+      placeholder: t("common:placeholders.any"),
+      mapItem: (i) => ({
+        value: String(i.id),
+        label: `${i.firstname} ${i.lastname} (${i.username})`,
+      }),
+    },
+    {
+      type: "select",
+      name: "status",
+      label: t("status"),
+      multiple: true,
+      clearable: true,
+      endpoint: "/contact-statuses",
+      placeholder: t("common:placeholders.any"),
+    },
+  ];
   const ContactColumns: ColumnDef<Contact>[] = [
     { key: "lastName", header: t("lastName") },
     { key: "firstName", header: t("firstName") },

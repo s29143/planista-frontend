@@ -108,6 +108,7 @@
   "placeholders": {
     "search": "Search...",
     "select": "Select...",
-    "date": "Select date"
+    "date": "Select date",
+    "any": "Any"
   }
 }

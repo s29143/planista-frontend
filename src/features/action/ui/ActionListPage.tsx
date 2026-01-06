@@ -6,45 +6,44 @@ import { FiltersSchema, type Action, type Filters } from "../model/store";
 import { fetchActions } from "../api/queries";
 import { http } from "@/shared/api/http";
 
-const filterFields: FilterField<keyof Filters & string>[] = [
-  {
-    type: "text",
-    name: "search",
-    label: "Szukaj",
-    placeholder: "Szukaj",
-  },
-  {
-    type: "text",
-    name: "company",
-    label: "Firma",
-    placeholder: "Szukaj",
-  },
-  {
-    type: "select",
-    name: "user",
-    label: "Opiekun",
-    multiple: true,
-    clearable: true,
-    endpoint: "/users",
-    placeholder: "Dowolna",
-    mapItem: (i) => ({
-      value: String(i.id),
-      label: `${i.firstname} ${i.lastname} (${i.username})`,
-    }),
-  },
-  {
-    type: "select",
-    name: "type",
-    label: "type",
-    multiple: true,
-    clearable: true,
-    endpoint: "/action-types",
-    placeholder: "Dowolny",
-  },
-];
-
 export default function ActionListPage() {
   const { t } = useTranslation("action");
+  const filterFields: FilterField<keyof Filters & string>[] = [
+    {
+      type: "text",
+      name: "search",
+      label: t("common:actions.search"),
+      placeholder: t("common:placeholders.search"),
+    },
+    {
+      type: "text",
+      name: "company",
+      label: t("company"),
+      placeholder: t("common:placeholders.search"),
+    },
+    {
+      type: "select",
+      name: "user",
+      label: t("user"),
+      multiple: true,
+      clearable: true,
+      endpoint: "/users",
+      placeholder: t("common:placeholders.any"),
+      mapItem: (i) => ({
+        value: String(i.id),
+        label: `${i.firstname} ${i.lastname} (${i.username})`,
+      }),
+    },
+    {
+      type: "select",
+      name: "type",
+      label: t("type"),
+      multiple: true,
+      clearable: true,
+      endpoint: "/action-types",
+      placeholder: t("common:placeholders.any"),
+    },
+  ];
   const columns: ColumnDef<Action>[] = [
     { key: "date", header: t("date") },
     { key: "text", header: t("text") },

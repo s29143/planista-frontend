@@ -23,6 +23,7 @@ export default function MaskedTextInput<T extends FieldValues>({
   label,
   placeholder,
   error,
+  withAsterisk,
   mask,
 }: MaskedTextInputProps<T>) {
   return (
@@ -40,6 +41,7 @@ export default function MaskedTextInput<T extends FieldValues>({
           component={IMaskInput}
           type="text"
           mask={mask}
+          withAsterisk={withAsterisk}
         />
       )}
     />

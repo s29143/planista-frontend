@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
 import DictItemForm from "./DictItemForm";
 import type { FormValues } from "../model/dictItemSchema";
+import { s } from "@/shared/helpers";
 
 export default function DictItemUpdatePage() {
   const { t } = useTranslation();
@@ -17,7 +18,6 @@ export default function DictItemUpdatePage() {
     undefined
   );
   const { module } = useParams();
-  const s = (v: unknown) => (v == null ? "" : String(v));
   if (!module) {
     navigate("/");
   }

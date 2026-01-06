@@ -10,6 +10,9 @@
   "statusId": "Status",
   "executions": "Wykonania",
   "order": "Zlecenie",
+  "hours": "Godziny",
+  "minutes": "Minuty",
+  "seconds": "Sekundy",
   "title": {
     "create": "Dodaj etap",
     "update": "Edytuj etap"
