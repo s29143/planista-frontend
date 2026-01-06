@@ -170,9 +170,9 @@ export default function UserForm({
                         data={[
                           { value: "ADMIN", label: tUser("roles.admin") },
                           { value: "MANAGER", label: tUser("roles.manager") },
-                          { value: "planner", label: tUser("roles.planner") },
+                          { value: "PLANNER", label: tUser("roles.planner") },
                           {
-                            value: "production",
+                            value: "PRODUCTION",
                             label: tUser("roles.production"),
                           },
                         ]}
