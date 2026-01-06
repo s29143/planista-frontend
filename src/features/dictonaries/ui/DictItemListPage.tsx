@@ -1,5 +1,5 @@
 import { DataListView } from "@/shared/ui/DataListView";
-import type { ColumnDef } from "@/shared/ui/DataTableView";
+import type { ColumnDef, QueryState } from "@/shared/ui/DataTableView";
 import type { FilterField } from "@/shared/ui/FilterBar";
 import { http } from "@/shared/api/http";
 import { useTranslation } from "react-i18next";
@@ -26,7 +26,8 @@ export default function DictItemListPage() {
     { key: "name", header: t("name") },
   ];
 
-  const fetch = (q) => fetchDictItems(q, module!);
+  const fetch = (q: QueryState<Filters, DictItem>) =>
+    fetchDictItems(q, module!);
 
   useEffect(() => {
     if (!module) {
