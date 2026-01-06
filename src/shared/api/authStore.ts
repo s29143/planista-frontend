@@ -1,5 +1,5 @@
-import type { User } from "@/shared/types/user";
 import { create } from "zustand";
+import type { User } from "../types/user";
 
 type AuthState = {
   user: User | null;

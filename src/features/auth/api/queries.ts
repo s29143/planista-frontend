@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { http } from "@/shared/api/http";
 import { z } from "zod";
-import { useAuthStore } from "../model/store";
+import { useAuthStore } from "@/shared/api/authStore";
 
 const LoginDto = z.object({
   username: z.string().nonempty(),

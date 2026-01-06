@@ -1,7 +1,7 @@
 import axios from "axios";
-import { useAuthStore } from "@/features/auth/model/store";
 import { normalizeProblem } from "./errorTypes";
 import i18next from "i18next";
+import { useAuthStore } from "./authStore";
 
 export const http = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
@@ -11,8 +11,7 @@ export const http = axios.create({
 http.interceptors.request.use((config) => {
   const token = useAuthStore.getState().accessToken;
   config.headers = config.headers ?? {};
-  if (token) 
-    config.headers.Authorization = `Bearer ${token}`;
+  if (token) config.headers.Authorization = `Bearer ${token}`;
   const lang = i18next.language || "en";
   config.headers["Accept-Language"] = lang;
   return config;
@@ -26,7 +25,10 @@ async function refreshAccessToken(): Promise<string | null> {
     const r = await axios.post(
       `${import.meta.env.VITE_API_URL}/auth/refresh`,
       null,
-      { withCredentials: true, headers: { "X-Client": "WEB", "Content-Type": "application/json" } }
+      {
+        withCredentials: true,
+        headers: { "X-Client": "WEB", "Content-Type": "application/json" },
+      }
     );
     const token = r.data?.accessToken as string | undefined;
     return token ?? null;
@@ -42,7 +44,9 @@ http.interceptors.response.use(
     const original = error.config;
     if (status === 401 && !original?._retry) {
       if (isRefreshing) {
-        const token = await new Promise<string | null>((res) => refreshWaiters.push(res));
+        const token = await new Promise<string | null>((res) =>
+          refreshWaiters.push(res)
+        );
         if (token) {
           original.headers.Authorization = `Bearer ${token}`;
           original._retry = true;
