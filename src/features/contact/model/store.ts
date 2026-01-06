@@ -1,21 +1,7 @@
-import type { Company } from "@/features/company/model/store";
+import type { Contact } from "@/shared/types/contact";
 import z from "zod";
 import { create } from "zustand";
 
-export type Contact = {
-  id: string;
-  firstName: string;
-  lastName: string;
-  jobTitle?: string;
-  phoneNumber?: string;
-  mobileNumber?: string;
-  email?: string;
-  company?: Company;
-  user?: { id: string; name: string };
-  status: { id: string; name: string };
-  createdAt?: string;
-  updatedAt?: string;
-};
 export const FiltersSchema = z.object({
   search: z.string().trim().optional().default(""),
   company: z.string().trim().optional().default(""),

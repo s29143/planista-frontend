@@ -1,12 +1,5 @@
+import type { User } from "@/shared/types/user";
 import { create } from "zustand";
-
-export type User = {
-  id: number;
-  username: string;
-  firstname: string;
-  lastname: string;
-  roles?: string;
-};
 
 type AuthState = {
   user: User | null;

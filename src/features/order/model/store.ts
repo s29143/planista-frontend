@@ -1,21 +1,6 @@
-import type { Company } from "@/features/company/model/store";
-import type { Contact } from "@/features/contact/model/store";
+import type { Order } from "@/shared/types/order";
 import z from "zod";
 import { create } from "zustand";
-
-export type Order = {
-  id: string;
-  product: string;
-  quantity: number;
-  dateFrom: string;
-  dateTo: string;
-  company?: Company;
-  contact?: Contact;
-  type?: { id: string; name: string };
-  status?: { id: string; name: string };
-  createdAt?: string;
-  updatedAt?: string;
-};
 
 export const FiltersSchema = z.object({
   product: z.string().trim().optional().default(""),

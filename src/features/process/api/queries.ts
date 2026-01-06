@@ -1,7 +1,8 @@
 import type { PagedResponse, QueryState } from "@/shared/ui/DataTableView";
-import type { Process, Filters, SortDir } from "../model/store";
+import type { Filters, SortDir } from "../model/store";
 import { http } from "@/shared/api/http";
 import qs from "qs";
+import type { Process } from "@/shared/types/process";
 
 export type ProcessesQuery = {
   page: number;

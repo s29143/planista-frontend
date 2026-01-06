@@ -23,7 +23,7 @@ import { notifications } from "@mantine/notifications";
 import { Workflow, X } from "lucide-react";
 import CancelButton from "@/shared/ui/buttons/CancelButton";
 import { Section } from "@/shared/ui/Section";
-import type { Process } from "@/features/process/model/store";
+import type { Process } from "@/shared/types/process";
 import DateFormInput from "@/shared/ui/inputs/DateFormInput";
 
 const API = {

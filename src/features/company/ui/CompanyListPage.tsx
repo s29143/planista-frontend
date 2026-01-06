@@ -2,10 +2,11 @@ import { DataListView } from "@/shared/ui/DataListView";
 import type { ColumnDef } from "@/shared/ui/DataTableView";
 import type { FilterField } from "@/shared/ui/FilterBar";
 import { useTranslation } from "react-i18next";
-import { FiltersSchema, type Company } from "../model/store";
+import { FiltersSchema } from "../model/store";
 import { fetchCompanies } from "../api/queries";
 import type { Filters } from "../model/store";
 import { http } from "@/shared/api/http";
+import type { Company } from "@/shared/types/company";
 
 export default function CompanyListPage() {
   const { t } = useTranslation("company");

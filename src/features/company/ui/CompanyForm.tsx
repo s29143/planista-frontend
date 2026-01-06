@@ -23,10 +23,10 @@ import { createCompanySchema, type FormValues } from "../model/companySchema";
 import { notifications } from "@mantine/notifications";
 import { ClipboardList, ListTodo, Users, X } from "lucide-react";
 import MaskedTextInput from "@/shared/ui/inputs/MaskedTextInput";
-import type { Contact } from "@/features/contact/model/store";
-import type { Action } from "@/features/action/model/store";
 import CancelButton from "@/shared/ui/buttons/CancelButton";
-import type { Order } from "@/features/order/model/store";
+import type { Action } from "@/shared/types/action";
+import type { Contact } from "@/shared/types/contact";
+import type { Order } from "@/shared/types/order";
 
 const API = {
   acquisitions: "/company-acquires",

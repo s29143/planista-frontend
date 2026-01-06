@@ -1,19 +1,6 @@
 import z from "zod";
 import { create } from "zustand";
-
-export type Company = {
-  id: string;
-  fullName: string;
-  shortName: string;
-  nip?: string;
-  district?: { id: string; name: string };
-  industry?: { id: string; name: string };
-  user?: { id: string; name: string };
-  acquiredBy?: { id: string; name: string };
-  status: { id: string; name: string };
-  createdAt?: string;
-  updatedAt?: string;
-};
+import type { Company } from "@/shared/types/company";
 
 export const FiltersSchema = z.object({
   search: z.string().trim().optional().default(""),
