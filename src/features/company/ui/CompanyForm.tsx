@@ -1,32 +1,17 @@
-import {
-  TextInput,
-  Textarea,
-  Button,
-  Group,
-  Stack,
-  Title,
-  Paper,
-  Grid,
-  LoadingOverlay,
-  Divider,
-  Anchor,
-  Container,
-} from "@mantine/core";
+import { TextInput, Textarea, Stack, Grid, Container } from "@mantine/core";
 import { Section } from "@/shared/ui/Section";
 import { useForm, type Resolver } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Link } from "react-router-dom";
 import { AsyncSelectRHF } from "@/shared/ui/inputs/AsyncSelectRHF";
 import { useEffect, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { createCompanySchema, type FormValues } from "../model/schema";
-import { notifications } from "@mantine/notifications";
-import { ClipboardList, ListTodo, Users, X } from "lucide-react";
+import { ClipboardList, ListTodo, Users } from "lucide-react";
 import MaskedTextInput from "@/shared/ui/inputs/MaskedTextInput";
-import CancelButton from "@/shared/ui/buttons/CancelButton";
 import type { Action } from "@/shared/types/action";
 import type { Contact } from "@/shared/types/contact";
 import type { Order } from "@/shared/types/order";
+import { FormShell } from "@/shared/ui/FormShell";
 
 const API = {
   acquisitions: "/company-acquires",
@@ -75,42 +60,6 @@ export default function CompanyForm({
     if (initialValues) reset((prev) => ({ ...prev, ...initialValues }));
   }, [initialValues, reset]);
 
-  const submit = async (payload: FormValues) => {
-    try {
-      const result = await save(payload);
-      onSuccess?.(result?.id);
-    } catch (e: any) {
-      const n = e?.normalized as
-        | {
-            fieldErrors?: Record<string, string>;
-            title?: string;
-            message?: string;
-          }
-        | undefined;
-
-      if (n?.fieldErrors) {
-        Object.entries(n.fieldErrors).forEach(([field, msg]) =>
-          setError(field as keyof FormValues, {
-            type: "server",
-            message: msg.replaceAll("{field}", tCompany(field)),
-          })
-        );
-      }
-      if (!n?.fieldErrors || Object.keys(n.fieldErrors).length === 0) {
-        setError("root.server" as any, {
-          type: "server",
-          message: n?.message ?? t("error.save"),
-        });
-      }
-      notifications.show({
-        color: "red",
-        icon: <X size={18} />,
-        title: n?.title ?? t("messages.error"),
-        message: n?.message ?? t("error.save"),
-      });
-    }
-  };
-
   const canSubmit = useMemo(
     () => isValid && !isSubmitting,
     [isValid, isSubmitting]
@@ -118,270 +67,251 @@ export default function CompanyForm({
 
   return (
     <Container size="lg">
-      <Stack gap="md">
-        <Paper withBorder radius="lg" p="xl" mt="md" pos="relative">
-          <LoadingOverlay visible={loading || isSubmitting} zIndex={1000} />
-          <Stack gap="md">
-            <Group justify="space-between" align="center">
-              <Title order={2}>{title}</Title>
-              <Anchor component={Link} to="/companies" size="sm">
-                ← {t("actions.backToList")}
-              </Anchor>
-            </Group>
+      <FormShell<FormValues>
+        canSubmit={canSubmit}
+        loading={loading}
+        backTo="/companies"
+        submitting={isSubmitting}
+        onSubmit={handleSubmit}
+        setError={setError}
+        title={title}
+        save={save}
+        onSuccess={onSuccess}
+      >
+        <Grid gutter="md">
+          <Grid.Col span={{ base: 12, md: 6 }}>
+            <TextInput
+              label={tCompany("shortName")}
+              placeholder="np. ACME"
+              withAsterisk
+              {...register("shortName")}
+              error={errors.shortName?.message}
+            />
+          </Grid.Col>
+          <Grid.Col span={{ base: 12, md: 6 }}>
+            <TextInput
+              label={tCompany("fullName")}
+              placeholder="np. ACME Sp. z o.o."
+              withAsterisk
+              {...register("fullName")}
+              error={errors.fullName?.message}
+            />
+          </Grid.Col>
 
-            <form onSubmit={handleSubmit(submit)} noValidate>
-              <Stack gap="lg">
-                <Grid gutter="md">
-                  <Grid.Col span={{ base: 12, md: 6 }}>
-                    <TextInput
-                      label={tCompany("shortName")}
-                      placeholder="np. ACME"
-                      withAsterisk
-                      {...register("shortName")}
-                      error={errors.shortName?.message}
-                    />
-                  </Grid.Col>
-                  <Grid.Col span={{ base: 12, md: 6 }}>
-                    <TextInput
-                      label={tCompany("fullName")}
-                      placeholder="np. ACME Sp. z o.o."
-                      withAsterisk
-                      {...register("fullName")}
-                      error={errors.fullName?.message}
-                    />
-                  </Grid.Col>
+          <Grid.Col span={{ base: 12, md: 4 }}>
+            <MaskedTextInput
+              control={control}
+              name="nip"
+              label={tCompany("nip")}
+              placeholder="1234567890"
+              mask="0000000000"
+              error={errors.nip?.message}
+            />
+          </Grid.Col>
+          <Grid.Col span={{ base: 12, md: 4 }}>
+            <MaskedTextInput
+              control={control}
+              label={tCompany("postalCode")}
+              placeholder="00-000"
+              mask="00-000"
+              {...register("postalCode")}
+              error={errors.postalCode?.message}
+            />
+          </Grid.Col>
 
-                  <Grid.Col span={{ base: 12, md: 4 }}>
-                    <MaskedTextInput
-                      control={control}
-                      name="nip"
-                      label={tCompany("nip")}
-                      placeholder="1234567890"
-                      mask="0000000000"
-                      error={errors.nip?.message}
-                    />
-                  </Grid.Col>
-                  <Grid.Col span={{ base: 12, md: 4 }}>
-                    <MaskedTextInput
-                      control={control}
-                      label={tCompany("postalCode")}
-                      placeholder="00-000"
-                      mask="00-000"
-                      {...register("postalCode")}
-                      error={errors.postalCode?.message}
-                    />
-                  </Grid.Col>
+          <Grid.Col span={{ base: 12, md: 6 }}>
+            <TextInput
+              label={tCompany("street")}
+              placeholder={tCompany("placeholders.street")}
+              {...register("street")}
+              error={errors.street?.message}
+            />
+          </Grid.Col>
+          <Grid.Col span={{ base: 12, md: 3 }}>
+            <TextInput
+              label={tCompany("houseNumber")}
+              placeholder="12A"
+              {...register("houseNumber")}
+              error={errors.houseNumber?.message}
+            />
+          </Grid.Col>
+          <Grid.Col span={{ base: 12, md: 3 }}>
+            <TextInput
+              label={tCompany("apartmentNumber")}
+              placeholder="5"
+              {...register("apartmentNumber")}
+              error={errors.apartmentNumber?.message}
+            />
+          </Grid.Col>
 
-                  <Grid.Col span={{ base: 12, md: 6 }}>
-                    <TextInput
-                      label={tCompany("street")}
-                      placeholder={tCompany("placeholders.street")}
-                      {...register("street")}
-                      error={errors.street?.message}
-                    />
-                  </Grid.Col>
-                  <Grid.Col span={{ base: 12, md: 3 }}>
-                    <TextInput
-                      label={tCompany("houseNumber")}
-                      placeholder="12A"
-                      {...register("houseNumber")}
-                      error={errors.houseNumber?.message}
-                    />
-                  </Grid.Col>
-                  <Grid.Col span={{ base: 12, md: 3 }}>
-                    <TextInput
-                      label={tCompany("apartmentNumber")}
-                      placeholder="5"
-                      {...register("apartmentNumber")}
-                      error={errors.apartmentNumber?.message}
-                    />
-                  </Grid.Col>
-
-                  <Grid.Col span={{ base: 12, md: 4 }}>
-                    <MaskedTextInput
-                      label={tCompany("phoneNumber")}
-                      placeholder="+48 123 456 789"
-                      control={control}
-                      mask={[
-                        {
-                          mask: "000 000 000",
-                        },
-                        {
-                          mask: "+48 000 000 000",
-                        },
-                      ]}
-                      {...register("phoneNumber")}
-                      error={errors.phoneNumber?.message}
-                    />
-                  </Grid.Col>
-                  <Grid.Col span={{ base: 12, md: 4 }}>
-                    <TextInput
-                      label={tCompany("email")}
-                      placeholder="firma@example.com"
-                      {...register("email")}
-                      error={errors.email?.message}
-                    />
-                  </Grid.Col>
-                  <Grid.Col span={{ base: 12, md: 4 }}>
-                    <TextInput
-                      label={tCompany("wwwSite")}
-                      placeholder="https://example.com"
-                      {...register("wwwSite")}
-                      error={errors.wwwSite?.message}
-                    />
-                  </Grid.Col>
-
-                  <Grid.Col span={12}>
-                    <Textarea
-                      label={tCompany("comments")}
-                      minRows={3}
-                      autosize
-                      {...register("comments")}
-                      error={errors.comments?.message}
-                    />
-                  </Grid.Col>
-                  <Grid.Col span={{ base: 12, md: 3 }}>
-                    <AsyncSelectRHF<FormValues>
-                      control={control}
-                      name="userId"
-                      label={tCompany("user")}
-                      withAsterisk
-                      mapItem={(i) => {
-                        return {
-                          value: String(i.id),
-                          label: `${i.firstname} ${i.lastname} (${i.username})`,
-                        };
-                      }}
-                      endpoint={API.users}
-                    />
-                  </Grid.Col>
-                  <Grid.Col span={{ base: 12, md: 3 }}>
-                    <AsyncSelectRHF<FormValues>
-                      control={control}
-                      name="acquiredId"
-                      label={tCompany("acquired")}
-                      endpoint={API.acquisitions}
-                    />
-                  </Grid.Col>
-
-                  <Grid.Col span={{ base: 12, md: 3 }}>
-                    <AsyncSelectRHF<FormValues>
-                      control={control}
-                      name="districtId"
-                      label={tCompany("district")}
-                      endpoint={API.districts}
-                    />
-                  </Grid.Col>
-
-                  <Grid.Col span={{ base: 12, md: 3 }}>
-                    <AsyncSelectRHF<FormValues>
-                      control={control}
-                      name="countryId"
-                      label={tCompany("country")}
-                      endpoint={API.countries}
-                    />
-                  </Grid.Col>
-
-                  <Grid.Col span={{ base: 12, md: 3 }}>
-                    <AsyncSelectRHF<FormValues>
-                      control={control}
-                      name="statusId"
-                      label={tCompany("status")}
-                      endpoint={API.statuses}
-                    />
-                  </Grid.Col>
-                </Grid>
-
-                <Divider my="xs" />
-
-                <Group justify="flex-end">
-                  <CancelButton />
-                  <Button
-                    type="submit"
-                    disabled={!canSubmit}
-                    loading={isSubmitting}
-                  >
-                    {t("actions.save")}
-                  </Button>
-                </Group>
-              </Stack>
-            </form>
-          </Stack>
-        </Paper>
-        {id && (
-          <Stack gap="md" mb="xl">
-            <Section<Contact>
-              module="contacts"
-              translationModule="contact"
-              icon={<Users size={16} />}
-              label={tCompany("contacts")}
-              url={`companies/${id}/contacts`}
-              columns={[
-                { key: "firstName" },
-                { key: "lastName" },
+          <Grid.Col span={{ base: 12, md: 4 }}>
+            <MaskedTextInput
+              label={tCompany("phoneNumber")}
+              placeholder="+48 123 456 789"
+              control={control}
+              mask={[
                 {
-                  key: "status",
-                  cell(row) {
-                    return row.status?.name || "—";
-                  },
+                  mask: "000 000 000",
                 },
                 {
-                  key: "user",
-                  cell(row) {
-                    return row.user?.name || "—";
-                  },
+                  mask: "+48 000 000 000",
                 },
               ]}
-            ></Section>
-            <Section<Action>
-              module="actions"
-              translationModule="action"
-              icon={<ListTodo size={16} />}
-              label={tCompany("actions")}
-              url={`companies/${id}/actions`}
-              columns={[
-                { key: "date" },
-                { key: "text" },
-                {
-                  key: "type",
-                  cell(row) {
-                    return row.type?.name || "—";
-                  },
+              {...register("phoneNumber")}
+              error={errors.phoneNumber?.message}
+            />
+          </Grid.Col>
+          <Grid.Col span={{ base: 12, md: 4 }}>
+            <TextInput
+              label={tCompany("email")}
+              placeholder="firma@example.com"
+              {...register("email")}
+              error={errors.email?.message}
+            />
+          </Grid.Col>
+          <Grid.Col span={{ base: 12, md: 4 }}>
+            <TextInput
+              label={tCompany("wwwSite")}
+              placeholder="https://example.com"
+              {...register("wwwSite")}
+              error={errors.wwwSite?.message}
+            />
+          </Grid.Col>
+
+          <Grid.Col span={12}>
+            <Textarea
+              label={tCompany("comments")}
+              minRows={3}
+              autosize
+              {...register("comments")}
+              error={errors.comments?.message}
+            />
+          </Grid.Col>
+          <Grid.Col span={{ base: 12, md: 3 }}>
+            <AsyncSelectRHF<FormValues>
+              control={control}
+              name="userId"
+              label={tCompany("user")}
+              withAsterisk
+              mapItem={(i) => {
+                return {
+                  value: String(i.id),
+                  label: `${i.firstname} ${i.lastname} (${i.username})`,
+                };
+              }}
+              endpoint={API.users}
+            />
+          </Grid.Col>
+          <Grid.Col span={{ base: 12, md: 3 }}>
+            <AsyncSelectRHF<FormValues>
+              control={control}
+              name="acquiredId"
+              label={tCompany("acquired")}
+              endpoint={API.acquisitions}
+            />
+          </Grid.Col>
+
+          <Grid.Col span={{ base: 12, md: 3 }}>
+            <AsyncSelectRHF<FormValues>
+              control={control}
+              name="districtId"
+              label={tCompany("district")}
+              endpoint={API.districts}
+            />
+          </Grid.Col>
+
+          <Grid.Col span={{ base: 12, md: 3 }}>
+            <AsyncSelectRHF<FormValues>
+              control={control}
+              name="countryId"
+              label={tCompany("country")}
+              endpoint={API.countries}
+            />
+          </Grid.Col>
+
+          <Grid.Col span={{ base: 12, md: 3 }}>
+            <AsyncSelectRHF<FormValues>
+              control={control}
+              name="statusId"
+              label={tCompany("status")}
+              endpoint={API.statuses}
+            />
+          </Grid.Col>
+        </Grid>
+      </FormShell>
+      {id && (
+        <Stack gap="md" mb="xl">
+          <Section<Contact>
+            module="contacts"
+            translationModule="contact"
+            icon={<Users size={16} />}
+            label={tCompany("contacts")}
+            url={`companies/${id}/contacts`}
+            columns={[
+              { key: "firstName" },
+              { key: "lastName" },
+              {
+                key: "status",
+                cell(row) {
+                  return row.status?.name || "—";
                 },
-                {
-                  key: "user",
-                  cell(row) {
-                    return row.user?.name || "—";
-                  },
+              },
+              {
+                key: "user",
+                cell(row) {
+                  return row.user?.name || "—";
                 },
-              ]}
-            ></Section>
-            <Section<Order>
-              module="orders"
-              translationModule="order"
-              icon={<ClipboardList size={16} />}
-              label={tCompany("orders")}
-              url={`companies/${id}/orders`}
-              columns={[
-                { key: "product" },
-                { key: "quantity" },
-                {
-                  key: "type",
-                  cell(row) {
-                    return row.type?.name || "—";
-                  },
+              },
+            ]}
+          ></Section>
+          <Section<Action>
+            module="actions"
+            translationModule="action"
+            icon={<ListTodo size={16} />}
+            label={tCompany("actions")}
+            url={`companies/${id}/actions`}
+            columns={[
+              { key: "date" },
+              { key: "text" },
+              {
+                key: "type",
+                cell(row) {
+                  return row.type?.name || "—";
                 },
-                {
-                  key: "status",
-                  cell(row) {
-                    return row.status?.name || "—";
-                  },
+              },
+              {
+                key: "user",
+                cell(row) {
+                  return row.user?.name || "—";
                 },
-              ]}
-            ></Section>
-          </Stack>
-        )}
-      </Stack>
+              },
+            ]}
+          ></Section>
+          <Section<Order>
+            module="orders"
+            translationModule="order"
+            icon={<ClipboardList size={16} />}
+            label={tCompany("orders")}
+            url={`companies/${id}/orders`}
+            columns={[
+              { key: "product" },
+              { key: "quantity" },
+              {
+                key: "type",
+                cell(row) {
+                  return row.type?.name || "—";
+                },
+              },
+              {
+                key: "status",
+                cell(row) {
+                  return row.status?.name || "—";
+                },
+              },
+            ]}
+          ></Section>
+        </Stack>
+      )}
     </Container>
   );
 }
