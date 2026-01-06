@@ -2,6 +2,15 @@ import { emptyToUndef } from "@/shared/helpers";
 import type { TFunction } from "i18next";
 import { z } from "zod";
 
+export const FiltersSchema = z.object({
+  product: z.string().trim().optional().default(""),
+  company: z.string().trim().optional().default(""),
+  status: z.string().array().optional().default([]),
+  type: z.string().array().optional().default([]),
+});
+
+export type Filters = z.infer<typeof FiltersSchema>;
+
 export const createOrderSchema = (t: TFunction, tOrder: TFunction) => {
   return z.object({
     product: z.string().min(2, {

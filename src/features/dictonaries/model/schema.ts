@@ -1,8 +1,13 @@
 import { z } from "zod";
 import type { TFunction } from "i18next";
 
+export const FiltersSchema = z.object({
+  search: z.string().trim().optional().default(""),
+});
+export type Filters = z.infer<typeof FiltersSchema>;
+
 export const createDictItemSchema = (t: TFunction, tDictItem: TFunction) =>
-   z.object({
+  z.object({
     name: z
       .string()
       .min(2, t("validation.min", { field: tDictItem("name"), min: 2 }))

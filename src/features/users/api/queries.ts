@@ -1,7 +1,9 @@
 import type { PagedResponse, QueryState } from "@/shared/ui/DataTableView";
-import type { User, Filters, SortDir } from "../model/store";
 import { http } from "@/shared/api/http";
 import z from "zod";
+import type { User } from "@/shared/types/user";
+import type { SortDir } from "@/shared/helpers";
+import type { Filters } from "../model/schema";
 
 export type UsersQuery = {
   page: number;
@@ -20,7 +22,6 @@ export type CompaniesResponse = {
   content: User[];
   total: number;
 };
-
 
 export async function fetchUsers(
   q: QueryState<UserFilters, User>,

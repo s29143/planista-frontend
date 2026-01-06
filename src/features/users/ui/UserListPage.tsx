@@ -2,13 +2,13 @@ import { DataListView } from "@/shared/ui/DataListView";
 import type { ColumnDef } from "@/shared/ui/DataTableView";
 import type { FilterField } from "@/shared/ui/FilterBar";
 import { useTranslation } from "react-i18next";
-import type { User } from "../model/store";
 import {
   userFiltersSchema,
   fetchUsers,
   type UserFilters,
 } from "../api/queries";
 import { http } from "@/shared/api/http";
+import type { User } from "@/shared/types/user";
 
 const userFilterFields: FilterField<keyof UserFilters & string>[] = [
   {

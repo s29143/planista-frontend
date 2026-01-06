@@ -18,7 +18,7 @@ import { useEffect, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { notifications } from "@mantine/notifications";
 import { X } from "lucide-react";
-import { createDictItemSchema, type FormValues } from "../model/dictItemSchema";
+import { createDictItemSchema, type FormValues } from "../model/schema";
 
 type SaveFn = (values: FormValues) => Promise<{ id?: string } | void>;
 

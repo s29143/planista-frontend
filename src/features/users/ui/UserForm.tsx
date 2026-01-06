@@ -18,7 +18,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Link } from "react-router-dom";
 import { useEffect, useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { createUserSchema, type FormValues } from "../model/userSchema";
+import { createUserSchema, type FormValues } from "../model/schema";
 import { notifications } from "@mantine/notifications";
 import { X } from "lucide-react";
 import CancelButton from "@/shared/ui/buttons/CancelButton";

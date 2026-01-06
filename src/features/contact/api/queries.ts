@@ -1,9 +1,18 @@
 import type { PagedResponse, QueryState } from "@/shared/ui/DataTableView";
-import type { Filters, SortDir } from "../model/store";
 import { http } from "@/shared/api/http";
 import qs from "qs";
 import type { Contact } from "@/shared/types/contact";
+import z from "zod";
+import type { SortDir } from "@/shared/helpers";
 
+export const FiltersSchema = z.object({
+  search: z.string().trim().optional().default(""),
+  company: z.string().trim().optional().default(""),
+  user: z.string().array().optional().default([]),
+  status: z.string().array().optional().default([]),
+});
+
+export type Filters = z.infer<typeof FiltersSchema>;
 export type ContactsQuery = {
   page: number;
   pageSize: number;

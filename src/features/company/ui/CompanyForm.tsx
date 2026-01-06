@@ -19,7 +19,7 @@ import { Link } from "react-router-dom";
 import { AsyncSelectRHF } from "@/shared/ui/inputs/AsyncSelectRHF";
 import { useEffect, useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { createCompanySchema, type FormValues } from "../model/companySchema";
+import { createCompanySchema, type FormValues } from "../model/schema";
 import { notifications } from "@mantine/notifications";
 import { ClipboardList, ListTodo, Users, X } from "lucide-react";
 import MaskedTextInput from "@/shared/ui/inputs/MaskedTextInput";

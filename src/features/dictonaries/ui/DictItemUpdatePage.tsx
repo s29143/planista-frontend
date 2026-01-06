@@ -5,7 +5,7 @@ import { http } from "@/shared/api/http";
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
 import DictItemForm from "./DictItemForm";
-import type { FormValues } from "../model/dictItemSchema";
+import type { FormValues } from "../model/schema";
 import { s } from "@/shared/helpers";
 
 export default function DictItemUpdatePage() {

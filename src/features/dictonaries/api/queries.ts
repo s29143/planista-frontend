@@ -1,6 +1,7 @@
 import type { QueryState } from "@/shared/ui/DataTableView";
-import type { DictItem, Filters } from "../model/store";
 import { http } from "@/shared/api/http";
+import type { DictItem } from "@/shared/types/dictItem";
+import type { Filters } from "../model/schema";
 
 export async function fetchDictItems(
   q: QueryState<Filters, DictItem>,

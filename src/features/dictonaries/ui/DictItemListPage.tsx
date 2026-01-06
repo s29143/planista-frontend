@@ -3,11 +3,11 @@ import type { ColumnDef, QueryState } from "@/shared/ui/DataTableView";
 import type { FilterField } from "@/shared/ui/FilterBar";
 import { http } from "@/shared/api/http";
 import { useTranslation } from "react-i18next";
-import { type DictItem, type Filters } from "../model/store";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { fetchDictItems } from "../api/queries";
-import { FiltersSchema } from "@/features/company/model/store";
+import type { DictItem } from "@/shared/types/dictItem";
+import { FiltersSchema, type Filters } from "../model/schema";
 
 const dictItemFilterFields: FilterField<keyof Filters & string>[] = [
   {

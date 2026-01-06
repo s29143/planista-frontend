@@ -2,8 +2,7 @@ import { DataListView } from "@/shared/ui/DataListView";
 import type { ColumnDef } from "@/shared/ui/DataTableView";
 import type { FilterField } from "@/shared/ui/FilterBar";
 import { useTranslation } from "react-i18next";
-import { FiltersSchema, type Filters } from "../model/store";
-import { fetchContacts } from "../api/queries";
+import { fetchContacts, FiltersSchema, type Filters } from "../api/queries";
 import { http } from "@/shared/api/http";
 import type { Contact } from "@/shared/types/contact";
 

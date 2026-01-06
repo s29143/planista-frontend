@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { http } from "@/shared/api/http";
 import ProcessForm from "./ProcessForm";
 import { useTranslation } from "react-i18next";
-import type { FormValues } from "../model/processSchema";
+import type { FormValues } from "../model/schema";
 import { useEffect, useState } from "react";
 import {
   durationToSeconds,

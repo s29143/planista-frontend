@@ -18,7 +18,7 @@ import { Link } from "react-router-dom";
 import { AsyncSelectRHF } from "@/shared/ui/inputs/AsyncSelectRHF";
 import { useEffect, useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { createActionSchema, type FormValues } from "../model/actionSchema";
+import { createActionSchema, type FormValues } from "../model/schema";
 import { notifications } from "@mantine/notifications";
 import { X } from "lucide-react";
 import CancelButton from "@/shared/ui/buttons/CancelButton";

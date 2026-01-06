@@ -18,7 +18,7 @@ import { Link } from "react-router-dom";
 import { AsyncSelectRHF } from "@/shared/ui/inputs/AsyncSelectRHF";
 import { useEffect, useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { createContactSchema, type FormValues } from "../model/contactSchema";
+import { createContactSchema, type FormValues } from "../model/schema";
 import { notifications } from "@mantine/notifications";
 import { X } from "lucide-react";
 import MaskedTextInput from "@/shared/ui/inputs/MaskedTextInput";

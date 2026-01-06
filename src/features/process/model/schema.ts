@@ -2,6 +2,10 @@ import { emptyToUndef } from "@/shared/helpers";
 import type { TFunction } from "i18next";
 import { z } from "zod";
 
+export const FiltersSchema = z.object({});
+
+export type Filters = z.infer<typeof FiltersSchema>;
+
 export const createProcessSchema = (t: TFunction, tProcess: TFunction) => {
   const durationSchema = z
     .object({

@@ -1,6 +1,10 @@
 import { z } from "zod";
 import type { TFunction } from "i18next";
 
+export const FiltersSchema = z.object({
+  q: z.string().trim().optional().default(""),
+});
+export type Filters = z.infer<typeof FiltersSchema>;
 const emptyToUndef = (v: unknown) =>
   typeof v === "string" ? (v.trim() === "" ? undefined : v.trim()) : v;
 export const createUserSchema = (t: TFunction, tUser: TFunction) =>

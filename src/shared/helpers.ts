@@ -23,3 +23,5 @@ export const idOrUndef = (v: unknown) => (v == null ? undefined : Number(v));
 
 export const emptyToUndef = (v: unknown) =>
   typeof v === "string" ? (v.trim() === "" ? undefined : v.trim()) : v;
+
+export type SortDir = "asc" | "desc";
