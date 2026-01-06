@@ -1,5 +1,5 @@
 import axios from "axios";
-import { normalizeProblem } from "./errorTypes";
+import { normalizeProblem } from "../errors/errorTypes";
 import i18next from "i18next";
 import { useAuthStore } from "./authStore";
 
