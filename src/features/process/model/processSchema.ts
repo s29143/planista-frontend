@@ -50,7 +50,7 @@ export const createProcessSchema = (t: TFunction, tProcess: TFunction) => {
     });
   return z.object({
     plannedTimeForm: durationSchema,
-    plannedTimeSeconds: z.number().int().min(0),
+    plannedTimeSeconds: z.number().int().min(0).optional(),
     quantity: z
       .number()
       .int()
@@ -68,11 +68,13 @@ export const createProcessSchema = (t: TFunction, tProcess: TFunction) => {
       ),
     technologyId: z
       .preprocess(emptyToUndef, z.union([z.string(), z.number()]))
+      .optional()
       .transform((v) =>
         v == null || v === "undefined" ? undefined : Number(v)
       ),
     orderId: z
       .preprocess(emptyToUndef, z.union([z.string(), z.number()]))
+      .optional()
       .transform((v) =>
         v == null || v === "undefined" ? undefined : Number(v)
       ),
