@@ -1,6 +1,6 @@
 import { Button } from "@mantine/core";
-import { useLogout } from "../api/queries";
-import { useAuthStore } from "../model/store";
+import { useLogout } from "../../../features/auth/api/queries";
+import { useAuthStore } from "../../../features/auth/model/store";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
