@@ -9,7 +9,7 @@ import MaskedTextInput from "@/shared/ui/inputs/MaskedTextInput";
 import { FormShell } from "@/shared/ui/FormShell";
 
 const API = {
-  statuses: "/contact-statuses",
+  statuses: "/dict/contact-statuses",
   company: "/companies",
   users: "/users",
 };

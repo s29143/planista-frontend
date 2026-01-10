@@ -14,10 +14,10 @@ import type { Order } from "@/shared/types/order";
 import { FormShell } from "@/shared/ui/FormShell";
 
 const API = {
-  acquisitions: "/company-acquires",
-  districts: "/districts",
-  countries: "/countries",
-  statuses: "/company-statuses",
+  acquisitions: "/dict/company-acquires",
+  districts: "/dict/districts",
+  countries: "/dict/countries",
+  statuses: "/dict/company-statuses",
   users: "/users",
 };
 type SaveFn = (values: FormValues) => Promise<{ id?: string } | void>;

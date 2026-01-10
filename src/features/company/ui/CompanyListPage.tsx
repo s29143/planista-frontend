@@ -22,7 +22,7 @@ export default function CompanyListPage() {
       label: t("district"),
       multiple: true,
       clearable: true,
-      endpoint: "/districts",
+      endpoint: "/dict/districts",
       placeholder: t("common:placeholders.any"),
     },
     {
@@ -44,7 +44,7 @@ export default function CompanyListPage() {
       label: t("status"),
       multiple: true,
       clearable: true,
-      endpoint: "/company-statuses",
+      endpoint: "/dict/company-statuses",
       placeholder: t("common:placeholders.any"),
     },
   ];

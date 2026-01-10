@@ -14,13 +14,15 @@ export async function fetchDictItems(
   };
   if (q.sortBy) {
     params.sort = q.sortBy + (q.sortDir === "desc" ? ",desc" : ",asc");
+  } else {
+    params.sort = "id,asc";
   }
   const { search } = q.filters;
   params.name = "";
   if (search) params.name = search;
 
   const res = await http.get(
-    "/" + module + "/search/findByNameContainingIgnoreCase",
+    "/dict/" + module + "/search/findByNameContainingIgnoreCase",
     {
       params,
       signal,

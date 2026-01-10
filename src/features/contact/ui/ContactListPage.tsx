@@ -40,7 +40,7 @@ export default function ContactListPage() {
       label: t("status"),
       multiple: true,
       clearable: true,
-      endpoint: "/contact-statuses",
+      endpoint: "/dict/contact-statuses",
       placeholder: t("common:placeholders.any"),
     },
   ];

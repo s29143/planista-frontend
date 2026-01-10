@@ -10,10 +10,10 @@ import { DurationField } from "@/shared/ui/inputs/DurationInput";
 import { FormShell } from "@/shared/ui/FormShell";
 
 const API = {
-  technologies: "/technologies",
+  technologies: "/dict/technologies",
   order: "/orders",
-  workstation: "/workstations",
-  status: "/process-statuses",
+  workstation: "/dict/workstations",
+  status: "/dict/process-statuses",
 };
 type SaveFn = (values: FormValues) => Promise<{ id?: string } | void>;
 

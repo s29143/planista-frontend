@@ -41,7 +41,7 @@ export default function ActionListPage() {
       label: t("type"),
       multiple: true,
       clearable: true,
-      endpoint: "/action-types",
+      endpoint: "/dict/action-types",
       placeholder: t("common:placeholders.any"),
     },
   ];

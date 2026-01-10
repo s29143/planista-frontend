@@ -44,7 +44,7 @@ export default function DictItemListPage() {
       initialPageSize={20}
       canDelete={true}
       deleteFn={async (row) => {
-        http.delete(`/${module}/` + row.id);
+        http.delete(`/dict/${module}/` + row.id);
       }}
     />
   );

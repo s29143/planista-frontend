@@ -9,7 +9,7 @@ import DateFormInput from "@/shared/ui/inputs/DateFormInput";
 import { FormShell } from "@/shared/ui/FormShell";
 
 const API = {
-  types: "/action-types",
+  types: "/dict/action-types",
   company: "/companies",
   contact: "/contacts",
   users: "/users",

@@ -13,10 +13,10 @@ import { FormShell } from "@/shared/ui/FormShell";
 import NumInput from "@/shared/ui/inputs/NumInput";
 
 const API = {
-  types: "/order-types",
+  types: "/dict/order-types",
   company: "/companies",
   contact: "/contacts",
-  status: "/order-statuses",
+  status: "/dict/order-statuses",
 };
 type SaveFn = (values: FormValues) => Promise<{ id?: string } | void>;
 
