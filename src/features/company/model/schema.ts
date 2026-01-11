@@ -8,6 +8,15 @@ const phoneRegex = /^[0-9+\-\s()]{6,20}$/i;
 
 const stringOptional = z.preprocess(emptyToUndef, z.string().optional());
 
+export const FiltersSchema = z.object({
+  search: z.string().trim().optional().default(""),
+  district: z.string().array().optional().default([]),
+  user: z.string().array().optional().default([]),
+  status: z.string().array().optional().default([]),
+});
+
+export type Filters = z.infer<typeof FiltersSchema>;
+
 export const createCompanySchema = (t: TFunction, tCompany: TFunction) => {
   const emailOptional = z.preprocess(
     emptyToUndef,

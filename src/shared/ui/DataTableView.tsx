@@ -118,7 +118,6 @@ export function DataTableView<TRow>({
       close();
       setRowToDelete(null);
     } catch (e) {
-      console.log("delete error", e);
       notifications.show({
         title: t("actions.deleteFailed", "Delete failed"),
         message: (e as Error).message,

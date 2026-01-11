@@ -5,7 +5,7 @@ import { http } from "@/shared/api/http";
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
 import DictItemForm from "./DictItemForm";
-import type { FormValues } from "../model/dictItemSchema";
+import type { FormValues } from "../model/schema";
 import { s } from "@/shared/helpers";
 
 export default function DictItemUpdatePage() {
@@ -26,7 +26,7 @@ export default function DictItemUpdatePage() {
     let alive = true;
     (async () => {
       try {
-        const { data } = await http.get(`${module}/${id}`);
+        const { data } = await http.get(`dict/${module}/${id}`);
         if (!alive) return;
 
         const mapped: Partial<FormValues> = {
@@ -56,7 +56,7 @@ export default function DictItemUpdatePage() {
     <DictItemForm
       loading={loading}
       save={async (values) => {
-        await http.put(`/${module}/${id}`, values);
+        await http.put(`/dict/${module}/${id}`, values);
         return { id };
       }}
       onSuccess={() => navigate(`/dictionaries/${module}`)}

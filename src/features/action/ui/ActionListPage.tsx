@@ -2,9 +2,10 @@ import { DataListView } from "@/shared/ui/DataListView";
 import type { ColumnDef } from "@/shared/ui/DataTableView";
 import type { FilterField } from "@/shared/ui/FilterBar";
 import { useTranslation } from "react-i18next";
-import { FiltersSchema, type Action, type Filters } from "../model/store";
 import { fetchActions } from "../api/queries";
 import { http } from "@/shared/api/http";
+import type { Action } from "@/shared/types/action";
+import { FiltersSchema, type Filters } from "../model/schema";
 
 export default function ActionListPage() {
   const { t } = useTranslation("action");
@@ -40,7 +41,7 @@ export default function ActionListPage() {
       label: t("type"),
       multiple: true,
       clearable: true,
-      endpoint: "/action-types",
+      endpoint: "/dict/action-types",
       placeholder: t("common:placeholders.any"),
     },
   ];

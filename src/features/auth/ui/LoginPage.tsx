@@ -11,12 +11,12 @@ import {
   Group,
   Center,
 } from "@mantine/core";
-import { useLogin, useMe } from "../api/queries";
-import { useAuthStore } from "../model/store";
 import { useNavigate, useLocation, Navigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import axios from "axios";
 import { useEffect } from "react";
+import { useAuthStore } from "@/shared/api/authStore";
+import { useLogin, useMe } from "@/shared/api/queries";
 
 export default function LoginPage() {
   const { t } = useTranslation("common");

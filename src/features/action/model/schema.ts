@@ -1,6 +1,15 @@
 import { emptyToUndef } from "@/shared/helpers";
 import { z } from "zod";
 
+export const FiltersSchema = z.object({
+  search: z.string().trim().optional().default(""),
+  company: z.string().trim().optional().default(""),
+  user: z.string().array().optional().default([]),
+  type: z.string().array().optional().default([]),
+});
+
+export type Filters = z.infer<typeof FiltersSchema>;
+
 export const createActionSchema = () => {
   return z.object({
     date: z.string().optional(),

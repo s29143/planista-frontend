@@ -22,6 +22,7 @@
   "messages": {
     "loading": "Ładowanie...",
     "error": "Wystąpił nieoczekiwany błąd",
+    "interfaceError": "Wystąpił bład interfejsu",
     "notFound": "Nie znaleziono",
     "success": "Operacja zakończona pomyślnie",
     "created": "Pomyślnie utworzono",

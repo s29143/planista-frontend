@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { http } from "@/shared/api/http";
 import OrderForm from "./OrderForm";
 import { useTranslation } from "react-i18next";
-import type { FormValues } from "../model/orderSchema";
+import type { FormValues } from "../model/schema";
 import { useEffect, useState } from "react";
 import { idOrUndef, s } from "@/shared/helpers";
 

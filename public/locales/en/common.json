@@ -23,6 +23,7 @@
   "messages": {
     "loading": "Loading...",
     "error": "An error occurred",
+    "interfaceError": "An interface error occurred",
     "notFound": "Not found",
     "success": "Operation completed successfully",
     "created": "Successfully created",

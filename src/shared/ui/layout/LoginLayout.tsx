@@ -2,7 +2,7 @@ import { AppShell, Group, Text } from "@mantine/core";
 import { Outlet } from "react-router-dom";
 import { LanguageSwitcher } from "../buttons/LanguageSwitcher";
 import { ColorSchemeToggle } from "../buttons/ColorSchemeToggle";
-import { LogoutButton } from "@/features/auth/ui/LogoutButton";
+import { LogoutButton } from "@/shared/ui/buttons/LogoutButton";
 
 export default function LoginLayout() {
   return (

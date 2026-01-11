@@ -1,0 +1,22 @@
+{
+  "product": "Product",
+  "quantity": "Quantity",
+  "timeInSeconds": "Time",
+  "type": "Type",
+  "typeId": "Type",
+  "status": "Status",
+  "statusId": "Status",
+  "processes": "Processes",
+  "createdAt": "Created At",
+  "title": {
+    "create": "Create execution",
+    "update": "Update execution"
+  },
+  "errors": {
+    "required": "This field is required"
+  },
+  "placeholders": {
+    "product": "Enter product",
+    "quantity": "Enter quantity"
+  }
+}

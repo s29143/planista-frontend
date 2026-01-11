@@ -2,9 +2,10 @@ import { DataListView } from "@/shared/ui/DataListView";
 import type { ColumnDef } from "@/shared/ui/DataTableView";
 import type { FilterField } from "@/shared/ui/FilterBar";
 import { useTranslation } from "react-i18next";
-import { FiltersSchema, type Filters, type Order } from "../model/store";
 import { fetchOrders } from "../api/queries";
 import { http } from "@/shared/api/http";
+import type { Order } from "@/shared/types/order";
+import { FiltersSchema, type Filters } from "../model/schema";
 
 export default function OrderListPage() {
   const { t } = useTranslation("order");
@@ -27,7 +28,7 @@ export default function OrderListPage() {
       label: t("status"),
       multiple: true,
       clearable: true,
-      endpoint: "/order-statuses",
+      endpoint: "/dict/order-statuses",
       placeholder: t("common:placeholders.any"),
     },
     {
@@ -36,7 +37,7 @@ export default function OrderListPage() {
       label: t("type"),
       multiple: true,
       clearable: true,
-      endpoint: "/order-types",
+      endpoint: "/dict/order-types",
       placeholder: t("common:placeholders.any"),
     },
   ];

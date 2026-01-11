@@ -1,8 +1,8 @@
 import { Button } from "@mantine/core";
-import { useLogout } from "../api/queries";
-import { useAuthStore } from "../model/store";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { useAuthStore } from "@/shared/api/authStore";
+import { useLogout } from "@/shared/api/queries";
 
 export function LogoutButton() {
   const logout = useLogout();

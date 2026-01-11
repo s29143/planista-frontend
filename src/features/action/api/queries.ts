@@ -1,7 +1,9 @@
 import type { PagedResponse, QueryState } from "@/shared/ui/DataTableView";
-import type { Action, Filters, SortDir } from "../model/store";
 import { http } from "@/shared/api/http";
 import qs from "qs";
+import type { Action } from "@/shared/types/action";
+import type { SortDir } from "@/shared/helpers";
+import type { Filters } from "../model/schema";
 
 export type ActionsQuery = {
   page: number;

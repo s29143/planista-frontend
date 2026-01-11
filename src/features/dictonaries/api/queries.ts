@@ -1,6 +1,7 @@
 import type { QueryState } from "@/shared/ui/DataTableView";
-import type { DictItem, Filters } from "../model/store";
 import { http } from "@/shared/api/http";
+import type { DictItem } from "@/shared/types/dictItem";
+import type { Filters } from "../model/schema";
 
 export async function fetchDictItems(
   q: QueryState<Filters, DictItem>,
@@ -13,13 +14,15 @@ export async function fetchDictItems(
   };
   if (q.sortBy) {
     params.sort = q.sortBy + (q.sortDir === "desc" ? ",desc" : ",asc");
+  } else {
+    params.sort = "id,asc";
   }
   const { search } = q.filters;
   params.name = "";
   if (search) params.name = search;
 
   const res = await http.get(
-    "/" + module + "/search/findByNameContainingIgnoreCase",
+    "/dict/" + module + "/search/findByNameContainingIgnoreCase",
     {
       params,
       signal,

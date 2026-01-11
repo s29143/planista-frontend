@@ -11,7 +11,7 @@ export default function DictItemCreatePage() {
   return (
     <DictItemForm
       save={async (values) => {
-        const { data } = await http.post(`/${module}`, values);
+        const { data } = await http.post(`/dict/${module}`, values);
         return { id: data?.id as string | undefined };
       }}
       title={tDictItem("title.create")}
