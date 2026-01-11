@@ -1,4 +1,4 @@
-import { Container, Grid } from "@mantine/core";
+import { Container, Grid, Stack } from "@mantine/core";
 import { useForm, type Resolver } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AsyncSelectRHF } from "@/shared/ui/inputs/AsyncSelectRHF";
@@ -8,6 +8,10 @@ import { createProcessSchema, type FormValues } from "../model/schema";
 import NumInput from "@/shared/ui/inputs/NumInput";
 import { DurationField } from "@/shared/ui/inputs/DurationInput";
 import { FormShell } from "@/shared/ui/FormShell";
+import { Section } from "@/shared/ui/Section";
+import type { Execution } from "@/shared/types/execution";
+import { secondsToDurationParts } from "@/shared/helpers";
+import { CheckCircle } from "lucide-react";
 
 const API = {
   technologies: "/dict/technologies",
@@ -23,6 +27,7 @@ export default function ProcessForm({
   save,
   onSuccess,
   title,
+  id,
 }: {
   onError?: (errors: any) => void;
   initialValues?: Partial<FormValues>;
@@ -30,6 +35,7 @@ export default function ProcessForm({
   save: SaveFn;
   onSuccess?: (id?: string) => void;
   title?: React.ReactNode;
+  id?: string;
 }) {
   const { t } = useTranslation();
   const { t: tProcess } = useTranslation("process");
@@ -129,6 +135,30 @@ export default function ProcessForm({
           </Grid.Col>
         </Grid>
       </FormShell>
+      {id && (
+        <Stack gap="md" mb="xl" mt="lg">
+          <Section<Execution>
+            module="executions"
+            translationModule="execution"
+            icon={<CheckCircle size={16} />}
+            label={tProcess("executions")}
+            url={`process/${id}/executions`}
+            columns={[
+              { key: "quantity" },
+              {
+                key: "timeInSeconds",
+                cell(row) {
+                  const duration = secondsToDurationParts(row.timeInSeconds);
+                  return `${duration.hours}:${duration.minutes}:${duration.seconds}`;
+                },
+              },
+              {
+                key: "createdAt",
+              },
+            ]}
+          ></Section>
+        </Stack>
+      )}
     </Container>
   );
 }

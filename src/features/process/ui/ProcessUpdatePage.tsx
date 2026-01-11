@@ -62,6 +62,7 @@ export default function ProcessUpdatePage() {
 
   return (
     <ProcessForm
+      id={id}
       loading={loading}
       save={async (values) => {
         values.plannedTimeSeconds = durationToSeconds(values.plannedTimeForm);

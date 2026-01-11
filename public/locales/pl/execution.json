@@ -1,0 +1,21 @@
+{
+  "quantity": "Ilość",
+  "timeInSeconds": "Czas",
+  "type": "Typ",
+  "typeId": "Typ",
+  "status": "Status",
+  "statusId": "Status",
+  "processes": "Procesy",
+  "createdAt": "Dodał",
+  "title": {
+    "create": "Dodaj wykonanie",
+    "update": "Edytuj wykonanie"
+  },
+  "errors": {
+    "required": "To pole jest wymagane"
+  },
+  "placeholders": {
+    "product": "Wpisz produkt",
+    "quantity": "Wpisz ilość"
+  }
+}
