@@ -12,6 +12,7 @@ import type { Action } from "@/shared/types/action";
 import type { Contact } from "@/shared/types/contact";
 import type { Order } from "@/shared/types/order";
 import { FormShell } from "@/shared/ui/FormShell";
+import { useAuthStore } from "@/shared/api/authStore";
 
 const API = {
   acquisitions: "/dict/company-acquires",
@@ -40,6 +41,7 @@ export default function CompanyForm({
 }) {
   const { t } = useTranslation();
   const { t: tCompany } = useTranslation("company");
+  const { user } = useAuthStore();
 
   const schema = useMemo(() => createCompanySchema(t, tCompany), [t, tCompany]);
 
@@ -53,7 +55,7 @@ export default function CompanyForm({
   } = useForm<FormValues>({
     resolver: zodResolver(schema) as Resolver<FormValues, any, FormValues>,
     mode: "onChange",
-    defaultValues: { shortName: "", fullName: "", ...initialValues },
+    defaultValues: { userId: user?.id, statusId: 1, ...initialValues },
   });
 
   useEffect(() => {

@@ -51,7 +51,7 @@ export default function ProcessForm({
   } = useForm<FormValues>({
     resolver: zodResolver(schema) as Resolver<FormValues, any, FormValues>,
     mode: "onChange",
-    defaultValues: { ...initialValues },
+    defaultValues: { statusId: 1, quantity: 1, ...initialValues },
   });
 
   useEffect(() => {

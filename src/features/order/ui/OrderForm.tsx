@@ -51,7 +51,13 @@ export default function OrderForm({
   } = useForm<FormValues>({
     resolver: zodResolver(schema) as Resolver<FormValues, any, FormValues>,
     mode: "onChange",
-    defaultValues: { product: "", ...initialValues },
+    defaultValues: {
+      quantity: 1,
+      statusId: 1,
+      dateFrom: new Date().toISOString().split("T")[0],
+      dateTo: new Date().toISOString().split("T")[0],
+      ...initialValues,
+    },
   });
 
   useEffect(() => {

@@ -7,6 +7,7 @@ import { useTranslation } from "react-i18next";
 import { createContactSchema, type FormValues } from "../model/schema";
 import MaskedTextInput from "@/shared/ui/inputs/MaskedTextInput";
 import { FormShell } from "@/shared/ui/FormShell";
+import { useAuthStore } from "@/shared/api/authStore";
 
 const API = {
   statuses: "/dict/contact-statuses",
@@ -33,6 +34,7 @@ export default function ContactForm({
   const { t: tContact } = useTranslation("contact");
 
   const schema = useMemo(() => createContactSchema(t, tContact), [t, tContact]);
+  const { user } = useAuthStore();
 
   const {
     register,
@@ -44,7 +46,7 @@ export default function ContactForm({
   } = useForm<FormValues>({
     resolver: zodResolver(schema) as Resolver<FormValues, any, FormValues>,
     mode: "onChange",
-    defaultValues: { firstName: "", lastName: "", ...initialValues },
+    defaultValues: { userId: user?.id, statusId: 1, ...initialValues },
   });
 
   useEffect(() => {

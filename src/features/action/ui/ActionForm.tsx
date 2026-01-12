@@ -7,6 +7,7 @@ import { useTranslation } from "react-i18next";
 import { createActionSchema, type FormValues } from "../model/schema";
 import DateFormInput from "@/shared/ui/inputs/DateFormInput";
 import { FormShell } from "@/shared/ui/FormShell";
+import { useAuthStore } from "@/shared/api/authStore";
 
 const API = {
   types: "/dict/action-types",
@@ -34,7 +35,7 @@ export default function ActionForm({
   const { t: tAction } = useTranslation("action");
 
   const schema = useMemo(() => createActionSchema(), []);
-
+  const { user } = useAuthStore();
   const {
     register,
     control,
@@ -45,7 +46,11 @@ export default function ActionForm({
   } = useForm<FormValues>({
     resolver: zodResolver(schema) as Resolver<FormValues, any, FormValues>,
     mode: "onChange",
-    defaultValues: { text: "", ...initialValues },
+    defaultValues: {
+      userId: user?.id,
+      date: new Date().toISOString().split("T")[0],
+      ...initialValues,
+    },
   });
 
   useEffect(() => {
