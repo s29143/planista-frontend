@@ -12,10 +12,13 @@ import { contactRoutes } from "@/features/contact";
 import { actionRoutes } from "@/features/action";
 import { orderRoutes } from "@/features/order";
 import { processRoutes } from "@/features/process";
+import { boardPage } from "@/features/board";
+import { RouteErrorPage } from "@/shared/errors/RouteErrorPage";
 
 const router = createBrowserRouter([
   {
     path: "/",
+    errorElement: <RouteErrorPage />,
     element: (
       <Suspense
         fallback={
@@ -31,8 +34,8 @@ const router = createBrowserRouter([
     ),
     children: [
       {
-        index: true,
-        element: <div>Strona główna - dostęp tylko dla zalogowanych</div>,
+        path: "/",
+        children: boardPage,
       },
 
       {

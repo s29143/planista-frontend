@@ -13,6 +13,7 @@
   "hours": "Godziny",
   "minutes": "Minuty",
   "seconds": "Sekundy",
+  "noProcesses": "Brak procesów w tej kolumnie",
   "title": {
     "create": "Dodaj etap",
     "update": "Edytuj etap"

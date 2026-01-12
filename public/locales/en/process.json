@@ -13,6 +13,7 @@
   "hours": "Hours",
   "minutes": "Minutes",
   "seconds": "Seconds",
+  "noProcesses": "No processes in this column.",
   "title": {
     "create": "Add process",
     "update": "Edit process"
