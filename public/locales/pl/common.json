@@ -17,7 +17,8 @@
     "backToList": "Wróć do listy",
     "add": "Dodaj",
     "search": "Szukaj",
-    "confirmDelete": "Czy na pewno chcesz usunąć?"
+    "confirmDelete": "Czy na pewno chcesz usunąć?",
+    "goHome": "Wróć na stronę główną"
   },
   "messages": {
     "loading": "Ładowanie...",

@@ -17,7 +17,8 @@
     "backToList": "Back to list",
     "add": "Add",
     "search": "Search",
-    "confirmDelete": "Are you sure you want to delete?"
+    "confirmDelete": "Are you sure you want to delete?",
+    "goHome": "Go at home page"
   },
   "success": "Success",
   "messages": {
