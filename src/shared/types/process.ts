@@ -1,16 +1,16 @@
-import type { Order } from "./order";
+import type { DictItem } from "./dictItem";
 
 export type Process = {
   id: string;
   quantity: number;
-  plannedTime: string;
-  order: Order;
-  technology?: { id: string; name: string };
-  status?: { id: string; name: string };
+  plannedTimeSeconds: number;
+  order: DictItem;
+  technology?: DictItem;
+  status?: DictItem;
   workstation?: {
     id: string;
     name: string;
-    technology: { id: string; name: string };
+    technology: DictItem;
   };
   createdAt?: string;
   updatedAt?: string;

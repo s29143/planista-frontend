@@ -48,7 +48,7 @@ export default function OrderListPage() {
     {
       key: "company",
       header: t("company"),
-      cell: (c) => c.company?.shortName || "—",
+      cell: (c) => c.company?.name || "—",
     },
     {
       key: "type",

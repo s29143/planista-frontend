@@ -7,6 +7,7 @@
   "status": "Status",
   "statusId": "Status",
   "processes": "Processes",
+  "process": "Process",
   "createdAt": "Created At",
   "title": {
     "create": "Create execution",

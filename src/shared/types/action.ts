@@ -1,5 +1,4 @@
-import type { Company } from "./company";
-import type { Contact } from "./contact";
+import type { DictItem } from "./dictItem";
 
 export type Action = {
   id: string;
@@ -8,10 +7,10 @@ export type Action = {
   done: boolean;
   prior: boolean;
   reminder: boolean;
-  user: { id: string; name: string };
-  company?: Company;
-  contact?: Contact;
-  type?: { id: string; name: string };
+  user: DictItem;
+  company?: DictItem;
+  contact?: DictItem;
+  type?: DictItem;
   createdAt?: string;
   updatedAt?: string;
 };

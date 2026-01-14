@@ -11,6 +11,7 @@ import type { Process } from "@/shared/types/process";
 import DateFormInput from "@/shared/ui/inputs/DateFormInput";
 import { FormShell } from "@/shared/ui/FormShell";
 import NumInput from "@/shared/ui/inputs/NumInput";
+import { durationToString, secondsToDurationParts } from "@/shared/helpers";
 
 const API = {
   types: "/dict/order-types",
@@ -179,7 +180,16 @@ export default function OrderForm({
             url={`orders/${id}/processes`}
             columns={[
               { key: "quantity" },
-              { key: "plannedTime" },
+              {
+                key: "plannedTimeSeconds",
+                header: "plannedTime",
+                cell(row) {
+                  const duration = secondsToDurationParts(
+                    row.plannedTimeSeconds
+                  );
+                  return durationToString(duration);
+                },
+              },
               {
                 key: "status",
                 cell(row) {

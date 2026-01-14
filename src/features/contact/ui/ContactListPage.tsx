@@ -50,7 +50,7 @@ export default function ContactListPage() {
     {
       key: "company",
       header: t("company"),
-      cell: (c) => c.company?.shortName || "—",
+      cell: (c) => c.company?.name || "—",
     },
     {
       key: "status",

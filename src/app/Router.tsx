@@ -14,6 +14,7 @@ import { orderRoutes } from "@/features/order";
 import { processRoutes } from "@/features/process";
 import { boardPage } from "@/features/board";
 import { RouteErrorPage } from "@/shared/errors/RouteErrorPage";
+import { executionRoutes } from "@/features/execution";
 
 const router = createBrowserRouter([
   {
@@ -53,6 +54,10 @@ const router = createBrowserRouter([
       {
         path: "dictionaries",
         children: dictItemRoutes,
+      },
+      {
+        path: "executions",
+        children: executionRoutes,
       },
       {
         path: "orders",

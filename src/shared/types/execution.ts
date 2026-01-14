@@ -1,10 +1,10 @@
-import type { Process } from "./process";
+import type { DictItem } from "./dictItem";
 
 export type Execution = {
   id: string;
   quantity: number;
   timeInSeconds: number;
-  process: Process;
+  process: DictItem;
   createdAt?: string;
   updatedAt?: string;
 };

@@ -1,4 +1,4 @@
-import type { Company } from "./company";
+import type { DictItem } from "./dictItem";
 
 export type Contact = {
   id: string;
@@ -8,9 +8,9 @@ export type Contact = {
   phoneNumber?: string;
   mobileNumber?: string;
   email?: string;
-  company?: Company;
-  user?: { id: string; name: string };
-  status: { id: string; name: string };
+  company?: DictItem;
+  user?: DictItem;
+  status: DictItem;
   createdAt?: string;
   updatedAt?: string;
 };

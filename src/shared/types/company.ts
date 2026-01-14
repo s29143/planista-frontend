@@ -1,13 +1,15 @@
+import type { DictItem } from "./dictItem";
+
 export type Company = {
   id: string;
   fullName: string;
   shortName: string;
   nip?: string;
-  district?: { id: string; name: string };
-  industry?: { id: string; name: string };
-  user?: { id: string; name: string };
-  acquiredBy?: { id: string; name: string };
-  status: { id: string; name: string };
+  district?: DictItem;
+  industry?: DictItem;
+  user?: DictItem;
+  acquiredBy?: DictItem;
+  status: DictItem;
   createdAt?: string;
   updatedAt?: string;
 };

@@ -33,6 +33,7 @@ export function Section<TRow extends Identifiable>({
   module,
   translationModule,
   columns,
+  params,
   pageSize = 20,
   getRowPath,
 }: {
@@ -42,6 +43,7 @@ export function Section<TRow extends Identifiable>({
   module: string;
   translationModule: string;
   columns: ColumnDef<TRow>[];
+  params?: Record<string, string>;
   pageSize?: number;
   getRowPath?: (row: TRow) => string;
 }) {
@@ -55,6 +57,7 @@ export function Section<TRow extends Identifiable>({
 
   const totalPages = data?.totalPages ?? 0;
   const totalElements = data?.totalElements ?? 0;
+  const queryParams = new URLSearchParams(params);
 
   const fetchRows = useCallback(
     async (params: { page: number; size: number }) => {
@@ -129,7 +132,13 @@ export function Section<TRow extends Identifiable>({
           <Group justify="space-between" w="100%">
             <Group gap="xs" align="center">
               <Text fw={600}>{`${label} (${totalElements})`}</Text>
-              <Link to={`/${module}/create`} style={{ textDecoration: "none" }}>
+              <Link
+                to={{
+                  pathname: `/${module}/create`,
+                  search: queryParams.toString(),
+                }}
+                style={{ textDecoration: "none" }}
+              >
                 <Button
                   variant="filled"
                   color="blue"

@@ -17,6 +17,11 @@ export function secondsToDurationParts(totalSeconds: number): DurationParts {
   return { hours, minutes, seconds };
 }
 
+export function durationToString(d: DurationParts): string {
+  const pad = (n: number) => (n > 0 ? n.toString().padStart(2, "0") : "00");
+
+  return `${pad(d.hours)}:${pad(d.minutes)}:${pad(d.seconds)}`;
+}
 export const s = (v: unknown) => (v == null ? "" : String(v));
 
 export const idOrUndef = (v: unknown) => (v == null ? undefined : Number(v));

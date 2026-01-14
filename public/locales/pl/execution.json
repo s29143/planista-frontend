@@ -6,6 +6,7 @@
   "status": "Status",
   "statusId": "Status",
   "processes": "Procesy",
+  "process": "Proces",
   "createdAt": "Dodał",
   "title": {
     "create": "Dodaj wykonanie",

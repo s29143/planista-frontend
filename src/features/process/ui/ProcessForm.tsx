@@ -10,7 +10,7 @@ import { DurationField } from "@/shared/ui/inputs/DurationInput";
 import { FormShell } from "@/shared/ui/FormShell";
 import { Section } from "@/shared/ui/Section";
 import type { Execution } from "@/shared/types/execution";
-import { secondsToDurationParts } from "@/shared/helpers";
+import { durationToString, secondsToDurationParts } from "@/shared/helpers";
 import { CheckCircle } from "lucide-react";
 
 const API = {
@@ -142,18 +142,22 @@ export default function ProcessForm({
             translationModule="execution"
             icon={<CheckCircle size={16} />}
             label={tProcess("executions")}
-            url={`process/${id}/executions`}
+            url={`processes/${id}/executions`}
+            params={{ processId: id }}
             columns={[
               { key: "quantity" },
               {
                 key: "timeInSeconds",
                 cell(row) {
                   const duration = secondsToDurationParts(row.timeInSeconds);
-                  return `${duration.hours}:${duration.minutes}:${duration.seconds}`;
+                  return durationToString(duration);
                 },
               },
               {
                 key: "createdAt",
+                cell(row) {
+                  return row.createdAt?.split("T")[0];
+                },
               },
             ]}
           ></Section>
