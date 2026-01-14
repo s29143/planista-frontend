@@ -248,6 +248,7 @@ export default function CompanyForm({
             translationModule="contact"
             icon={<Users size={16} />}
             label={tCompany("contacts")}
+            params={{ companyId: String(id) }}
             url={`companies/${id}/contacts`}
             columns={[
               { key: "firstName" },
@@ -271,6 +272,7 @@ export default function CompanyForm({
             translationModule="action"
             icon={<ListTodo size={16} />}
             label={tCompany("actions")}
+            params={{ companyId: String(id) }}
             url={`companies/${id}/actions`}
             columns={[
               { key: "date" },
@@ -294,6 +296,7 @@ export default function CompanyForm({
             translationModule="order"
             icon={<ClipboardList size={16} />}
             label={tCompany("orders")}
+            params={{ companyId: String(id) }}
             url={`companies/${id}/orders`}
             columns={[
               { key: "product" },

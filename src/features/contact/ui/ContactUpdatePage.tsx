@@ -70,6 +70,7 @@ export default function ContactUpdatePage() {
       }}
       onSuccess={() => navigate(-1)}
       initialValues={initial}
+      id={id}
       title={tContact("title.update")}
     />
   );

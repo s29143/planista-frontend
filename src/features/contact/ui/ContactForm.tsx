@@ -1,4 +1,4 @@
-import { TextInput, Grid, Container, Checkbox } from "@mantine/core";
+import { TextInput, Grid, Container, Checkbox, Stack } from "@mantine/core";
 import { useForm, type Resolver } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AsyncSelectRHF } from "@/shared/ui/inputs/AsyncSelectRHF";
@@ -8,6 +8,11 @@ import { createContactSchema, type FormValues } from "../model/schema";
 import MaskedTextInput from "@/shared/ui/inputs/MaskedTextInput";
 import { FormShell } from "@/shared/ui/FormShell";
 import { useAuthStore } from "@/shared/api/authStore";
+import { useSearchParams } from "react-router-dom";
+import { Section } from "@/shared/ui/Section";
+import { ClipboardList, ListTodo } from "lucide-react";
+import type { Action } from "@/shared/types/action";
+import type { Order } from "@/shared/types/order";
 
 const API = {
   statuses: "/dict/contact-statuses",
@@ -22,6 +27,7 @@ export default function ContactForm({
   save,
   onSuccess,
   title,
+  id,
 }: {
   onError?: (errors: any) => void;
   initialValues?: Partial<FormValues>;
@@ -29,10 +35,11 @@ export default function ContactForm({
   save: SaveFn;
   onSuccess?: (id?: string) => void;
   title?: React.ReactNode;
+  id?: string;
 }) {
   const { t } = useTranslation();
   const { t: tContact } = useTranslation("contact");
-
+  const [searchParams] = useSearchParams();
   const schema = useMemo(() => createContactSchema(t, tContact), [t, tContact]);
   const { user } = useAuthStore();
 
@@ -46,7 +53,12 @@ export default function ContactForm({
   } = useForm<FormValues>({
     resolver: zodResolver(schema) as Resolver<FormValues, any, FormValues>,
     mode: "onChange",
-    defaultValues: { userId: user?.id, statusId: 1, ...initialValues },
+    defaultValues: {
+      userId: user?.id,
+      companyId: Number(searchParams.get("companyId")),
+      statusId: 1,
+      ...initialValues,
+    },
   });
 
   useEffect(() => {
@@ -200,6 +212,58 @@ export default function ContactForm({
           </Grid.Col>
         </Grid>
       </FormShell>
+      {id && (
+        <Stack gap="md" mb="xl" mt="lg">
+          <Section<Action>
+            module="actions"
+            translationModule="action"
+            icon={<ListTodo size={16} />}
+            label={tContact("actions")}
+            params={{ contactId: String(id) }}
+            url={`contacts/${id}/actions`}
+            columns={[
+              { key: "date" },
+              { key: "text" },
+              {
+                key: "type",
+                cell(row) {
+                  return row.type?.name || "—";
+                },
+              },
+              {
+                key: "user",
+                cell(row) {
+                  return row.user?.name || "—";
+                },
+              },
+            ]}
+          ></Section>
+          <Section<Order>
+            module="orders"
+            translationModule="order"
+            icon={<ClipboardList size={16} />}
+            label={tContact("orders")}
+            params={{ contactId: String(id) }}
+            url={`contacts/${id}/orders`}
+            columns={[
+              { key: "product" },
+              { key: "quantity" },
+              {
+                key: "type",
+                cell(row) {
+                  return row.type?.name || "—";
+                },
+              },
+              {
+                key: "status",
+                cell(row) {
+                  return row.status?.name || "—";
+                },
+              },
+            ]}
+          ></Section>
+        </Stack>
+      )}
     </Container>
   );
 }

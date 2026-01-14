@@ -12,6 +12,7 @@ import DateFormInput from "@/shared/ui/inputs/DateFormInput";
 import { FormShell } from "@/shared/ui/FormShell";
 import NumInput from "@/shared/ui/inputs/NumInput";
 import { durationToString, secondsToDurationParts } from "@/shared/helpers";
+import { useSearchParams } from "react-router-dom";
 
 const API = {
   types: "/dict/order-types",
@@ -39,7 +40,7 @@ export default function OrderForm({
 }) {
   const { t } = useTranslation();
   const { t: tOrder } = useTranslation("order");
-
+  const [searchParams] = useSearchParams();
   const schema = useMemo(() => createOrderSchema(t, tOrder), [t, tOrder]);
 
   const {
@@ -57,6 +58,8 @@ export default function OrderForm({
       statusId: 1,
       dateFrom: new Date().toISOString().split("T")[0],
       dateTo: new Date().toISOString().split("T")[0],
+      companyId: Number(searchParams.get("companyId")),
+      contactId: Number(searchParams.get("contactId")),
       ...initialValues,
     },
   });
@@ -178,6 +181,7 @@ export default function OrderForm({
             icon={<Workflow size={16} />}
             label={tOrder("processes")}
             url={`orders/${id}/processes`}
+            params={{ orderId: String(id) }}
             columns={[
               { key: "quantity" },
               {

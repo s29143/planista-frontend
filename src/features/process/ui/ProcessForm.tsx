@@ -12,6 +12,7 @@ import { Section } from "@/shared/ui/Section";
 import type { Execution } from "@/shared/types/execution";
 import { durationToString, secondsToDurationParts } from "@/shared/helpers";
 import { CheckCircle } from "lucide-react";
+import { useSearchParams } from "react-router-dom";
 
 const API = {
   technologies: "/dict/technologies",
@@ -39,6 +40,7 @@ export default function ProcessForm({
 }) {
   const { t } = useTranslation();
   const { t: tProcess } = useTranslation("process");
+  const [searchParams] = useSearchParams();
 
   const schema = useMemo(() => createProcessSchema(t, tProcess), [t, tProcess]);
 
@@ -51,7 +53,12 @@ export default function ProcessForm({
   } = useForm<FormValues>({
     resolver: zodResolver(schema) as Resolver<FormValues, any, FormValues>,
     mode: "onChange",
-    defaultValues: { statusId: 1, quantity: 1, ...initialValues },
+    defaultValues: {
+      statusId: 1,
+      quantity: 1,
+      orderId: Number(searchParams.get("orderId")),
+      ...initialValues,
+    },
   });
 
   useEffect(() => {

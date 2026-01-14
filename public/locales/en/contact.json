@@ -13,6 +13,8 @@
   "companyId": "Company",
   "status": "Status",
   "statusId": "Status",
+  "actions": "Actions",
+  "orders": "Orders",
   "title": {
     "create": "Create Contact",
     "update": "Update Contact"

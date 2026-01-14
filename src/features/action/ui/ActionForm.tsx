@@ -8,6 +8,7 @@ import { createActionSchema, type FormValues } from "../model/schema";
 import DateFormInput from "@/shared/ui/inputs/DateFormInput";
 import { FormShell } from "@/shared/ui/FormShell";
 import { useAuthStore } from "@/shared/api/authStore";
+import { useSearchParams } from "react-router-dom";
 
 const API = {
   types: "/dict/action-types",
@@ -33,6 +34,7 @@ export default function ActionForm({
 }) {
   const { t } = useTranslation();
   const { t: tAction } = useTranslation("action");
+  const [searchParams] = useSearchParams();
 
   const schema = useMemo(() => createActionSchema(), []);
   const { user } = useAuthStore();
@@ -48,6 +50,9 @@ export default function ActionForm({
     mode: "onChange",
     defaultValues: {
       userId: user?.id,
+      companyId: Number(searchParams.get("companyId")),
+      contactId: Number(searchParams.get("contactId")),
+
       date: new Date().toISOString().split("T")[0],
       ...initialValues,
     },

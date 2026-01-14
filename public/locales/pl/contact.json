@@ -13,6 +13,8 @@
   "companyId": "Firma",
   "status": "Status",
   "statusId": "Status",
+  "actions": "Działania",
+  "orders": "Zlecenia",
   "title": {
     "create": "Dodaj kontakt",
     "update": "Edytuj kontakt"
