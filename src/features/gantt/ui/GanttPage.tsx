@@ -1,13 +1,21 @@
 import { useEffect, useMemo, useState } from "react";
-import { Paper, Group, Loader, Button, Text } from "@mantine/core";
+import {
+  Paper,
+  Group,
+  Loader,
+  Button,
+  Text,
+  useMantineColorScheme,
+} from "@mantine/core";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { Gantt, WillowDark } from "@svar-ui/react-gantt";
+import { Gantt } from "@svar-ui/react-gantt";
 import "@svar-ui/react-gantt/all.css";
 import { useNavigate } from "react-router-dom";
 import { useGanttStore } from "../store/store";
 import dayjs from "dayjs";
 import classes from "./GanttPage.module.css";
 import { useTranslation } from "react-i18next";
+import { GanttThemeWrapper } from "./GanttThemeWrapper";
 
 export default function GanttPage() {
   const { items, loading, fetch } = useGanttStore();
@@ -15,6 +23,7 @@ export default function GanttPage() {
   const { t } = useTranslation();
   const { t: tGantt } = useTranslation("gantt");
   const [cursor, setCursor] = useState(() => dayjs().startOf("month"));
+  const { colorScheme } = useMantineColorScheme();
 
   useEffect(() => {
     const from = cursor.startOf("month").format("YYYY-MM-DD");
@@ -66,7 +75,7 @@ export default function GanttPage() {
       </Group>
 
       <div className={classes.ganttWrap}>
-        <WillowDark>
+        <GanttThemeWrapper colorScheme={colorScheme}>
           <Gantt
             tasks={tasks}
             columns={[
@@ -86,7 +95,7 @@ export default function GanttPage() {
                 navigate(`/processes/${s.replace("PROCESS-", "")}`);
             }}
           />
-        </WillowDark>
+        </GanttThemeWrapper>
       </div>
     </Paper>
   );
