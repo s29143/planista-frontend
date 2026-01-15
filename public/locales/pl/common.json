@@ -18,7 +18,8 @@
     "add": "Dodaj",
     "search": "Szukaj",
     "confirmDelete": "Czy na pewno chcesz usunąć?",
-    "goHome": "Wróć na stronę główną"
+    "goHome": "Wróć na stronę główną",
+    "previous": "Poprzedni"
   },
   "messages": {
     "loading": "Ładowanie...",
@@ -71,6 +72,7 @@
     "actions": "Działania",
     "calendar": "Kalendarz",
     "settings": "Ustawienia",
+    "gantt": "Gantt",
     "users": "Użytkownicy",
     "roles": "Role",
     "permissions": "Uprawnienia",

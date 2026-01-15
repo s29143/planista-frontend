@@ -1,6 +1,8 @@
 {
   "quantity": "Ilość",
   "plannedTime": "Czas planowany",
+  "dateFrom": "Data od",
+  "dateTo": "Data do",
   "orderId": "Zlecenie",
   "workstation": "Stanowisko",
   "workstationId": "Stanowisko",

@@ -13,6 +13,7 @@ import type { Execution } from "@/shared/types/execution";
 import { durationToString, secondsToDurationParts } from "@/shared/helpers";
 import { CheckCircle } from "lucide-react";
 import { useSearchParams } from "react-router-dom";
+import DateFormInput from "@/shared/ui/inputs/DateFormInput";
 
 const API = {
   technologies: "/dict/technologies",
@@ -83,6 +84,24 @@ export default function ProcessForm({
         onSuccess={onSuccess}
       >
         <Grid gutter="md">
+          <Grid.Col span={{ base: 12, md: 6 }}>
+            <DateFormInput
+              control={control}
+              name="dateFrom"
+              label={tProcess("dateFrom")}
+              placeholder={t("placeholders.date")}
+              error={errors.dateFrom?.message}
+            />
+          </Grid.Col>
+          <Grid.Col span={{ base: 12, md: 6 }}>
+            <DateFormInput
+              control={control}
+              name="dateTo"
+              label={tProcess("dateTo")}
+              placeholder={t("placeholders.date")}
+              error={errors.dateTo?.message}
+            />
+          </Grid.Col>
           <Grid.Col span={{ base: 12, md: 6 }}>
             <NumInput<FormValues>
               control={control}

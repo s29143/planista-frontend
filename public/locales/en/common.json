@@ -18,7 +18,8 @@
     "add": "Add",
     "search": "Search",
     "confirmDelete": "Are you sure you want to delete?",
-    "goHome": "Go at home page"
+    "goHome": "Go at home page",
+    "previous": "Previous"
   },
   "success": "Success",
   "messages": {
@@ -71,6 +72,7 @@
     "actions": "Actions",
     "calendar": "Calendar",
     "settings": "Settings",
+    "gantt": "Gantt",
     "users": "Users",
     "roles": "Roles",
     "permissions": "Permissions",

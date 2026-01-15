@@ -55,6 +55,8 @@ export const createProcessSchema = (t: TFunction, tProcess: TFunction) => {
   return z.object({
     plannedTimeForm: durationSchema,
     plannedTimeSeconds: z.number().int().min(0).optional(),
+    dateFrom: z.string().optional(),
+    dateTo: z.string().optional(),
     quantity: z
       .number()
       .int()

@@ -1,6 +1,8 @@
 {
   "quantity": "Quantity",
   "plannedTime": "Planned time",
+  "dateFrom": "Date From",
+  "dateTo": "Date To",
   "orderId": "Order",
   "workstation": "Workstation",
   "workstationId": "Workstation",

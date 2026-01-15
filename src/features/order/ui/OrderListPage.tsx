@@ -44,6 +44,8 @@ export default function OrderListPage() {
 
   const columns: ColumnDef<Order>[] = [
     { key: "product", header: t("product") },
+    { key: "dateFrom", header: t("dateFrom") },
+    { key: "dateTo", header: t("dateTo") },
     { key: "quantity", header: t("quantity") },
     {
       key: "company",

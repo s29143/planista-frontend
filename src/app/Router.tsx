@@ -15,6 +15,7 @@ import { processRoutes } from "@/features/process";
 import { boardPage } from "@/features/board";
 import { RouteErrorPage } from "@/shared/errors/RouteErrorPage";
 import { executionRoutes } from "@/features/execution";
+import { ganttRoutes } from "@/features/gantt";
 
 const router = createBrowserRouter([
   {
@@ -58,6 +59,10 @@ const router = createBrowserRouter([
       {
         path: "executions",
         children: executionRoutes,
+      },
+      {
+        path: "gantt",
+        children: ganttRoutes,
       },
       {
         path: "orders",

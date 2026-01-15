@@ -1,0 +1,16 @@
+.ganttWrap {
+  height: 600px;
+  min-height: 600px;
+  overflow: hidden; /* gantt ma własne scrollowanie */
+}
+
+/* WillowDark renderuje wrapper z tą klasą */
+.ganttWrap :global(.wx-willow-dark-theme),
+.ganttWrap :global(.wx-willow-theme) {
+  height: 100%;
+}
+
+/* root gantta */
+.ganttWrap :global(.wx-gantt) {
+  height: 100%;
+}

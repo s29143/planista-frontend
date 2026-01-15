@@ -247,6 +247,8 @@ export default function ContactForm({
             url={`contacts/${id}/orders`}
             columns={[
               { key: "product" },
+              { key: "dateFrom" },
+              { key: "dateTo" },
               { key: "quantity" },
               {
                 key: "type",

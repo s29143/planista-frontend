@@ -33,6 +33,8 @@ export default function ProcessUpdatePage() {
         if (!alive) return;
 
         const mapped: Partial<FormValues> = {
+          dateFrom: data.dateFrom,
+          dateTo: data.dateTo,
           quantity: data.quantity,
           plannedTimeForm: secondsToDurationParts(data.plannedTimeSeconds),
           orderId: idOrUndef(data?.order?.id),

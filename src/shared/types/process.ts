@@ -3,6 +3,8 @@ import type { DictItem } from "./dictItem";
 export type Process = {
   id: string;
   quantity: number;
+  dateFrom: string;
+  dateTo: string;
   plannedTimeSeconds: number;
   order: DictItem;
   technology?: DictItem;

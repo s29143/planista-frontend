@@ -184,6 +184,8 @@ export default function OrderForm({
             params={{ orderId: String(id) }}
             columns={[
               { key: "quantity" },
+              { key: "dateFrom" },
+              { key: "dateTo" },
               {
                 key: "plannedTimeSeconds",
                 header: "plannedTime",

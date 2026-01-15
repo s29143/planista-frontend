@@ -27,6 +27,7 @@ import {
   ListChecks,
   Cpu,
   Monitor,
+  GanttChart,
 } from "lucide-react";
 import type { TFunction } from "i18next";
 import type { User } from "@/shared/types/user";
@@ -153,6 +154,13 @@ export function SidebarNav() {
             to="/orders"
             leftSection={<ClipboardList size={16} />}
             active={isActivePath(pathname, "/orders")}
+          />
+          <NavLink
+            component={Link}
+            to="/gantt"
+            label={t("pages.gantt", "Gantt")}
+            leftSection={<GanttChart size={16} />}
+            active={isActivePath(pathname, "/gantt")}
           />
           <NavLink
             label={t("pages.settings", "Settings")}

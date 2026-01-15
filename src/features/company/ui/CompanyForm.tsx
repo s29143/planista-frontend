@@ -301,6 +301,8 @@ export default function CompanyForm({
             columns={[
               { key: "product" },
               { key: "quantity" },
+              { key: "dateFrom" },
+              { key: "dateTo" },
               {
                 key: "type",
                 cell(row) {
