@@ -37,8 +37,8 @@
     "invalidPostalCode": "Nieprawidłowy format kodu pocztowego"
   },
   "placeholders": {
-    "fullName": "Wpisz nazwę firmy",
-    "shortName": "Wpisz skróconą nazwę firmy",
+    "fullName": "Np. ACME Sp. z o.o.",
+    "shortName": "Np. ACME",
     "nip": "Wpisz NIP",
     "postalCode": "Wpisz kod pocztowy",
     "street": "Wpisz ulicę",

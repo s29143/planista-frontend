@@ -51,6 +51,8 @@ export default function CompanyForm({
     setError,
     handleSubmit,
     reset,
+    setValue,
+    getValues,
     formState: { errors, isSubmitting, isValid },
   } = useForm<FormValues>({
     resolver: zodResolver(schema) as Resolver<FormValues, any, FormValues>,
@@ -64,7 +66,7 @@ export default function CompanyForm({
 
   const canSubmit = useMemo(
     () => isValid && !isSubmitting,
-    [isValid, isSubmitting]
+    [isValid, isSubmitting],
   );
 
   return (
@@ -84,7 +86,7 @@ export default function CompanyForm({
           <Grid.Col span={{ base: 12, md: 6 }}>
             <TextInput
               label={tCompany("shortName")}
-              placeholder="np. ACME"
+              placeholder={tCompany("placeholders.shortName")}
               withAsterisk
               {...register("shortName")}
               error={errors.shortName?.message}
@@ -92,8 +94,13 @@ export default function CompanyForm({
           </Grid.Col>
           <Grid.Col span={{ base: 12, md: 6 }}>
             <TextInput
+              onFocus={() => {
+                if (!getValues("fullName")) {
+                  setValue("fullName", getValues("shortName"));
+                }
+              }}
               label={tCompany("fullName")}
-              placeholder="np. ACME Sp. z o.o."
+              placeholder={tCompany("placeholders.fullName")}
               withAsterisk
               {...register("fullName")}
               error={errors.fullName?.message}

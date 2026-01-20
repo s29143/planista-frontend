@@ -37,8 +37,8 @@
     "invalidPostalCode": "Invalid postal code format"
   },
   "placeholders": {
-    "fullName": "Enter company full name",
-    "shortName": "Enter company short name",
+    "fullName": "Ex. Example Company LLC",
+    "shortName": "Ex. ExampleCo",
     "nip": "Enter NIP",
     "postalCode": "Enter postal code",
     "street": "Enter street",
