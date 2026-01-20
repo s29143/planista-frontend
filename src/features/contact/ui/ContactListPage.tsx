@@ -56,6 +56,7 @@ export default function ContactListPage() {
       key: "status",
       header: t("status"),
       cell: (row) => row.status?.name,
+      color: (row) => row.status?.color,
     },
     {
       key: "user",

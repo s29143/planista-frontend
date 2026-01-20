@@ -1,8 +1,9 @@
 {
-    "id": "ID",
-    "name": "Nazwa",
-    "title": {
-        "create": "Dodaj pozycję słownika",
-        "update": "Edytuj pozycję słownika"
-    }
+  "id": "ID",
+  "name": "Nazwa",
+  "color": "Kolor",
+  "title": {
+    "create": "Dodaj pozycję słownika",
+    "update": "Edytuj pozycję słownika"
+  }
 }

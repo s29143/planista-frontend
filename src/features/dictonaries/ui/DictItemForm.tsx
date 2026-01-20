@@ -6,6 +6,7 @@ import { useEffect, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { createDictItemSchema, type FormValues } from "../model/schema";
 import { FormShell } from "@/shared/ui/FormShell";
+import ColorFormInput from "@/shared/ui/inputs/ColorFormInput";
 
 type SaveFn = (values: FormValues) => Promise<{ id?: string } | void>;
 
@@ -29,10 +30,11 @@ export default function DictItemForm({
 
   const schema = useMemo(
     () => createDictItemSchema(t, tDictItem),
-    [t, tDictItem]
+    [t, tDictItem],
   );
 
   const {
+    control,
     register,
     setError,
     handleSubmit,
@@ -50,7 +52,7 @@ export default function DictItemForm({
 
   const canSubmit = useMemo(
     () => isValid && !isSubmitting,
-    [isValid, isSubmitting]
+    [isValid, isSubmitting],
   );
 
   return (
@@ -74,6 +76,14 @@ export default function DictItemForm({
               withAsterisk
               {...register("name")}
               error={errors.name?.message}
+            />
+          </Grid.Col>
+          <Grid.Col span={{ base: 12, md: 6 }}>
+            <ColorFormInput
+              label={tDictItem("color")}
+              control={control}
+              name="color"
+              error={errors.color?.message}
             />
           </Grid.Col>
         </Grid>

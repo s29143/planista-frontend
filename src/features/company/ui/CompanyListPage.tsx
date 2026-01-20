@@ -55,11 +55,13 @@ export default function CompanyListPage() {
       key: "district",
       header: t("district"),
       cell: (c) => c.district?.name || "—",
+      color: (row) => row.district?.color,
     },
     {
       key: "status",
       header: t("status"),
       cell: (row) => row.status?.name,
+      color: (row) => row.status?.color,
     },
     {
       key: "user",

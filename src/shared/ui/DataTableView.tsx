@@ -34,6 +34,7 @@ export type ColumnDef<TRow> = {
   header?: string;
   width?: number | string;
   cell?: (row: TRow) => React.ReactNode;
+  color?: (row: TRow) => string | undefined;
   sortable?: boolean;
   serverSortKey?: string;
 };
@@ -75,15 +76,15 @@ export function DataTableView<TRow>({
     const Icon = !active
       ? ArrowUpDown
       : sort.sortDir === "asc"
-      ? ArrowUp
-      : ArrowDown;
+        ? ArrowUp
+        : ArrowDown;
     const ariaSort = !sortable
       ? "none"
       : active
-      ? sort.sortDir === "asc"
-        ? "ascending"
-        : "descending"
-      : "none";
+        ? sort.sortDir === "asc"
+          ? "ascending"
+          : "descending"
+        : "none";
 
     return (
       <th
@@ -193,8 +194,11 @@ export function DataTableView<TRow>({
               }}
             >
               {columns.map((c) => (
-                <Table.Td key={String(c.key)}>
-                  {c.cell ? c.cell(r) : (r as any)[c.key] ?? "—"}
+                <Table.Td
+                  key={String(c.key)}
+                  style={{ backgroundColor: c.color ? c?.color(r) : undefined }}
+                >
+                  {c.cell ? c.cell(r) : ((r as any)[c.key] ?? "—")}
                 </Table.Td>
               ))}
               {canDelete && (

@@ -56,11 +56,13 @@ export default function OrderListPage() {
       key: "type",
       header: t("type"),
       cell: (row) => row.type?.name,
+      color: (row) => row.type?.color,
     },
     {
       key: "status",
       header: t("status"),
       cell: (c) => c.status?.name || "—",
+      color: (row) => row.status?.color,
     },
   ];
   return (

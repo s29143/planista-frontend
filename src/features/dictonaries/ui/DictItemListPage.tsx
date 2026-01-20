@@ -23,7 +23,7 @@ export default function DictItemListPage() {
   const { module } = useParams();
   const dictItemColumns: ColumnDef<DictItem>[] = [
     { key: "id", header: t("id") },
-    { key: "name", header: t("name") },
+    { key: "name", header: t("name"), color: (row) => row.color },
   ];
 
   const fetch = (q: QueryState<Filters, DictItem>) =>

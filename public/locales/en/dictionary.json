@@ -1,8 +1,9 @@
 {
-    "id": "ID",
-    "name": "Name",
-    "title": {
-        "create": "Create Dictionary Item",
-        "update": "Update Dictionary Item"
-    }
+  "id": "ID",
+  "name": "Name",
+  "color": "Color",
+  "title": {
+    "create": "Create Dictionary Item",
+    "update": "Update Dictionary Item"
+  }
 }

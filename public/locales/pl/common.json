@@ -57,7 +57,8 @@
     "min": "{{field}} musi być minimum {{min}}",
     "max": "{{field}} musi być maksymalnie {{max}}",
     "passwordMatch": "Hasła nie pasują do siebie",
-    "passwordStrength": "Hasło musi zawierać co najmniej jedną wielką literę, jedną małą literę, jedną cyfrę i jeden znak specjalny"
+    "passwordStrength": "Hasło musi zawierać co najmniej jedną wielką literę, jedną małą literę, jedną cyfrę i jeden znak specjalny",
+    "color": "{{field}} musi być prawidłowym kodem koloru HEX"
   },
   "layout": {
     "home": "Strona główna",

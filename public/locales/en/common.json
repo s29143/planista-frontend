@@ -57,7 +57,8 @@
     "min": "{{field}} must be at least {{min}}",
     "max": "{{field}} must be at most {{max}}",
     "passwordMatch": "Passwords do not match",
-    "passwordStrength": "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character"
+    "passwordStrength": "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character",
+    "color": "{{field}} must be a valid HEX color code"
   },
   "layout": {
     "home": "Home",

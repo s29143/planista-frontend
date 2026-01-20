@@ -6,7 +6,7 @@ import type { Filters } from "../model/schema";
 export async function fetchDictItems(
   q: QueryState<Filters, DictItem>,
   module: string,
-  signal?: AbortSignal
+  signal?: AbortSignal,
 ) {
   const params: Record<string, any> = {
     page: q.page,
@@ -26,14 +26,15 @@ export async function fetchDictItems(
     {
       params,
       signal,
-    }
+    },
   );
   return {
     content: res.data["_embedded"][module].map(
       (item: any): DictItem => ({
         id: item.id,
         name: item.name,
-      })
+        color: item.color,
+      }),
     ),
     totalElements: res.data.page.totalElements,
     totalPages: res.data.page.totalPages,

@@ -15,7 +15,7 @@ export default function DictItemUpdatePage() {
   const { id } = useParams();
   const [loading, setLoading] = useState<boolean>(true);
   const [initial, setInitial] = useState<Partial<FormValues> | undefined>(
-    undefined
+    undefined,
   );
   const { module } = useParams();
   if (!module) {
@@ -31,6 +31,7 @@ export default function DictItemUpdatePage() {
 
         const mapped: Partial<FormValues> = {
           name: s(data.name),
+          color: s(data.color),
         };
 
         setInitial(mapped);

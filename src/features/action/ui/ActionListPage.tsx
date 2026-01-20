@@ -57,6 +57,7 @@ export default function ActionListPage() {
       key: "type",
       header: t("type"),
       cell: (row) => row.type?.name || "—",
+      color: (row) => row.type?.color,
     },
     {
       key: "user",
