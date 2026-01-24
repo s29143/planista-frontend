@@ -39,27 +39,18 @@ export default function LoginPage() {
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
 
-  const { isBootstrapped, setBootstrapped, accessToken, setSession } =
-    useAuthStore();
+  const { isBootstrapped, setBootstrapped, setSession } = useAuthStore();
 
   const { data, isLoading, isError } = useMe(!isBootstrapped);
 
   useEffect(() => {
     if (!isBootstrapped && data) {
-      setSession(data, accessToken ?? "");
+      setSession(data);
       setBootstrapped(true);
     } else if (!isBootstrapped && (isError || !isLoading)) {
       setBootstrapped(true);
     }
-  }, [
-    isBootstrapped,
-    data,
-    isError,
-    isLoading,
-    accessToken,
-    setBootstrapped,
-    setSession,
-  ]);
+  }, [isBootstrapped, data, isError, isLoading, setBootstrapped, setSession]);
 
   const {
     register,
@@ -76,7 +67,7 @@ export default function LoginPage() {
     try {
       clearErrors();
       const session = await login.mutateAsync(data);
-      useAuthStore.getState().setSession(session.user, session.accessToken);
+      useAuthStore.getState().setSession(session.user);
       navigate(from, { replace: true });
     } catch (e: unknown) {
       let message = tAuth("errors.loginFailed", "Login failed");
@@ -84,7 +75,7 @@ export default function LoginPage() {
         if (e.response?.status === 401) {
           message = tAuth(
             "errors.invalidCredentials",
-            "Invalid username or password"
+            "Invalid username or password",
           );
         }
         message = e.response?.data?.message ?? message;

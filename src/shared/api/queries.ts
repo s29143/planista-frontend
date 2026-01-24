@@ -7,9 +7,6 @@ const LoginDto = z.object({
   username: z.string().nonempty(),
   password: z.string().nonempty(),
 });
-const LoginResponse = z.object({
-  accessToken: z.string(),
-});
 
 const MeResponse = z.object({
   id: z.number(),
@@ -21,7 +18,6 @@ const MeResponse = z.object({
 
 const Session = z.object({
   user: MeResponse,
-  accessToken: z.string(),
 });
 
 export type Session = z.infer<typeof Session>;
@@ -34,23 +30,22 @@ export function useLogin() {
     mutationFn: async (payload: z.infer<typeof LoginDto>) => {
       const dto = LoginDto.parse(payload);
 
-      const r1 = await http.post("/auth/login", dto, {
+      await http.post("/auth/login", dto, {
         withCredentials: true,
         headers: { "X-Client": "WEB" },
       });
-      const { accessToken } = LoginResponse.parse(r1.data);
 
-      useAuthStore.getState().setSession(null, accessToken);
+      useAuthStore.getState().setSession(null);
 
       const r2 = await http.get("/auth/me", { withCredentials: true });
       const user = MeResponse.parse(r2.data);
 
-      return Session.parse({ user, accessToken });
+      return Session.parse({ user });
     },
-    onSuccess: ({ user, accessToken }) => {
-      useAuthStore.getState().setSession(user, accessToken);
+    onSuccess: ({ user }) => {
+      useAuthStore.getState().setSession(user);
       qc.setQueryData(["auth", "me"], user);
-      qc.setQueryData(["auth", "session"], { user, accessToken });
+      qc.setQueryData(["auth", "session"], { user });
     },
     onError: () => {
       useAuthStore.getState().clearSession();

@@ -23,6 +23,7 @@
   },
   "messages": {
     "loading": "Ładowanie...",
+    "networkError": "Wystąpił błąd sieci",
     "error": "Wystąpił nieoczekiwany błąd",
     "interfaceError": "Wystąpił bład interfejsu",
     "notFound": "Nie znaleziono",
@@ -42,7 +43,8 @@
     "forbidden": "Dostęp zabroniony.",
     "timeout": "Przekroczono czas oczekiwania. Spróbuj ponownie.",
     "unknown": "Wystąpił nieznany błąd. Spróbuj ponownie.",
-    "save": "Błąd podczas zapisywania. Spróbuj ponownie."
+    "save": "Błąd podczas zapisywania. Spróbuj ponownie.",
+    "sessionExpired": "Sesja wygasła. Zaloguj się ponownie."
   },
   "validation": {
     "required": "{{field}} jest wymagane",

@@ -25,6 +25,7 @@
   "messages": {
     "loading": "Loading...",
     "error": "An error occurred",
+    "networkError": "A network error occurred",
     "interfaceError": "An interface error occurred",
     "notFound": "Not found",
     "success": "Operation completed successfully",
@@ -42,7 +43,8 @@
     "forbidden": "Access forbidden.",
     "timeout": "Request timed out. Please try again.",
     "unknown": "An unknown error occurred. Please try again.",
-    "save": "Saving error. Please try again."
+    "save": "Saving error. Please try again.",
+    "sessionExpired": "Session expired. Please log in again."
   },
   "validation": {
     "required": "{{field}} is required",

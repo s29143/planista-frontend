@@ -5,28 +5,19 @@ import { useAuthStore } from "@/shared/api/authStore";
 import { useMe } from "@/shared/api/queries";
 
 export function ProtectedRoute({ children }: { children: React.ReactNode }) {
-  const { isBootstrapped, setBootstrapped, accessToken, setSession } =
-    useAuthStore();
+  const { isBootstrapped, setBootstrapped, setSession } = useAuthStore();
   const location = useLocation();
 
   const { data, isLoading, isError } = useMe(!isBootstrapped);
 
   useEffect(() => {
     if (!isBootstrapped && data) {
-      setSession(data, accessToken ?? "");
+      setSession(data);
       setBootstrapped(true);
     } else if (!isBootstrapped && (isError || !isLoading)) {
       setBootstrapped(true);
     }
-  }, [
-    isBootstrapped,
-    data,
-    isError,
-    isLoading,
-    accessToken,
-    setBootstrapped,
-    setSession,
-  ]);
+  }, [isBootstrapped, data, isError, isLoading, setBootstrapped, setSession]);
 
   if (!isBootstrapped || isLoading) {
     return (
