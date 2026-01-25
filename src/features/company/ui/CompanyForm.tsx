@@ -1,18 +1,33 @@
-import { TextInput, Textarea, Stack, Grid, Container } from "@mantine/core";
+import {
+  TextInput,
+  Textarea,
+  Stack,
+  Grid,
+  Container,
+  Tooltip,
+  ActionIcon,
+} from "@mantine/core";
 import { Section } from "@/shared/ui/Section";
 import { useForm, type Resolver } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AsyncSelectRHF } from "@/shared/ui/inputs/AsyncSelectRHF";
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { createCompanySchema, type FormValues } from "../model/schema";
-import { ClipboardList, ListTodo, Users } from "lucide-react";
+import {
+  ClipboardList,
+  Download,
+  ListTodo,
+  Loader2,
+  Users,
+} from "lucide-react";
 import MaskedTextInput from "@/shared/ui/inputs/MaskedTextInput";
 import type { Action } from "@/shared/types/action";
 import type { Contact } from "@/shared/types/contact";
 import type { Order } from "@/shared/types/order";
 import { FormShell } from "@/shared/ui/FormShell";
 import { useAuthStore } from "@/shared/api/authStore";
+import { http } from "@/shared/api/http";
 
 const API = {
   acquisitions: "/dict/company-acquires",
@@ -42,7 +57,7 @@ export default function CompanyForm({
   const { t } = useTranslation();
   const { t: tCompany } = useTranslation("company");
   const { user } = useAuthStore();
-
+  const [nipLookupLoading, setNipLookupLoading] = useState<boolean>(false);
   const schema = useMemo(() => createCompanySchema(t, tCompany), [t, tCompany]);
 
   const {
@@ -63,6 +78,45 @@ export default function CompanyForm({
   useEffect(() => {
     if (initialValues) reset((prev) => ({ ...prev, ...initialValues }));
   }, [initialValues, reset]);
+
+  async function fetchCompanyByNip() {
+    const nip = (getValues("nip") ?? "").replace(/\D/g, "");
+    if (nip.length !== 10 || nipLookupLoading) return;
+
+    try {
+      setNipLookupLoading(true);
+
+      const { data } = await http.get(`/integrations/gus/regon/by-nip/${nip}`);
+
+      if (data.name) setValue("fullName", data.name, { shouldValidate: true });
+      if (data.street)
+        setValue("street", data.street, { shouldValidate: true });
+      if (data.buildingNo)
+        setValue("houseNumber", data.buildingNo, { shouldValidate: true });
+      if (data.apartmentNo)
+        setValue("apartmentNumber", data.apartmentNo, {
+          shouldValidate: true,
+        });
+      if (data.postalCode)
+        setValue("postalCode", data.postalCode, { shouldValidate: true });
+      if (data.email) setValue("email", data.email, { shouldValidate: true });
+      if (data.wwwSite)
+        setValue("wwwSite", data.wwwSite, { shouldValidate: true });
+      if (data.phoneNumber)
+        setValue("phoneNumber", data.phoneNumber, { shouldValidate: true });
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (e: any) {
+      setError("nip", {
+        type: "manual",
+        message: t(
+          "errors.fetchNip",
+          "Could not fetch data for the provided NIP.",
+        ),
+      });
+    } finally {
+      setNipLookupLoading(false);
+    }
+  }
 
   const canSubmit = useMemo(
     () => isValid && !isSubmitting,
@@ -106,7 +160,6 @@ export default function CompanyForm({
               error={errors.fullName?.message}
             />
           </Grid.Col>
-
           <Grid.Col span={{ base: 12, md: 4 }}>
             <MaskedTextInput
               control={control}
@@ -115,6 +168,25 @@ export default function CompanyForm({
               placeholder="1234567890"
               mask="0000000000"
               error={errors.nip?.message}
+              rightSection={
+                <Tooltip label={tCompany("fetchFromApi")} withArrow>
+                  <ActionIcon
+                    variant="subtle"
+                    onClick={fetchCompanyByNip}
+                    loading={nipLookupLoading}
+                    disabled={
+                      (getValues("nip") ?? "").replace(/\D/g, "").length !== 10
+                    }
+                  >
+                    {nipLookupLoading ? (
+                      <Loader2 size={16} />
+                    ) : (
+                      <Download size={16} />
+                    )}
+                  </ActionIcon>
+                </Tooltip>
+              }
+              rightSectionPointerEvents="all"
             />
           </Grid.Col>
           <Grid.Col span={{ base: 12, md: 4 }}>

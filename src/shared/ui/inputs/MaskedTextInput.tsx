@@ -1,6 +1,5 @@
-import { InputBase } from "@mantine/core";
+import { InputBase, type InputBaseProps } from "@mantine/core";
 import { IMaskInput } from "react-imask";
-
 import {
   Controller,
   type Control,
@@ -8,40 +7,43 @@ import {
   type Path,
 } from "react-hook-form";
 
-type MaskedTextInputProps<T extends FieldValues> = {
+type Props<T extends FieldValues> = Omit<
+  InputBaseProps,
+  "value" | "defaultValue" | "onChange" | "name" | "component"
+> & {
   control: Control<T>;
   name: Path<T>;
-  label?: string;
-  placeholder?: string;
-  error: React.ReactNode;
-  withAsterisk?: boolean;
   mask?: any;
+  placeholder?: string;
+  transform?: (value: string) => any;
 };
+
 export default function MaskedTextInput<T extends FieldValues>({
   name,
   control,
-  label,
   placeholder,
-  error,
-  withAsterisk,
   mask,
-}: MaskedTextInputProps<T>) {
+  transform,
+  ...inputProps
+}: Props<T>) {
   return (
     <Controller
       name={name}
       control={control}
       render={({ field }) => (
         <InputBase
-          label={label}
           placeholder={placeholder}
-          value={field.value ?? undefined}
-          onChange={(value) => field.onChange(value)}
-          onBlur={field.onBlur}
-          error={error}
-          component={IMaskInput}
+          {...inputProps}
+          component={IMaskInput as any}
           type="text"
+          value={(field.value ?? "") as any}
+          onAccept={(value: unknown) => {
+            const v = String(value ?? "");
+            field.onChange(transform ? transform(v) : v);
+          }}
+          onBlur={field.onBlur}
           mask={mask}
-          withAsterisk={withAsterisk}
+          ref={field.ref as any}
         />
       )}
     />

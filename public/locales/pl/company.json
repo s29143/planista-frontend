@@ -29,12 +29,14 @@
     "create": "Dodaj firmę",
     "update": "Edytuj firmę"
   },
+  "fetchFromApi": "Pobierz dane firmy po NIP",
   "errors": {
     "required": "To pole jest wymagane",
     "invalidEmail": "Nieprawidłowy format email",
     "invalidPhone": "Nieprawidłowy format numeru telefonu",
     "invalidNip": "Nieprawidłowy numer NIP",
-    "invalidPostalCode": "Nieprawidłowy format kodu pocztowego"
+    "invalidPostalCode": "Nieprawidłowy format kodu pocztowego",
+    "fetchNip": "Nie można pobrać danych dla podanego NIP."
   },
   "placeholders": {
     "fullName": "Np. ACME Sp. z o.o.",
