@@ -17,7 +17,7 @@ export const useGanttStore = create<State>((set) => ({
       const { data } = await http.get<GanttItem[]>("/gantt", {
         params: { from, to },
       });
-      set({ items: data });
+      set({ items: Array.isArray(data) ? data : [] });
     } finally {
       set({ loading: false });
     }
